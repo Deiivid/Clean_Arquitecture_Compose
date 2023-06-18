@@ -2,7 +2,7 @@ package com.example.rickymortydn.ui.character.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickymortydn.common.states.ResourceState
+import com.example.rickymortydn.ui.common.states.ResourceState
 import com.example.rickymortydn.domain.characters.CharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
