@@ -1,30 +1,38 @@
 package com.example.rickymortydn.ui.character.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickymortydn.data.api.RickyMortyApiClient
-import com.example.rickymortydn.data.characters.CharacterRepositoryImpl
+import com.example.rickymortydn.common.states.ResourceState
 import com.example.rickymortydn.domain.characters.CharacterUseCase
-import com.example.rickymortydn.models.CharacterModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.io.InvalidObjectException
+import javax.inject.Inject
 
-class CharactersViewModel() : ViewModel() {
-
-    private val _characters = MutableStateFlow<List<CharacterModel>>(emptyList())
-    val characters: StateFlow<List<CharacterModel>> = _characters
-    private val characterRepository = CharacterRepositoryImpl(RickyMortyApiClient().apiService)
-    private val characterUseCase = CharacterUseCase(characterRepository)
+@HiltViewModel
+class CharactersViewModel @Inject constructor(
+    private val characterUseCase: CharacterUseCase
+) : ViewModel() {
+    private val _charactersSearched by lazy { MutableStateFlow<ResourceState<*>>(ResourceState.Idle) }
+    val charactersSearched: StateFlow<ResourceState<*>>
+        get() = _charactersSearched
 
     fun fetchCharacters() {
-        viewModelScope.launch {
-            try {
-                val result = characterUseCase.getCharacters()
-                _characters.value = result
-            } catch (e: Exception) {
-                // Manejar el error
+        _charactersSearched.update { ResourceState.Loading("") }
+        viewModelScope.launch(Dispatchers.IO) {
+
+            characterUseCase().collectLatest { characters ->
+                _charactersSearched.update {
+                    if (characters.isNotEmpty())
+                        ResourceState.Success(characters)
+                    else
+                        ResourceState.Error(InvalidObjectException("SuperHero not found :("))
+                }
             }
         }
     }
