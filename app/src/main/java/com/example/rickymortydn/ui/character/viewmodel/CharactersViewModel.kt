@@ -31,7 +31,7 @@ class CharactersViewModel @Inject constructor(
                     if (characters.isNotEmpty())
                         ResourceState.Success(characters)
                     else
-                        ResourceState.Error(InvalidObjectException("SuperHero not found :("))
+                        ResourceState.Error(InvalidObjectException("Characters not found"))
                 }
             }
         }
