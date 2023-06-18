@@ -1,4 +1,4 @@
-package com.example.rickymortydn.common.states.loading
+package com.example.rickymortydn.ui.common.states.loading
 
 import android.content.res.Configuration
 import androidx.compose.runtime.Composable

@@ -1,4 +1,4 @@
-package com.example.rickymortydn.common.states
+package com.example.rickymortydn.ui.common.states
 
 sealed class ResourceState<T> {
     object Idle : ResourceState<Void>()
