@@ -1,4 +1,4 @@
-package com.example.rickymortydn.common.states.error
+package com.example.rickymortydn.ui.common.states.error
 
 import android.content.res.Configuration
 import androidx.compose.runtime.Composable
