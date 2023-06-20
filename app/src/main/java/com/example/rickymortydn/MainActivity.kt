@@ -13,6 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.rickymortydn.models.navigation.Routes
+import com.example.rickymortydn.ui.character.screens.CharactersListScreen
 import com.example.rickymortydn.ui.character.viewmodel.CharactersViewModel
 import com.example.rickymortydn.ui.theme.RickyMortyDNTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,36 +35,24 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MyScreenContent()
+                    val navigationController = rememberNavController()
+                    NavHost(
+                        navController = navigationController,
+                        startDestination = Routes.CharacterList.route
+                    ) {
+                        composable(Routes.CharacterList.route) { CharactersListScreen(navigationController) }
+                    }
                 }
             }
         }
     }
 }
 
-@Composable
-fun MyScreenContent() {
-    // Obtén una instancia de tu ViewModel
-    val charactersViewModel: CharactersViewModel = viewModel()
-
-    MaterialTheme {
-        Column {
-            Button(
-                onClick = {
-                    // Llama a un método de tu ViewModel o accede a una propiedad
-                    charactersViewModel.fetchCharacters()
-                }
-            ) {
-                Text(text = "Haz algo")
-            }
-        }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     RickyMortyDNTheme {
-        MyScreenContent()
+
     }
 }
