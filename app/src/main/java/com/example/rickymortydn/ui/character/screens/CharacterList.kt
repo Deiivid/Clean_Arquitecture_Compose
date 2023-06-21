@@ -1,7 +1,10 @@
 package com.example.rickymortydn.ui.character.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,29 +17,32 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.example.rickymortydn.R
 import com.example.rickymortydn.models.CharacterModel
 import com.example.rickymortydn.ui.character.viewmodel.CharactersViewModel
+import com.example.rickymortydn.ui.common.navigation.Routes
 import com.example.rickymortydn.ui.common.states.ResourceState
 
 @Composable
@@ -51,8 +57,9 @@ fun CharactersListScreen(
         is ResourceState.Success<*> -> {
             val characters =
                 (charactersState as ResourceState.Success<*>).data as List<CharacterModel.CharacterResult>
-            CardElevation(characters)
+            CharacterItem(characters, navigationController)
         }
+
         else -> {}
     }
 }
@@ -60,18 +67,26 @@ fun CharactersListScreen(
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-fun CardElevation(items: List<CharacterModel.CharacterResult>) {
+fun CharacterItem(items: List<CharacterModel.CharacterResult>, navController: NavController) {
+    val expandedState = remember { mutableStateMapOf<Int, Boolean>() }
+
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
     ) {
-        items.forEach { character ->
+        items.forEachIndexed { index, character ->
+            val expanded = expandedState[index] ?: false
+
             item {
                 Surface(
                     shape = RoundedCornerShape(16.dp),
                     color = Color(0xFFDAE1E7),
                     modifier = Modifier
+                        .clickable {
+                            expandedState[index] = !expanded
+                            navController.navigate(Routes.HomeScreen.route)
+                        }
                         .height(210.dp)
                         .padding(10.dp),
                     shadowElevation = 10.dp
@@ -86,18 +101,21 @@ fun CardElevation(items: List<CharacterModel.CharacterResult>) {
                                 .weight(2f),
                             verticalArrangement = Arrangement.Center
                         ) {
-                            Surface(
-                                shape = RoundedCornerShape(24.dp),
+                            Box(
                                 modifier = Modifier.wrapContentSize(),
-                                color = Color(0xFFD1D5E1)
-                            ) {
-                                Text(
-                                    text = character.status,
-                                    fontSize = 12.sp,
-                                    style = MaterialTheme.typography.titleLarge,
-                                    modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
-                                )
-                            }
+                                contentAlignment = Alignment.Center,
+                                content = {
+                                    Text(
+                                        text = character.status,
+                                        fontSize = 12.sp,
+                                        style = MaterialTheme.typography.titleLarge,
+                                        modifier = Modifier
+                                            .padding(vertical = 4.dp, horizontal = 8.dp)
+                                            .clip(RoundedCornerShape(24.dp))
+                                            .background(Color(0xFFD1D5E1))
+                                    )
+                                }
+                            )
 
                             Spacer(modifier = Modifier.height(4.dp))
 
@@ -127,19 +145,31 @@ fun CardElevation(items: List<CharacterModel.CharacterResult>) {
                             Spacer(modifier = Modifier.height(4.dp))
                         }
 
-                        Surface(
-                            shape = RoundedCornerShape(16.dp),
-                            modifier = Modifier.size(width = 100.dp, height = 140.dp)
-                        ) {
-                            Image(
-                                painter = rememberImagePainter(data = character.image),
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop
-                            )
+                        val modifier = if (expanded) {
+                            Modifier.fillMaxSize()
+                        } else {
+                            Modifier.size(width = 100.dp, height = 140.dp)
                         }
+
+                        Box(
+                            modifier = modifier.clickable { expandedState[index] = !expanded },
+                            contentAlignment = Alignment.Center,
+                            content = {
+                                Image(
+                                    painter = rememberImagePainter(data = character.image),
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .clip(RoundedCornerShape(16.dp))
+                                )
+                            }
+                        )
                     }
                 }
             }
         }
     }
 }
+
+
