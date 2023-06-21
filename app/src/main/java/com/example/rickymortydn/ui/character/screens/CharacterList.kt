@@ -3,30 +3,14 @@ package com.example.rickymortydn.ui.character.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateMapOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,14 +24,15 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import com.airbnb.lottie.compose.*
+import com.example.rickymortydn.R
 import com.example.rickymortydn.models.CharacterModel
 import com.example.rickymortydn.ui.character.viewmodel.CharactersViewModel
-import com.example.rickymortydn.ui.common.navigation.Routes
 import com.example.rickymortydn.ui.common.states.ResourceState
 
 @Composable
 fun CharactersListScreen(
-    navigationController: NavHostController,
+    navController: NavHostController,
 ) {
     val charactersViewModel: CharactersViewModel = hiltViewModel()
     val charactersState by charactersViewModel.charactersSearched.collectAsState()
@@ -57,7 +42,24 @@ fun CharactersListScreen(
         is ResourceState.Success<*> -> {
             val characters =
                 (charactersState as ResourceState.Success<*>).data as List<CharacterModel.CharacterResult>
-            CharacterItem(characters, navigationController)
+            CharacterItem(characters, navController)
+        }
+        is ResourceState.Loading<*> -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                LottieProgressBar()
+            }
+        }
+        is ResourceState.Error<*> -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                LottieErrorState()
+
+            }
         }
 
         else -> {}
@@ -69,7 +71,7 @@ fun CharactersListScreen(
 @Composable
 fun CharacterItem(items: List<CharacterModel.CharacterResult>, navController: NavController) {
     val expandedState = remember { mutableStateMapOf<Int, Boolean>() }
-
+    val showLoading by rememberSaveable { mutableStateOf(false) }
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -85,7 +87,7 @@ fun CharacterItem(items: List<CharacterModel.CharacterResult>, navController: Na
                     modifier = Modifier
                         .clickable {
                             expandedState[index] = !expanded
-                            navController.navigate(Routes.HomeScreen.route)
+                            //navController.navigate(Routes.HomeScreen.route)
                         }
                         .height(210.dp)
                         .padding(10.dp),
@@ -173,3 +175,40 @@ fun CharacterItem(items: List<CharacterModel.CharacterResult>, navController: Na
 }
 
 
+@Composable
+fun LottieProgressBar() {
+    val compositeResult: LottieCompositionResult = rememberLottieComposition(
+        spec = LottieCompositionSpec.RawRes(R.raw.loadinglottie)
+    )
+    val progressAnimation by animateLottieCompositionAsState(
+        composition = compositeResult.value,
+        isPlaying = true,
+        iterations = LottieConstants.IterateForever,
+        speed = 1.0f
+    )
+    LottieAnimation(
+        composition = compositeResult.value,
+        progress = progressAnimation,
+        modifier = Modifier.fillMaxSize()
+    )
+
+}
+
+@Composable
+fun LottieErrorState() {
+    val compositeResult: LottieCompositionResult = rememberLottieComposition(
+        spec = LottieCompositionSpec.RawRes(R.raw.cryricky)
+    )
+    val progressAnimation by animateLottieCompositionAsState(
+        composition = compositeResult.value,
+        isPlaying = true,
+        iterations = LottieConstants.IterateForever,
+        speed = 1.0f
+    )
+    LottieAnimation(
+        composition = compositeResult.value,
+        progress = progressAnimation,
+        modifier = Modifier.fillMaxSize()
+    )
+
+}
