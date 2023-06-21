@@ -1,4 +1,4 @@
-package com.example.rickymortydn.models.common.navigation
+package com.example.rickymortydn.ui.common.navigation
 
 sealed class Routes(val route: String) {
     object CharacterList : Routes("character_list")
