@@ -18,7 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.rickymortydn.models.common.navigation.Routes
+import com.example.rickymortydn.ui.common.navigation.Routes
 import com.example.rickymortydn.ui.character.screens.CharactersListScreen
 import com.example.rickymortydn.ui.character.viewmodel.CharactersViewModel
 import com.example.rickymortydn.ui.theme.RickyMortyDNTheme
