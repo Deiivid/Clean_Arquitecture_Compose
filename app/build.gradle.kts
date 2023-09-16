@@ -49,6 +49,10 @@ android {
         }
     }
 }
+//Dependencies Versions
+val compose_version = "1.1.1"
+val hilt_version = "2.45"
+val coil_version = "1.3.2"
 
 dependencies {
     implementation("androidx.core:core-ktx:1.7.0")
