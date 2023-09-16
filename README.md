@@ -47,4 +47,4 @@ The project is structured as follows:
 
 ## Usage
 
-1. Clone the repository: https://github.com/Deiivid/RickyMortyDN.git)https://github.com/Deiivid/RickyMortyDN.git
+1. Clone the repository: https://github.com/Deiivid/RickyMortyDN.git
