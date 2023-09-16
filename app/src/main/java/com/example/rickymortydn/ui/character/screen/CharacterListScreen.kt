@@ -22,21 +22,21 @@ fun CharacterListScreen(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background,
     ){
-        //region Variables
-        val snackbarHostState = remember { SnackbarHostState() }
-
-        //endregion Variables
-
-
-        Scaffold(snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
-        ){
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background),
-            ){
-
-            }
-        }
-    }
+//        //region Variables
+//        val snackbarHostState = remember { SnackbarHostState() }
+//
+//        //endregion Variables
+//
+//
+//        Scaffold(snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+//        ){
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .background(MaterialTheme.colorScheme.background),
+//            ){
+//
+//            }
+//        }
+   }
 }
