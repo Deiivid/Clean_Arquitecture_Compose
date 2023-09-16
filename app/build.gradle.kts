@@ -6,15 +6,17 @@ plugins {
 }
 
 android {
-    compileSdkVersion(33)
 
     defaultConfig {
         applicationId = "com.example.rickymortydn"
-        minSdkVersion(26)
-        targetSdkVersion(33)
+        //region SDK Target/Compile/Min
+        minSdk = 26
+        targetSdk = 34
+        compileSdk = 34
+        //endregion
         versionCode = 1
         versionName = "1.0"
-
+        namespace = "com.example.rickymortydn"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -22,17 +24,20 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 
     buildFeatures {
@@ -43,7 +48,7 @@ android {
         kotlinCompilerExtensionVersion = "1.1.1"
     }
 
-    packagingOptions {
+    packaging {
         resources {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
@@ -51,5 +56,5 @@ android {
 }
 
 dependencies {
-apply(from = "dependencies.gradle")
+    apply(from = "dependencies.gradle")
 }
