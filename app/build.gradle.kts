@@ -47,7 +47,6 @@ android {
         kotlinCompilerExtensionVersion = "1.1.1"
     }
 
-
     packaging {
         resources {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
@@ -56,6 +55,5 @@ android {
 }
 
 dependencies {
-
     apply(from = "dependencies.gradle")
 }
