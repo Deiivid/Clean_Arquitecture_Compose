@@ -1,4 +1,4 @@
-package com.example.rickymortydn.ui.character.screens
+package com.example.rickymortydn.ui.character.screens.list
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,28 +10,23 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.airbnb.lottie.compose.*
 import com.example.rickymortydn.R
 import com.example.rickymortydn.models.CharacterModel
 import com.example.rickymortydn.models.createCharacterResult
-import com.example.rickymortydn.ui.character.detail.screen.CharacterDetailScreen
 import com.example.rickymortydn.ui.character.viewmodel.CharactersViewModel
 import com.example.rickymortydn.ui.common.navigation.Routes
 import com.example.rickymortydn.ui.common.states.ResourceState
@@ -50,7 +45,7 @@ fun CharactersListScreen(
                 (charactersState as ResourceState.Success<*>).data as List<CharacterModel.CharacterResult>
             CharacterItem(characters,
                 onItemClick = { character ->
-                    //first save data to navigate
+                 //We first save the data & then navigate
                     navController.currentBackStackEntry?.savedStateHandle?.set(
                         "character",
                         value = character
@@ -95,17 +90,13 @@ fun CharacterItem(
             .padding(8.dp)
     ) {
         items.forEachIndexed { index, character ->
-//            val expanded = expandedState[index] ?: false
-
             item {
                 Surface(
                     shape = RoundedCornerShape(16.dp),
                     color = Color(0xFFDAE1E7),
                     modifier = Modifier
                         .clickable {
-                            onItemClick(character)
-                            //expandedState[index] = !expanded
-                            //navController.navigate(Routes.HomeScreen.route)
+                            onItemClick(character)//We send item to onClick
                         }
                         .height(165.dp)
                         .padding(10.dp),

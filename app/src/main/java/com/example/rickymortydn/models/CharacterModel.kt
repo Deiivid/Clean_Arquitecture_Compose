@@ -4,7 +4,6 @@ package com.example.rickymortydn.models
 import android.os.Parcelable
 import androidx.annotation.Keep
 import kotlinx.parcelize.Parcelize
-import java.io.Serializable
 
 @Keep
 data class CharacterModel(
@@ -52,22 +51,18 @@ data class CharacterModel(
 }
 
 
-
-
+/**
+ * We use this section to inicialize the detail screen to get the preview
+ */
 fun createCharacterResult(): CharacterModel.CharacterResult {
-    // Creación de una instancia de CharacterLocation
     val characterLocation = CharacterModel.CharacterResult.CharacterLocation(
         name = "Earth",
         url = "https://example.com/earth"
     )
-
-    // Creación de una instancia de CharacterOrigin
     val characterOrigin = CharacterModel.CharacterResult.CharacterOrigin(
         name = "Unknown",
         url = "https://example.com/unknown"
     )
-
-    // Creación de una instancia de CharacterResult y devolución
     return CharacterModel.CharacterResult(
         created = "2023-10-25",
         episode = listOf("Episode 1", "Episode 2"),
