@@ -9,7 +9,7 @@ plugins {
 android {
 
     defaultConfig {
-        applicationId = "com.example.rickymortydn"
+        applicationId = "es.architecture.compose"
         //region SDK Target/Compile/Min
         minSdk = 26
         targetSdk = 34
@@ -17,7 +17,7 @@ android {
         //endregion
         versionCode = 1
         versionName = "1.0"
-        namespace = "com.example.rickymortydn"
+        namespace = "es.architecture.compose"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
