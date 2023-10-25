@@ -4,7 +4,6 @@ package com.example.rickymortydn.models
 import android.os.Parcelable
 import androidx.annotation.Keep
 import kotlinx.parcelize.Parcelize
-import java.io.Serializable
 
 @Keep
 data class CharacterModel(
@@ -50,7 +49,6 @@ data class CharacterModel(
         ) : Parcelable
     }
 }
-
 
 
 /**
