@@ -16,25 +16,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.airbnb.lottie.compose.*
 import com.example.rickymortydn.R
 import com.example.rickymortydn.models.CharacterModel
+import com.example.rickymortydn.models.createCharacterResult
+import com.example.rickymortydn.ui.character.detail.screen.CharacterDetailScreen
 import com.example.rickymortydn.ui.character.viewmodel.CharactersViewModel
+import com.example.rickymortydn.ui.common.navigation.Routes
 import com.example.rickymortydn.ui.common.states.ResourceState
 
 @Composable
 fun CharactersListScreen(
     navController: NavHostController,
+    charactersViewModel: CharactersViewModel = hiltViewModel(),
 ) {
-    val charactersViewModel: CharactersViewModel = hiltViewModel()
     val charactersState by charactersViewModel.charactersSearched.collectAsState()
 
     charactersViewModel.fetchCharacters()
@@ -42,8 +48,17 @@ fun CharactersListScreen(
         is ResourceState.Success<*> -> {
             val characters =
                 (charactersState as ResourceState.Success<*>).data as List<CharacterModel.CharacterResult>
-            CharacterItem(characters, navController)
+            CharacterItem(characters,
+                onItemClick = { character ->
+                    //first save data to navigate
+                    navController.currentBackStackEntry?.savedStateHandle?.set(
+                        "character",
+                        value = character
+                    )
+                    navController.navigate(Routes.CharacterDetailScreen.route)
+                })
         }
+
         is ResourceState.Loading<*> -> {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -52,6 +67,7 @@ fun CharactersListScreen(
                 LottieProgressBar()
             }
         }
+
         is ResourceState.Error<*> -> {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -69,16 +85,17 @@ fun CharactersListScreen(
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-fun CharacterItem(items: List<CharacterModel.CharacterResult>, navController: NavController) {
-    val expandedState = remember { mutableStateMapOf<Int, Boolean>() }
-    val showLoading by rememberSaveable { mutableStateOf(false) }
+fun CharacterItem(
+    items: List<CharacterModel.CharacterResult>,
+    onItemClick: (character: CharacterModel.CharacterResult) -> Unit
+) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
     ) {
         items.forEachIndexed { index, character ->
-            val expanded = expandedState[index] ?: false
+//            val expanded = expandedState[index] ?: false
 
             item {
                 Surface(
@@ -86,15 +103,16 @@ fun CharacterItem(items: List<CharacterModel.CharacterResult>, navController: Na
                     color = Color(0xFFDAE1E7),
                     modifier = Modifier
                         .clickable {
-                            expandedState[index] = !expanded
+                            onItemClick(character)
+                            //expandedState[index] = !expanded
                             //navController.navigate(Routes.HomeScreen.route)
                         }
-                        .height(210.dp)
+                        .height(165.dp)
                         .padding(10.dp),
                     shadowElevation = 10.dp
                 ) {
                     Row(
-                        modifier = Modifier.padding(16.dp),
+                        modifier = Modifier.padding(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column(
@@ -113,7 +131,7 @@ fun CharacterItem(items: List<CharacterModel.CharacterResult>, navController: Na
                                         style = MaterialTheme.typography.titleLarge,
                                         modifier = Modifier
                                             .padding(vertical = 4.dp, horizontal = 8.dp)
-                                            .clip(RoundedCornerShape(24.dp))
+                                            .clip(RoundedCornerShape(14.dp))
                                             .background(Color(0xFFD1D5E1))
                                     )
                                 }
@@ -123,7 +141,7 @@ fun CharacterItem(items: List<CharacterModel.CharacterResult>, navController: Na
 
                             Text(
                                 text = character.name,
-                                fontSize = 24.sp,
+                                fontSize = 20.sp,
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.SemiBold
                             )
@@ -137,24 +155,21 @@ fun CharacterItem(items: List<CharacterModel.CharacterResult>, navController: Na
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Text(
                                     text = character.characterLocation.name,
-                                    fontSize = 14.sp,
+                                    fontSize = 12.sp,
                                     fontWeight = FontWeight.SemiBold,
-                                    style = MaterialTheme.typography.titleLarge
+                                    style = MaterialTheme.typography.titleMedium
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
                             }
 
                             Spacer(modifier = Modifier.height(4.dp))
-                        }
 
-                        val modifier = if (expanded) {
-                            Modifier.fillMaxSize()
-                        } else {
-                            Modifier.size(width = 100.dp, height = 140.dp)
                         }
-
+                        Spacer(modifier = Modifier.width(12.dp))
                         Box(
-                            modifier = modifier.clickable { expandedState[index] = !expanded },
+                            modifier = Modifier
+                                .size(width = 135.dp, height = 110.dp)
+                                .padding(top = 10.dp),
                             contentAlignment = Alignment.Center,
                             content = {
                                 Image(
@@ -164,6 +179,7 @@ fun CharacterItem(items: List<CharacterModel.CharacterResult>, navController: Na
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .clip(RoundedCornerShape(16.dp))
+                                        .background(Color.White)
                                 )
                             }
                         )
@@ -211,4 +227,12 @@ fun LottieErrorState() {
         modifier = Modifier.fillMaxSize()
     )
 
+}
+
+@Preview(widthDp = 320, heightDp = 480)
+@Composable
+fun CharacterListScreenPreview() {
+    val character = listOf(createCharacterResult())
+    val onItemClick: (CharacterModel.CharacterResult) -> Unit = { }
+    CharacterItem(items = character, onItemClick = onItemClick)
 }
