@@ -1,4 +1,4 @@
-package com.example.rickymortydn.ui.character.detail.screen
+package com.example.rickymortydn.ui.character.screens.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -33,11 +33,11 @@ import com.example.rickymortydn.models.CharacterModel
 import com.example.rickymortydn.models.createCharacterResult
 import com.example.rickymortydn.ui.common.navigation.Routes
 
-@OptIn(ExperimentalCoilApi::class)
+@ExperimentalCoilApi
 @Composable
 fun CharacterDetailScreen(
     navController: NavHostController,
-    character: CharacterModel.CharacterResult
+    character: CharacterModel.CharacterResult //We receive the data
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -52,26 +52,21 @@ fun CharacterDetailScreen(
                     .fillMaxSize()
                     .padding(4.dp)
             ) {
-                // Muestra el título arriba centrado con el nombre.
                 Text(
                     character.name,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    modifier = Modifier.align(CenterHorizontally),
                     style = MaterialTheme.typography.titleLarge,
                     fontSize = 20.sp
                 )
                 Spacer(modifier = Modifier.height(6.dp))
-
-                // Muestra el género debajo del nombre.
                 Text(
                     character.gender,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    modifier = Modifier.align(CenterHorizontally),
                     style = MaterialTheme.typography.bodyMedium,
                     fontSize = 14.sp
 
                 )
                 Spacer(modifier = Modifier.height(6.dp))
-
-                // Muestra la foto del personaje.
                 Box(
                     modifier = Modifier
                         .padding(6.dp)
@@ -109,12 +104,11 @@ fun CharacterDetailScreen(
     }
 }
 
-@Preview()
+@ExperimentalCoilApi
+@Preview
 @Composable
 fun CharacterListScreenPreview() {
     val navController = rememberNavController()
     val character = createCharacterResult()
-
-
     CharacterDetailScreen(navController, character = character)
 }
