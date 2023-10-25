@@ -33,7 +33,7 @@ import com.example.rickymortydn.models.CharacterModel
 import com.example.rickymortydn.models.createCharacterResult
 import com.example.rickymortydn.ui.common.navigation.Routes
 
-@OptIn(ExperimentalCoilApi::class)
+@ExperimentalCoilApi
 @Composable
 fun CharacterDetailScreen(
     navController: NavHostController,
@@ -54,14 +54,14 @@ fun CharacterDetailScreen(
             ) {
                 Text(
                     character.name,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    modifier = Modifier.align(CenterHorizontally),
                     style = MaterialTheme.typography.titleLarge,
                     fontSize = 20.sp
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
                     character.gender,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    modifier = Modifier.align(CenterHorizontally),
                     style = MaterialTheme.typography.bodyMedium,
                     fontSize = 14.sp
 
@@ -104,7 +104,8 @@ fun CharacterDetailScreen(
     }
 }
 
-@Preview()
+@ExperimentalCoilApi
+@Preview
 @Composable
 fun CharacterListScreenPreview() {
     val navController = rememberNavController()
