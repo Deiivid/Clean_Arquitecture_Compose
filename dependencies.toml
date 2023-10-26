@@ -1,5 +1,5 @@
 [versions]
-androidxCoreVersion = "1.7.0"
+androidxCoreVersion = "1.8.0"
 androidxLifecycleVersion = "2.3.1"
 androidxActivityComposeVersion = "1.4.1"
 composeVersion = "1.1.1"
@@ -19,42 +19,39 @@ kotlinxCoroutinestestVersion = "1.5.2"
 coilComposeVersion = "1.3.2"
 lottieVersion = "4.2.0"
 
-
 [libraries]
-androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidxCoreVersion" }
-androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycleVersion" }
-androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityComposeVersion" }
-androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "composeVersion" }
-androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "composeVersion" }
-androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
+coreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCoreVersion" }
+runtimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycleVersion" }
+activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityComposeVersion" }
+composeUi = { module = "androidx.compose.ui:ui", version.ref = "composeVersion" }
+composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "composeVersion" }
+composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeVersion" }
+composeUiTest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeVersion" }
+material3 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
 junit = { module = "junit:junit", version.ref = "junitVersion" }
-androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidxTextExtJunitVersion" }
-androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxTestEspressoCoreVersion" }
-
-androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeVersion" }
-androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeVersion" }
-androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeVersion" }
+testJunit = { module = "androidx.test.ext:junit", version.ref = "androidxTextExtJunitVersion" }
+espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxTestEspressoCoreVersion" }
+composeUiJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeVersion" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion" }
-retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofitVersion" }
-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesVersion" }
-androidx-lifecycle-viewmodel-ktx = { module = "oandroidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtxVersion" }
-androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelComposeVersion" }
-androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationComposeVersion" }
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }
-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltVersion" }
-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationComposeVersion" }
-mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinestestVersion" }
-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
-lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieVersion" }
+retrofitConverter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofitVersion" }
 
+
+
+coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesVersion" }
+lifecycleViewmodel = { module = "oandroidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtxVersion" }
+lifecycleViewmodelCompose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelComposeVersion" }
+navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationComposeVersion" }
+hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }
+hiltCompiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltVersion" }
+hiltNavigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationComposeVersion" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
+coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinestestVersion" }
+coilCompose = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
+lottieCompose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieVersion" }
 
 [bundles]
 appDependencies = [
-    "androidx-core-ktx ", "androidx-lifecycle-runtime-ktx", "androidx-activity-compose ", "androidx-compose-ui",
-    "androidx-compose-ui-tooling-preview ", "androidx-compose-material3 ",
-    "junit", "androidx-test-ext-junit ", "androidx-test-espresso-core", "androidx-compose-ui-test-junit4", "androidx-compose-ui-tooling",
-    "androidx-compose-ui-test-manifest", "retrofit", "retrofit-converter-gson", "kotlinx-coroutines-android", "androidx-lifecycle-viewmodel-ktx ",
-    "androidx-lifecycle-viewmodel-compose ", "androidx-navigation-compose","androidx-compose-ui-test-manifest ",
-    "hilt-android", "hilt-compiler", "hilt-navigation-compose", "mockk", "kotlinx-coroutines-test", "coil-compose", "lottie-compose"]
+    "coreKtx", "runtimeKtx", "activityCompose", "composeUi",
+    "composeUiToolingPreview", "composeUiTooling","composeUiTest","material3","junit","testJunit","espressoCore","composeUiJunit4","retrofit","retrofitConverter",
+    "coroutines","lifecycleViewmodel","lifecycleViewmodelCompose","navigationCompose","hiltAndroid","hiltCompiler","hiltNavigation","mockk","coroutinesTest","coilCompose","lottieCompose"]
 
