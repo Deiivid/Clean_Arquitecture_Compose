@@ -39,9 +39,8 @@ The project is structured as follows:
 
 1. Clone the repository: https://github.com/Deiivid/Clean_Arquitecture_Compose.git
 
+## Images
 
+![Lazy Column](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/4de63ad1-4b25-4536-ac76-753eb4828124)
 
-## ScreenShots
--[Image Lazy Column](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/0ed63a8e-7648-4bef-9e86-a99d781f8db5)
-s/screenshot1.png)
--![Image Detail Screen](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/7190db1f-6f1a-4005-a77a-9b3744b95d12)
+![Detail Screen](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/c8df6da7-6dd1-4861-8583-4f6257c38615)
