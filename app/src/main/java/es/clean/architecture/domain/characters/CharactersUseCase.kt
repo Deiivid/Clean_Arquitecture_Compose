@@ -1,7 +1,7 @@
-package com.example.rickymortydn.domain.characters
+package es.clean.architecture.domain.characters
 
-import com.example.rickymortydn.domain.characters.repository.CharacterRepository
-import com.example.rickymortydn.models.CharacterModel
+import es.clean.architecture.domain.characters.repository.CharacterRepository
+import es.clean.architecture.models.CharacterModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

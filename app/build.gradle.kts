@@ -8,7 +8,7 @@ plugins {
 
 android {
     defaultConfig {
-        applicationId = "es.architecture.compose"
+        applicationId = "es.clean.architecture"
         //region SDK Target/Compile/Min
         minSdk = 26
         targetSdk = 34
@@ -16,7 +16,7 @@ android {
         //endregion
         versionCode = 1
         versionName = "1.0"
-        namespace = "es.architecture.compose"
+        namespace = "es.clean.architecture"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }

@@ -1,9 +1,9 @@
-package com.example.rickymortydn.data.remote.characters.response
+package es.clean.architecture.data.remote.characters.response
 
-import com.example.rickymortydn.data.remote.characters.mapper.toDomain
-import com.example.rickymortydn.data.service.RickyMortyService
-import com.example.rickymortydn.domain.characters.repository.CharacterRepository
-import com.example.rickymortydn.models.CharacterModel
+import es.clean.architecture.data.remote.characters.mapper.toDomain
+import es.clean.architecture.data.service.RickyMortyService
+import es.clean.architecture.domain.characters.repository.CharacterRepository
+import es.clean.architecture.models.CharacterModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
