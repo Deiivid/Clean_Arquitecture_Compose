@@ -182,5 +182,6 @@ appDependencies = [
     "mockk", "coroutinesTest",
     "coilCompose",
     "lottieCompose",
-    "kotlin-stdlib"]
+    "kotlin-stdlib"
+    ]
 
