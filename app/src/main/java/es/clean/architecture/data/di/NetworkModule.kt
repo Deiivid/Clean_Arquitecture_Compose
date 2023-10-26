@@ -1,10 +1,10 @@
-package com.example.rickymortydn.data.di
+package es.clean.architecture.data.di
 
 
-import com.example.rickymortydn.data.remote.characters.response.CharacterRepositoryImpl
-import com.example.rickymortydn.data.service.RickyMortyService
-import com.example.rickymortydn.domain.characters.repository.CharacterRepository
-import com.example.rickymortydn.models.common.constants.BASE_URL
+import es.clean.architecture.data.remote.characters.response.CharacterRepositoryImpl
+import es.clean.architecture.data.service.RickyMortyService
+import es.clean.architecture.domain.characters.repository.CharacterRepository
+import es.clean.architecture.models.common.constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,8 +12,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.math.BigInteger
-import java.security.MessageDigest
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 

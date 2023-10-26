@@ -1,4 +1,4 @@
-package com.example.rickymortydn.models
+package es.clean.architecture.models
 
 
 import android.os.Parcelable
