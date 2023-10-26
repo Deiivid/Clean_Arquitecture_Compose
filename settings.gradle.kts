@@ -1,3 +1,4 @@
+include (":app")
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -13,4 +14,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "CleanArchitectureComposeDN"
-include ':app'
+
