@@ -11,6 +11,8 @@ This project demonstrates the implementation of a Clean MVVM architecture using 
 - Dagger Hilt - For dependency injection
 - Jetpack Compose - For building UI components
 - JUnit and MockK - For testing
+- Lottie: For Animations.
+- Material 3: For the visual part.
 
 ## Architecture
 
@@ -28,23 +30,18 @@ The project is structured as follows:
   - src
     - main
       - java/com/example/myapp
-        - di -> Contains Dagger Hilt modules and components for dependency injection
         - data -> Contains repository implementations and data sources
         - domain -> Contains use cases and business logic
         - presentation -> Contains ViewModels and UI components
-        - utils -> Contains utility classes and extensions
-    - test
-      - java/com/example/myapp
-        - data -> Contains data-related tests
-        - domain -> Contains domain-related tests
-        - presentation -> Contains presentation-related tests
-    - androidTest
-      - java/com/example/myapp
-        - ui -> Contains UI tests using Espresso
-
-
-
-
+        - models -> Contains model classes and common constants
+   
 ## Usage
 
-1. Clone the repository: https://github.com/Deiivid/RickyMortyDN.git
+1. Clone the repository: https://github.com/Deiivid/Clean_Arquitecture_Compose.git
+
+
+
+## ScreenShots
+-[Image Lazy Column](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/0ed63a8e-7648-4bef-9e86-a99d781f8db5)
+s/screenshot1.png)
+-![Image Detail Screen](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/7190db1f-6f1a-4005-a77a-9b3744b95d12)
