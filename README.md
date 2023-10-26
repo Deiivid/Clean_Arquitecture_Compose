@@ -4,13 +4,13 @@
 
 📚 Libraries 📚
 
-📚 Kotlin Coroutines - For asynchronous programming
-📚 Retrofit - For networking and API communication
-📚 Dagger Hilt - For dependency injection
-📚 Jetpack Compose - For building UI components
-📚 JUnit and MockK - For testing
-📚 Lottie: For Animations.
-📚 Material 3: For the visual part.
+📚- Kotlin Coroutines - For asynchronous programming
+📚- Retrofit - For networking and API communication
+📚- Dagger Hilt - For dependency injection
+📚- Jetpack Compose - For building UI components
+📚- JUnit and MockK - For testing
+📚- Lottie: For Animations.
+📚- Material 3: For the visual part.
 
 🧮 Architecture 🧮
 
