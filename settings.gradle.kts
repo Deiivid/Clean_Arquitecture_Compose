@@ -12,6 +12,12 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+    versionCatalogs {
+        create("libs") {
+            from(files("dependencies.toml"))
+        }
+    }
+
 }
 rootProject.name = "CleanArchitectureComposeDN"
 
