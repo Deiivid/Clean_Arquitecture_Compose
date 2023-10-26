@@ -1,4 +1,4 @@
-package com.example.rickymortydn.ui.theme
+package es.clean.architecture.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
+import es.clean.architecture.CleanArchitectureComposeDN
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -38,7 +39,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun RickyMortyDNTheme(
+fun CleanArchitectureComposeDNTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,

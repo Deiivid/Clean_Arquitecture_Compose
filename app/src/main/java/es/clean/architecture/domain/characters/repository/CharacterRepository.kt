@@ -1,6 +1,6 @@
-package com.example.rickymortydn.domain.characters.repository
+package es.clean.architecture.domain.characters.repository
 
-import com.example.rickymortydn.models.CharacterModel
+import es.clean.architecture.models.CharacterModel
 import kotlinx.coroutines.flow.Flow
 
 interface CharacterRepository {

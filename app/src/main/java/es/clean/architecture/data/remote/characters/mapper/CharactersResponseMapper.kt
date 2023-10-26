@@ -1,9 +1,9 @@
-package com.example.rickymortydn.data.remote.characters.mapper
+package es.clean.architecture.data.remote.characters.mapper
 
-import com.example.rickymortydn.data.remote.characters.models.RemoteCharacterModel
-import com.example.rickymortydn.data.remote.characters.models.RemoteLocation
-import com.example.rickymortydn.data.remote.characters.models.RemoteOrigin
-import com.example.rickymortydn.models.CharacterModel
+import es.clean.architecture.data.remote.characters.models.RemoteCharacterModel
+import es.clean.architecture.data.remote.characters.models.RemoteLocation
+import es.clean.architecture.data.remote.characters.models.RemoteOrigin
+import es.clean.architecture.models.CharacterModel
 
 
 fun RemoteCharacterModel.toDomain(): CharacterModel.CharacterResult =
