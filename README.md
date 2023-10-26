@@ -41,6 +41,6 @@ The project is structured as follows:
 
 ##  🙂 Images 🙂
 
-![Lazy Column](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/4de63ad1-4b25-4536-ac76-753eb4828124)
+![Lazy Column](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/4de63ad1-4b25-4536-ac76-753eb4828124|200)
 
 ![Detail Screen](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/c8df6da7-6dd1-4861-8583-4f6257c38615)
