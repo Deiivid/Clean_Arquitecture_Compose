@@ -158,7 +158,29 @@ org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.re
 
 [bundles]
 appDependencies = [
-    "coreKtx", "runtimeKtx", "activityCompose", "composeUi",
-    "composeUiToolingPreview", "composeUiTooling", "composeUiTest", "material3", "junit", "testJunit", "espressoCore", "composeUiJunit4", "retrofit", "retrofitConverter",
-    "coroutines", "lifecycleViewmodel", "lifecycleViewmodelCompose", "navigationCompose", "hilt-android-core", "hilt-compiler", "androidx-hilt-navigation-compose", "mockk", "coroutinesTest", "coilCompose", "lottieCompose", "kotlin-stdlib"]
+    "coreKtx",
+    "runtimeKtx",
+    "activityCompose",
+    "composeUi",
+    "composeUiToolingPreview",
+    "composeUiTooling",
+    "composeUiTest",
+    "material3",
+    "junit",
+    "testJunit",
+    "espressoCore",
+    "composeUiJunit4",
+    "retrofit",
+    "retrofitConverter",
+    "coroutines",
+    "lifecycleViewmodel",
+    "lifecycleViewmodelCompose",
+    "navigationCompose",
+    "hilt-android-core",
+    "hilt-compiler",
+    "androidx-hilt-navigation-compose",
+    "mockk", "coroutinesTest",
+    "coilCompose",
+    "lottieCompose",
+    "kotlin-stdlib"]
 
