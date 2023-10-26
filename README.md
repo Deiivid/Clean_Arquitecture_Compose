@@ -28,10 +28,10 @@ The project is structured as follows:
  -  📁 src
   -   📁 main
     -   📁 java/com/example/myapp
-     -    📁 data -> Contains repository implementations and data sources
-        -    📁 domain -> Contains use cases and business logic
-        -   📁 presentation -> Contains ViewModels and UI components
-        -   📁 models -> Contains model classes and common constants
+        - 📁 data -> Contains repository implementations and data sources
+        - 📁 domain -> Contains use cases and business logic
+        - 📁 presentation -> Contains ViewModels and UI components
+        - 📁 models -> Contains model classes and common constants
    
 ## Usage
 
