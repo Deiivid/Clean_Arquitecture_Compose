@@ -1,0 +1,164 @@
+[versions]
+#region [Android]
+compose-compiler = "1.5.3"
+kotlin = "1.9.10"
+#endregion
+
+#region [Build Gradle]
+applicationID = "es.clean.architecture"
+compileSdk = "34"
+targetSdk = "34"
+minSdk = "27"
+versionCode = "1"
+versionName = "1.0"
+namespace = "es.clean.architecture"
+testRunner = "androidx.test.runner.AndroidJUnitRunnel"
+jvmTarget="17"
+buildTypeNameRelease="release"
+proguardRule="proguard-rules.pro"
+proguardOptimmize="proguard-android-optimize.txt"
+#endregion
+
+#region [COMPOSE]
+activity-compose = "1.8.0"
+compose-bom = "2023.03.00"
+composeVersion = "1.1.1"
+lifecycleViewmodelComposeVersion = "1.0.0-alpha07"
+navigationComposeVersion = "2.5.3"
+#endregion
+
+#region [RETROFIT]
+retrofitVersion = "2.9.0"
+#endregion
+
+#region [TESTING]
+junitVersion = "4.13.2"
+androidxTextExtJunitVersion = "1.1.5"
+androidxTestEspressoCoreVersion = "3.5.1"
+espresso-core = "3.5.1"
+mockkVersion = "1.12.0"
+#endregion
+
+#region [ANDROIDX]
+androidxCoreVersion = "1.8.0"
+androidxLifecycleVersion = "2.3.1"
+androidxActivityComposeVersion = "1.4.1"
+#endregion
+
+#region [MATERIAL 3]
+material3Version = "1.0.0-alpha02"
+#endregion
+
+#region [LIFECYCLE]
+lifecycleViewmodelKtxVersion = "2.4.0-alpha02"
+lifecycle-runtime-ktx = "2.6.2"
+#endregion
+
+#region [CORRUTINE]
+kotlinxCoroutinesVersion = "1.5.0"
+kotlinxCoroutinestestVersion = "1.5.2"
+#endregion
+
+#region [DAGGER - HILT]
+hilt = "2.48"
+hiltExt = "1.0.0"
+androidxHiltNavigationCompose = "1.0.0"
+#endregion
+
+#region [COIL]
+coilComposeVersion = "1.3.2"
+#endregion
+
+#region [KSP]
+kspVersion = "1.9.0-1.0.13"
+#endregion
+
+#region [LOTTIE]
+lottieVersion = "4.2.0"
+#endregion
+agp = "8.1.2"
+core-ktx = "1.9.0"
+
+[libraries]
+#region [KOTLIN]
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+coreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCoreVersion" }
+runtimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycleVersion" }
+#endregion
+
+#region [DAGGER - HILT]
+androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
+hilt-android-core = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-ext-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltExt" }
+hilt-ext-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltExt" }
+#endregion
+
+#region [COMPOSE]
+activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityComposeVersion" }
+composeUi = { module = "androidx.compose.ui:ui", version.ref = "composeVersion" }
+composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "composeVersion" }
+composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeVersion" }
+composeUiTest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeVersion" }
+navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationComposeVersion" }
+#endregion
+
+#region [MATERIAL 3]
+material3 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
+#endregion
+
+#region [TESTING]
+coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinestestVersion" }
+junit = { module = "junit:junit", version.ref = "junitVersion" }
+testJunit = { module = "androidx.test.ext:junit", version.ref = "androidxTextExtJunitVersion" }
+espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxTestEspressoCoreVersion" }
+composeUiJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeVersion" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
+#endregion
+
+#region [RETROFIT]
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion" }
+retrofitConverter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofitVersion" }
+#endregion
+
+#region [VIEWMODEL]
+lifecycleViewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtxVersion" }
+lifecycleViewmodelCompose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelComposeVersion" }
+#endregion
+
+#region [CORRUTINES]
+coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesVersion" }
+#endregion
+
+#region [COIL]
+coilCompose = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
+#endregion
+
+#region [LOTTIE]
+lottieCompose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieVersion" }
+#endregion
+
+
+[plugins]
+#region [DAGGER - HILT]
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+#endregion
+
+#region [PARCELIZE]
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+#endregion
+
+#region [KSP]
+ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
+#endregion
+com-android-application = { id = "com.android.application", version.ref = "agp" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+
+[bundles]
+appDependencies = [
+    "coreKtx", "runtimeKtx", "activityCompose", "composeUi",
+    "composeUiToolingPreview", "composeUiTooling", "composeUiTest", "material3", "junit", "testJunit", "espressoCore", "composeUiJunit4", "retrofit", "retrofitConverter",
+    "coroutines", "lifecycleViewmodel", "lifecycleViewmodelCompose", "navigationCompose", "hilt-android-core", "hilt-compiler", "androidx-hilt-navigation-compose", "mockk", "coroutinesTest", "coilCompose", "lottieCompose", "kotlin-stdlib"]
+
