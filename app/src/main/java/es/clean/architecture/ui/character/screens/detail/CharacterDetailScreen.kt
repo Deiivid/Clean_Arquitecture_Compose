@@ -29,8 +29,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.example.rickymortydn.models.CharacterModel
-import com.example.rickymortydn.models.createCharacterResult
+import es.clean.architecture.models.CharacterModel
+import es.clean.architecture.models.createCharacterResult
 import es.clean.architecture.ui.common.navigation.Routes
 
 @ExperimentalCoilApi

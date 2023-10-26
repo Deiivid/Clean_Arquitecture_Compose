@@ -24,9 +24,9 @@ import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.airbnb.lottie.compose.*
-import com.example.rickymortydn.models.CharacterModel
-import com.example.rickymortydn.models.createCharacterResult
-import es.architecture.compose.R
+import es.clean.architecture.R
+import es.clean.architecture.models.CharacterModel
+import es.clean.architecture.models.createCharacterResult
 import es.clean.architecture.ui.character.viewmodel.CharactersViewModel
 import es.clean.architecture.ui.common.navigation.Routes
 import es.clean.architecture.ui.common.states.ResourceState

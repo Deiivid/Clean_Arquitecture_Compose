@@ -5,7 +5,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.airbnb.lottie.compose.*
-import es.architecture.compose.R
+import es.clean.architecture.R
 
 import es.clean.architecture.ui.common.navigation.Routes
 import kotlinx.coroutines.delay

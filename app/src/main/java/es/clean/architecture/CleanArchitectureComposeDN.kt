@@ -1,4 +1,4 @@
-package com.example.rickymortydn
+package es.clean.architecture
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
