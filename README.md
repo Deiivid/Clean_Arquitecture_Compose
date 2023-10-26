@@ -16,10 +16,10 @@
 
 The project follows the Clean MVVM architecture, which consists of the following layers:
 
-🧮 **Presentation Layer**: Contains the UI components, ViewModels, and Compose screens.
-🧮 **Domain Layer**: Contains the business logic and use cases.
-🧮 **Data Layer**: Contains the repositories, data sources, and API communication.
-🧮  **Dependency Injection**: Uses Dagger Hilt for dependency injection.
+-🧮 **Presentation Layer**: Contains the UI components, ViewModels, and Compose screens.
+-🧮 **Domain Layer**: Contains the business logic and use cases.
+-🧮 **Data Layer**: Contains the repositories, data sources, and API communication.
+-🧮  **Dependency Injection**: Uses Dagger Hilt for dependency injection.
 
 📁 Folder Structure 📁
 
