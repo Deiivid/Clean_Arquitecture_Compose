@@ -1,4 +1,4 @@
-package com.example.rickymortydn.data.remote.characters.models
+package es.clean.architecture.data.remote.characters.models
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName

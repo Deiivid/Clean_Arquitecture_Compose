@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.rickymortydn.models.CharacterModel
+import es.clean.architecture.models.CharacterModel
 import es.clean.architecture.ui.character.screens.detail.CharacterDetailScreen
 import es.clean.architecture.ui.character.screens.list.CharactersListScreen
 import es.clean.architecture.ui.common.navigation.Routes
