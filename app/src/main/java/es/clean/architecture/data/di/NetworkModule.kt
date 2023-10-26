@@ -1,14 +1,14 @@
 package es.clean.architecture.data.di
 
 
-import es.clean.architecture.data.remote.characters.response.CharacterRepositoryImpl
-import es.clean.architecture.data.service.RickyMortyService
-import es.clean.architecture.domain.characters.repository.CharacterRepository
-import es.clean.architecture.models.common.constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import es.clean.architecture.data.remote.characters.response.CharacterRepositoryImpl
+import es.clean.architecture.data.service.RickyMortyService
+import es.clean.architecture.domain.characters.repository.CharacterRepository
+import es.clean.architecture.models.common.constants.BASE_URL
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
