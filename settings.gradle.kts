@@ -1,9 +1,8 @@
-include (":app")
 pluginManagement {
     repositories {
-        gradlePluginPortal()
         google()
         mavenCentral()
+        gradlePluginPortal()
     }
 }
 dependencyResolutionManagement {
@@ -12,12 +11,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
-    versionCatalogs {
-        create("libs") {
-            from(files("dependencies.toml"))
-        }
-    }
-
 }
-rootProject.name = "CleanArchitectureComposeDN"
 
+rootProject.name = "CleanArchitectureComposeDN"
+include(":app")

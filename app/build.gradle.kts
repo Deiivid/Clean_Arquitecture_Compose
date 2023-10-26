@@ -1,32 +1,33 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
-    id("dagger.hilt.android.plugin")
-    id("kotlin-parcelize")
+    alias(libs.plugins.com.android.application)
+    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.ksp)
+
 }
 
 android {
     defaultConfig {
-        applicationId = "es.clean.architecture"
-        //region SDK Target/Compile/Min
-        minSdk = 26
-        targetSdk = 34
-        compileSdk = 34
-        //endregion
-        versionCode = 1
-        versionName = "1.0"
-        namespace = "es.clean.architecture"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
+        applicationId = libs.versions.applicationID.get()
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        compileSdk = libs.versions.compileSdk.get().toInt()
+        versionCode =libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.versionName.get()
+        namespace = libs.versions.namespace.get()
+        testInstrumentationRunner = libs.versions.testRunner.get()
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
-        getByName("release") {
+        getByName(libs.versions.buildTypeNameRelease.get()) {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile( libs.versions.proguardOptimmize.get()),
+                libs.versions.proguardRule.get()
             )
         }
     }
@@ -37,7 +38,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
 
     buildFeatures {
@@ -45,16 +46,26 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.1"
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
-
     packaging {
         resources {
-            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+            excludes.addAll(
+                listOf(
+                    "LICENSE.txt",
+                    "META-INF/DEPENDENCIES",
+                    "META-INF/ASL2.0",
+                    "META-INF/NOTICE",
+                    "META-INF/LICENSE",
+                    "META-INF/gradle/incremental.annotation.processors"
+
+                )
+            )
         }
     }
 }
 
 dependencies {
-    apply(from = "dependencies.gradle")
+    implementation(libs.bundles.appDependencies)
+    ksp(libs.hilt.compiler)
 }
