@@ -3,7 +3,7 @@ package es.clean.architecture.ui.character.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import es.clean.architecture.ui.common.states.ResourceState
-import com.example.rickymortydn.domain.characters.CharacterUseCase
+import es.clean.architecture.domain.characters.CharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,4 +1,4 @@
-package com.example.rickymortydn.ui.theme
+package es.clean.architecture.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
