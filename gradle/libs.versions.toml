@@ -2,6 +2,7 @@
 #region [Android]
 compose-compiler = "1.5.3"
 kotlin = "1.9.10"
+iconsExtendedVersion="1.2.0-alpha05"
 #endregion
 
 #region [Build Gradle]
@@ -84,6 +85,8 @@ core-ktx = "1.9.0"
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCoreVersion" }
 runtimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycleVersion" }
+iconsExtended = { module = "androidx.compose.material:material-icons-extended", version.ref = "iconsExtendedVersion" }
+
 #endregion
 
 #region [DAGGER - HILT]
@@ -182,6 +185,7 @@ appDependencies = [
     "mockk", "coroutinesTest",
     "coilCompose",
     "lottieCompose",
-    "kotlin-stdlib"
+    "kotlin-stdlib",
+    "iconsExtended"
     ]
 

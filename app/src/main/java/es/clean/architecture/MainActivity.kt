@@ -16,20 +16,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CleanArchitectureComposeDNTheme {
-                // A surface container using the 'background' color from the theme
-                /*  Surface(
-                      modifier = Modifier.fillMaxSize(),
-                      color = MaterialTheme.colorScheme.background
-                  ) {
-                         val navigationController = rememberNavController()
-                         NavHost(
-                             navController = navigationController,
-                             startDestination = Routes.CharacterList.route
-                         ) {
-                             composable(Routes.CharacterList.route) { CharactersListScreen(navigationController) }
-                         }
-                     */
-
                 val navController = rememberNavController()
                 SetupNavGraph(navController)
             }
@@ -37,11 +23,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     CleanArchitectureComposeDNTheme {
-
     }
 }
