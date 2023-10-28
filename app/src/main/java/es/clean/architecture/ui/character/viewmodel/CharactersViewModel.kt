@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import es.clean.architecture.ui.common.states.ResourceState
 import es.clean.architecture.domain.characters.CharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import es.clean.architecture.models.CharacterModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,12 +19,18 @@ import javax.inject.Inject
 class CharactersViewModel @Inject constructor(
     private val characterUseCase: CharacterUseCase
 ) : ViewModel() {
-    private val _charactersSearched by lazy { MutableStateFlow<ResourceState<*>>(ResourceState.Idle) }
-    val charactersSearched: StateFlow<ResourceState<*>>
+    private val _charactersSearched by lazy {
+        MutableStateFlow<ResourceState<List<CharacterModel.CharacterResult>>>(
+            ResourceState.Idle()
+        )
+    }
+    val charactersSearched: StateFlow<ResourceState<List<CharacterModel.CharacterResult>>>
         get() = _charactersSearched
 
     fun fetchCharacters() {
-        _charactersSearched.update { ResourceState.Loading("") }
+        _charactersSearched.update {
+            ResourceState.Loading()
+        }
         viewModelScope.launch(Dispatchers.IO) {
 
             characterUseCase().collectLatest { characters ->

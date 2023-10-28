@@ -41,9 +41,9 @@ fun CharactersListScreen(
 
     charactersViewModel.fetchCharacters()
     when (charactersState) {
-        is ResourceState.Success<*> -> {
+        is ResourceState.Success -> {
             val characters =
-                (charactersState as ResourceState.Success<*>).data as List<CharacterModel.CharacterResult>
+                (charactersState as ResourceState.Success).data
             CharacterItem(characters,
                 onItemClick = { character ->
                  //We first save the data & then navigate
@@ -55,7 +55,7 @@ fun CharactersListScreen(
                 })
         }
 
-        is ResourceState.Loading<*> -> {
+        is ResourceState.Loading -> {
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
@@ -64,13 +64,12 @@ fun CharactersListScreen(
             }
         }
 
-        is ResourceState.Error<*> -> {
+        is ResourceState.Error -> {
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
                 LottieErrorState()
-
             }
         }
 
