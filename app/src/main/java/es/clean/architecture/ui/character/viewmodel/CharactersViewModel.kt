@@ -2,10 +2,10 @@ package es.clean.architecture.ui.character.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import es.clean.architecture.ui.common.states.ResourceState
-import es.clean.architecture.domain.characters.CharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import es.clean.architecture.domain.characters.CharacterUseCase
 import es.clean.architecture.models.CharacterModel
+import es.clean.architecture.ui.common.states.ResourceState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,10 +28,10 @@ class CharactersViewModel @Inject constructor(
         get() = _charactersSearched
 
     fun fetchCharacters() {
-        _charactersSearched.update {
-            ResourceState.Loading()
-        }
-        viewModelScope.launch(Dispatchers.IO) {
+        /*        _charactersSearched.update {
+                    ResourceState.Loading()
+                }
+          */      viewModelScope.launch(Dispatchers.IO) {
 
             characterUseCase().collectLatest { characters ->
                 _charactersSearched.update {
