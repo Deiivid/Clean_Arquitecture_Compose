@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import es.clean.architecture.ui.common.navigation.navgraph.SetupNavGraph
+import es.clean.architecture.ui.common.navigation.navgraph.root.RootNavigationGraph
 import es.clean.architecture.ui.theme.CleanArchitectureComposeDNTheme
 
 @AndroidEntryPoint
@@ -16,8 +16,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CleanArchitectureComposeDNTheme {
-                val navController = rememberNavController()
-                SetupNavGraph(navController)
+                // SetupNavGraph(rememberNavController())
+
+                RootNavigationGraph(navController = rememberNavController())
             }
         }
     }
