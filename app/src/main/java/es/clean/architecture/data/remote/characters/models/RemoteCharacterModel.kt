@@ -1,10 +1,12 @@
 package es.clean.architecture.data.remote.characters.models
 
+import android.os.Parcelable
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
+import kotlinx.parcelize.Parcelize
 
 @Keep
+@Parcelize
 data class RemoteCharacterModel(
     @SerializedName("created")
     val created: String,
@@ -28,21 +30,23 @@ data class RemoteCharacterModel(
     val status: String,
     @SerializedName("type")
     val type: String
-) : Serializable
+) : Parcelable
 
 @Keep
+@Parcelize
 data class RemoteLocation(
     @SerializedName("name")
     val name: String,
     @SerializedName("url")
     val url: String
-) : Serializable
+) : Parcelable
 
 @Keep
+@Parcelize
 data class RemoteOrigin(
     @SerializedName("name")
     val name: String,
     @SerializedName("url")
     val url: String
-) : Serializable
+) : Parcelable
 
