@@ -1,13 +1,13 @@
 package es.clean.architecture.data.remote.characters.mapper
 
-import es.clean.architecture.data.remote.characters.models.RemoteCharacterModel
+import es.clean.architecture.data.remote.characters.models.RemoteCharacter
 import es.clean.architecture.data.remote.characters.models.RemoteLocation
 import es.clean.architecture.data.remote.characters.models.RemoteOrigin
-import es.clean.architecture.models.CharacterModel
+import es.clean.architecture.models.RickyMortyCharacter
 
 
-fun RemoteCharacterModel.toDomain(): CharacterModel.CharacterResult =
-    CharacterModel.CharacterResult(
+fun RemoteCharacter.toDomain(): RickyMortyCharacter.Character =
+    RickyMortyCharacter.Character(
         created = this.created,
         episode = this.episode,
         gender = this.gender,
@@ -22,14 +22,14 @@ fun RemoteCharacterModel.toDomain(): CharacterModel.CharacterResult =
 
     )
 
-fun RemoteLocation.toDomain(): CharacterModel.CharacterResult.CharacterLocation =
-    CharacterModel.CharacterResult.CharacterLocation(
+fun RemoteLocation.toDomain(): RickyMortyCharacter.Character.CharacterLocation =
+    RickyMortyCharacter.Character.CharacterLocation(
         name = this.name,
         url = this.url
     )
 
-fun RemoteOrigin.toDomain(): CharacterModel.CharacterResult.CharacterOrigin =
-    CharacterModel.CharacterResult.CharacterOrigin(
+fun RemoteOrigin.toDomain(): RickyMortyCharacter.Character.CharacterOrigin =
+    RickyMortyCharacter.Character.CharacterOrigin(
         name = this.name,
         url = this.url
     )
