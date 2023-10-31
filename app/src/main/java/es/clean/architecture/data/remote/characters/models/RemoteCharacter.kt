@@ -18,9 +18,13 @@ data class RemoteRickyMortyCharacter(
 @Keep
 @Parcelize
 data class RemoteInfo(
+    @SerializedName("count")
     val count: Int,
+    @SerializedName("next")
     val next: String,
+    @SerializedName("pages")
     val pages: Int,
+    @SerializedName("prev")
     val prev: String
 ) : Parcelable
 
