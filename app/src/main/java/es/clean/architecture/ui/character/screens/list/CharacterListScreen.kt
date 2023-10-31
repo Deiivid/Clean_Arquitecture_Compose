@@ -23,7 +23,7 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.airbnb.lottie.compose.*
 import es.clean.architecture.R
-import es.clean.architecture.models.CharacterModel
+import es.clean.architecture.models.RickyMortyCharacter
 import es.clean.architecture.models.createCharacterResult
 
 
@@ -75,8 +75,8 @@ import es.clean.architecture.models.createCharacterResult
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun CharacterItem(
-    items: List<CharacterModel.CharacterResult>,
-    onItemClick: (character: CharacterModel.CharacterResult) -> Unit
+    items: List<RickyMortyCharacter.Character>,
+    onItemClick: (character: RickyMortyCharacter.Character) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -218,6 +218,6 @@ fun LottieErrorState() {
 @Composable
 fun CharacterListScreenPreview() {
     val character = listOf(createCharacterResult())
-    val onItemClick: (CharacterModel.CharacterResult) -> Unit = { }
+    val onItemClick: (RickyMortyCharacter.Character) -> Unit = { }
     CharacterItem(items = character, onItemClick = onItemClick)
 }

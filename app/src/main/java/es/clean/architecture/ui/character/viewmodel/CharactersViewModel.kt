@@ -1,15 +1,30 @@
 package es.clean.architecture.ui.character.viewmodel
 
-/*@HiltViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import es.clean.architecture.domain.characters.CharacterUseCase
+import es.clean.architecture.models.RickyMortyCharacter
+import es.clean.architecture.ui.common.states.ResourceState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import java.io.InvalidObjectException
+import javax.inject.Inject
+
+@HiltViewModel
 class CharactersViewModel @Inject constructor(
     private val characterUseCase: CharacterUseCase
 ) : ViewModel() {
     private val _charactersSearched by lazy {
-        MutableStateFlow<ResourceState<List<CharacterModel.CharacterResult>>>(
+        MutableStateFlow<ResourceState<List<RickyMortyCharacter.Character>>>(
             ResourceState.Idle()
         )
     }
-    val charactersSearched: StateFlow<ResourceState<List<CharacterModel.CharacterResult>>>
+    val charactersSearched: StateFlow<ResourceState<List<RickyMortyCharacter.Character>>>
         get() = _charactersSearched
 
     fun fetchCharacters() {
@@ -28,4 +43,4 @@ class CharactersViewModel @Inject constructor(
             }
         }
     }
-}*/
+}
