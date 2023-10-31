@@ -6,9 +6,9 @@ import androidx.annotation.Keep
 import kotlinx.parcelize.Parcelize
 
 @Keep
-data class CharacterModel(
+data class RickyMortyCharacter(
     val info: Info,
-    val characterResults: List<CharacterResult>
+    val characters: List<Character>
 ) {
     @Keep
     @Parcelize
@@ -21,7 +21,7 @@ data class CharacterModel(
 
     @Keep
     @Parcelize
-    data class CharacterResult(
+    data class Character(
         val created: String,
         val episode: List<String>,
         val gender: String,
@@ -54,16 +54,16 @@ data class CharacterModel(
 /**
  * We use this section to inicialize the detail screen to get the preview
  */
-fun createCharacterResult(): CharacterModel.CharacterResult {
-    val characterLocation = CharacterModel.CharacterResult.CharacterLocation(
+fun createCharacterResult(): RickyMortyCharacter.Character {
+    val characterLocation = RickyMortyCharacter.Character.CharacterLocation(
         name = "Earth",
         url = "https://example.com/earth"
     )
-    val characterOrigin = CharacterModel.CharacterResult.CharacterOrigin(
+    val characterOrigin = RickyMortyCharacter.Character.CharacterOrigin(
         name = "Unknown",
         url = "https://example.com/unknown"
     )
-    return CharacterModel.CharacterResult(
+    return RickyMortyCharacter.Character(
         created = "2023-10-25",
         episode = listOf("Episode 1", "Episode 2"),
         gender = "Male",
