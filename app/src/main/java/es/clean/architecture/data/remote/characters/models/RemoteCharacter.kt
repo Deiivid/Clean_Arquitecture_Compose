@@ -3,11 +3,31 @@ package es.clean.architecture.data.remote.characters.models
 import android.os.Parcelable
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import es.clean.architecture.models.RickyMortyCharacter
 import kotlinx.parcelize.Parcelize
+
+
+@Keep
+data class RemoteRickyMortyCharacter(
+    @SerializedName("info")
+    val info: RemoteInfo,
+    @SerializedName("results")
+    val results: List<RemoteCharacter>?
+)
 
 @Keep
 @Parcelize
-data class RemoteCharacterModel(
+data class RemoteInfo(
+    val count: Int,
+    val next: String,
+    val pages: Int,
+    val prev: String
+) : Parcelable
+
+
+@Keep
+@Parcelize
+data class RemoteCharacter(
     @SerializedName("created")
     val created: String,
     @SerializedName("episode")

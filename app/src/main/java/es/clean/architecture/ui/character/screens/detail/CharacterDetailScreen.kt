@@ -37,13 +37,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import es.clean.architecture.models.CharacterModel
+import es.clean.architecture.models.RickyMortyCharacter
 import es.clean.architecture.models.createCharacterResult
 
 @ExperimentalCoilApi
 @Composable
 fun CharacterDetailScreen(
-    character: CharacterModel.CharacterResult //We receive the data
+    character: RickyMortyCharacter.Character //We receive the data
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),

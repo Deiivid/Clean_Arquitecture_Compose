@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.annotation.ExperimentalCoilApi
-import es.clean.architecture.models.CharacterModel
+import es.clean.architecture.models.RickyMortyCharacter
 import es.clean.architecture.ui.character.screens.detail.CharacterDetailScreen
 import es.clean.architecture.ui.character.screens.list.CharactersListScreen
 import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomBarScreen
@@ -32,7 +32,7 @@ fun MainNavGraph(navController: NavHostController) {
          **/
         composable(route = Routes.CharacterDetailScreen.route) {
             val result =
-                navController.previousBackStackEntry?.savedStateHandle?.get<CharacterModel.CharacterResult>(
+                navController.previousBackStackEntry?.savedStateHandle?.get<RickyMortyCharacter.Character>(
                     "character"
                 )
             result?.let {
