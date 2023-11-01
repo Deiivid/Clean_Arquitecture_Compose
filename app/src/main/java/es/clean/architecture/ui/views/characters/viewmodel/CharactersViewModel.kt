@@ -26,8 +26,8 @@ class CharactersViewModel @Inject constructor(
     val charactersSearched: StateFlow<ResourceState<*>>
         get() = _charactersSearched
 
-    fun fetchCharacters(): Flow<PagingData<RickyMortyCharacter.Character>> =
-        getCharacterUseCase()
+    fun fetchCharacters(): Flow<PagingData<RickyMortyCharacter.Character>> {
+        return getCharacterUseCase()
             .catch { error ->
                 _charactersSearched.update { ResourceState.Error(error) }
             }
@@ -40,5 +40,6 @@ class CharactersViewModel @Inject constructor(
                 pagingData
             }
             .cachedIn(viewModelScope)
+    }
 }
 
