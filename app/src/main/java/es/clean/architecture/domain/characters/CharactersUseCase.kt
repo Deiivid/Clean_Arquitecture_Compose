@@ -17,7 +17,7 @@ open class CharacterUseCase @Inject constructor(
 
     open operator fun invoke() = Pager(
         config = PagingConfig(
-            pageSize = 10 / 2,
+            pageSize = 10,
         ),
         pagingSourceFactory = { rickyMortyCharactersPaging }
     ).flow
