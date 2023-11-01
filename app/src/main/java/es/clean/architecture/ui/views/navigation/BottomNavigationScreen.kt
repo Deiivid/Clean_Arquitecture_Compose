@@ -1,4 +1,4 @@
-package es.clean.architecture.ui.main
+package es.clean.architecture.ui.views.navigation
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.*

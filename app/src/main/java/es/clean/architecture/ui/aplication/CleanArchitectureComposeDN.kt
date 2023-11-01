@@ -1,4 +1,4 @@
-package es.clean.architecture
+package es.clean.architecture.ui.aplication
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

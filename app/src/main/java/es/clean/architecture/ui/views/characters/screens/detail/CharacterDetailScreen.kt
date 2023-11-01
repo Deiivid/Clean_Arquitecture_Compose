@@ -1,4 +1,4 @@
-package es.clean.architecture.ui.character.screens.detail
+package es.clean.architecture.ui.views.characters.screens.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -37,13 +37,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import es.clean.architecture.models.CharacterModel
-import es.clean.architecture.models.createCharacterResult
+import es.clean.architecture.domain.characters.models.character.RickyMortyCharacter
+import es.clean.architecture.domain.characters.models.character.createCharacterResult
 
 @ExperimentalCoilApi
 @Composable
 fun CharacterDetailScreen(
-    character: CharacterModel.CharacterResult //We receive the data
+    character: RickyMortyCharacter.Character //We receive the data
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),

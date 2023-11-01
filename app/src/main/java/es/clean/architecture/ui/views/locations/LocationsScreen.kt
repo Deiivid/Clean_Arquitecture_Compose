@@ -1,4 +1,4 @@
-package es.clean.architecture.ui.locations
+package es.clean.architecture.ui.views.locations
 
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.runtime.Composable

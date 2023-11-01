@@ -1,4 +1,4 @@
-package es.clean.architecture.ui
+package es.clean.architecture.ui.views.demo
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
