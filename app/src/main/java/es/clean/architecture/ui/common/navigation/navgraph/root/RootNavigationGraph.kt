@@ -6,8 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.annotation.ExperimentalCoilApi
 import es.clean.architecture.ui.common.navigation.routes.Routes
-import es.clean.architecture.ui.main.HomeScreen
-import es.clean.architecture.ui.splash.screen.AnimatedSplashScreen
+import es.clean.architecture.ui.views.navigation.HomeScreen
+import es.clean.architecture.ui.views.splash.AnimatedSplashScreen
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
