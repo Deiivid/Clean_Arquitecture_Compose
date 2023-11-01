@@ -10,7 +10,6 @@ import javax.inject.Inject
 open class RickyMortyCharacterPagingSource @Inject constructor(
     private val characterRepository: CharacterRepository,
 ) : PagingSource<Int, RickyMortyCharacter.Character>() {
-    private val limit = 10
     override fun getRefreshKey(state: PagingState<Int, RickyMortyCharacter.Character>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
