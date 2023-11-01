@@ -19,21 +19,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.airbnb.lottie.compose.*
 import es.clean.architecture.R
 import es.clean.architecture.models.CharacterModel
 import es.clean.architecture.models.createCharacterResult
-import es.clean.architecture.ui.character.viewmodel.CharactersViewModel
-import es.clean.architecture.ui.common.navigation.routes.Routes
-import es.clean.architecture.ui.common.states.ResourceState
 
 
-@Composable
-fun CharactersListScreen(
+/*fun CharactersListScreen(
     navController: NavHostController,
     charactersViewModel: CharactersViewModel = hiltViewModel(),
 ) {
@@ -77,7 +71,7 @@ fun CharactersListScreen(
     }
 }
 
-
+*/
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun CharacterItem(

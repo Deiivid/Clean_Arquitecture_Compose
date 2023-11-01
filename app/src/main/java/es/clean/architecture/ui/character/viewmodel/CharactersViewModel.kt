@@ -1,21 +1,6 @@
 package es.clean.architecture.ui.character.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
-import es.clean.architecture.domain.characters.CharacterUseCase
-import es.clean.architecture.models.CharacterModel
-import es.clean.architecture.ui.common.states.ResourceState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import java.io.InvalidObjectException
-import javax.inject.Inject
-
-@HiltViewModel
+/*@HiltViewModel
 class CharactersViewModel @Inject constructor(
     private val characterUseCase: CharacterUseCase
 ) : ViewModel() {
@@ -43,4 +28,4 @@ class CharactersViewModel @Inject constructor(
             }
         }
     }
-}
+}*/
