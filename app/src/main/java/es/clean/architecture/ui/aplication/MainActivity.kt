@@ -1,4 +1,4 @@
-package es.clean.architecture
+package es.clean.architecture.ui.aplication
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

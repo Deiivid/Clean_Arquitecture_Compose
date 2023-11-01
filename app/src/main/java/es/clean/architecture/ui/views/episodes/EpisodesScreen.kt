@@ -1,4 +1,4 @@
-package es.clean.architecture.ui.episodes
+package es.clean.architecture.ui.views.episodes
 
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.runtime.Composable

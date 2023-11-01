@@ -1,4 +1,4 @@
-package es.clean.architecture.ui.splash.screen
+package es.clean.architecture.ui.views.splash
 
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.runtime.Composable
