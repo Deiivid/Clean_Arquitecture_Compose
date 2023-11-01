@@ -68,6 +68,5 @@ android {
 
 dependencies {
     implementation(libs.bundles.appDependencies)
-    implementation(libs.androidx.compose.material3)
     ksp(libs.hilt.compiler)
 }
