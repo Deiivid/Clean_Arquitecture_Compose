@@ -2,13 +2,8 @@
 #region [Android]
 compose-compiler = "1.5.3"
 kotlin = "1.9.10"
-iconsExtendedVersion = "1.2.0-alpha05"
+iconsExtendedVersion = "1.6.0-alpha08"
 #endregion
-
-#region [Paging 3]
-pagingCompose = "1.0.0-alpha17"
-pagingRuntime = "3.1.1"
-#endregion [Paging 3]
 
 #region [Build Gradle]
 applicationID = "es.clean.architecture"
@@ -28,8 +23,8 @@ proguardOptimmize = "proguard-android-optimize.txt"
 #region [COMPOSE]
 activity-compose = "1.8.0"
 compose-bom = "2023.03.00"
-composeVersion = "1.1.1"
-lifecycleViewmodelComposeVersion = "1.0.0-alpha07"
+composeVersion = "1.5.4"
+lifecycleViewmodelComposeVersion = "2.7.0-alpha03"
 navigationComposeVersion = "2.7.4"
 #endregion
 
@@ -46,23 +41,23 @@ mockkVersion = "1.12.0"
 #endregion
 
 #region [ANDROIDX]
-androidxCoreVersion = "1.8.0"
-androidxLifecycleVersion = "2.3.1"
-androidxActivityComposeVersion = "1.4.1"
+androidxCoreVersion = "1.12.0"
+androidxLifecycleVersion = "2.6.2"
+androidxActivityComposeVersion = "1.8.0"
 #endregion
 
 #region [MATERIAL 3]
-material3Version = "1.0.0-alpha02"
+material3Version = "1.2.0-alpha10"
 #endregion
 
 #region [LIFECYCLE]
-lifecycleViewmodelKtxVersion = "2.4.0-alpha02"
+lifecycleViewmodelKtxVersion = "2.7.0-alpha03"
 lifecycle-runtime-ktx = "2.6.2"
 #endregion
 
 #region [CORRUTINE]
-kotlinxCoroutinesVersion = "1.5.0"
-kotlinxCoroutinestestVersion = "1.5.2"
+kotlinxCoroutinesVersion = "1.7.3"
+kotlinxCoroutinestestVersion = "1.7.3"
 #endregion
 
 #region [DAGGER - HILT]
@@ -72,7 +67,7 @@ androidxHiltNavigationCompose = "1.0.0"
 #endregion
 
 #region [COIL]
-coilComposeVersion = "1.3.2"
+coilComposeVersion = "2.4.0"
 #endregion
 
 #region [KSP]
@@ -80,7 +75,7 @@ kspVersion = "1.9.0-1.0.13"
 #endregion
 
 #region [LOTTIE]
-lottieVersion = "4.2.0"
+lottieVersion = "6.0.1"
 #endregion
 agp = "8.1.2"
 core-ktx = "1.9.0"
@@ -146,12 +141,14 @@ coilCompose = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVe
 #region [LOTTIE]
 lottieCompose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieVersion" }
 androidx-compose-material3 = { group = "androidx.wear.compose", name = "compose-material3", version = "1.0.0-alpha14" }
+androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version = "1.0.1" }
+androidx-paging-common-ktx = { group = "androidx.paging", name = "paging-common-ktx", version = "3.2.1" }
+androidx-paging-runtime-ktx = { group = "androidx.paging", name = "paging-runtime-ktx", version = "3.2.1" }
+androidx-paging-compose-ktx = { group = "androidx.paging", name = "paging-compose", version = "3.2.1" }
+
+
 #endregion
 
-#region [PAGING-3]
-pagingRuntime = { module = "androidx.paging:paging-runtime", version.ref = "pagingRuntime" }
-pagingCompoose = { module = "androidx.paging:paging-compose", version.ref = "pagingCompose" }
-#endregion [PAGING-3]
 
 [plugins]
 #region [DAGGER - HILT]
@@ -197,7 +194,9 @@ appDependencies = [
     "lottieCompose",
     "kotlin-stdlib",
     "iconsExtended",
-    "pagingRuntime",
-    "pagingCompoose"
+    "androidx-paging-runtime-ktx",
+    "androidx-paging-compose-ktx",
+    "androidx-constraintlayout-compose",
+    "androidx-compose-material3"
 ]
 
