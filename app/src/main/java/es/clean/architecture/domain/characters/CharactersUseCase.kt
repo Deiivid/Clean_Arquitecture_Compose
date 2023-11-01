@@ -1,13 +1,24 @@
 package es.clean.architecture.domain.characters
 
-import es.clean.architecture.domain.characters.repository.CharacterRepository
-import es.clean.architecture.models.CharacterModel
-import kotlinx.coroutines.flow.Flow
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import es.clean.architecture.data.characters.paging.RickyMortyCharacterPagingSource
 import javax.inject.Inject
 
-class CharacterUseCase @Inject constructor(
-    private val characterRepository: CharacterRepository
+open class CharacterUseCase @Inject constructor(
+    // private val characterRepository: CharacterRepository
+    private val rickyMortyCharactersPaging: RickyMortyCharacterPagingSource
+
 ) {
-    suspend operator fun invoke(): Flow<List<CharacterModel.CharacterResult>> =
+
+    /*)suspend operator fun invoke(): Flow<List<RickyMortyCharacter.Character>> =
         characterRepository.getCharacters()
+*/
+
+    open operator fun invoke() = Pager(
+        config = PagingConfig(
+            pageSize = 10,
+        ),
+        pagingSourceFactory = { rickyMortyCharactersPaging }
+    ).flow
 }
