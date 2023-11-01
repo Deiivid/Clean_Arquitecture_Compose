@@ -6,8 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.annotation.ExperimentalCoilApi
 import es.clean.architecture.models.CharacterModel
+import es.clean.architecture.ui.character.CharactersListScreen
 import es.clean.architecture.ui.character.screens.detail.CharacterDetailScreen
-import es.clean.architecture.ui.character.screens.list.CharactersListScreen
 import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomBarScreen
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.episodes.EpisodesScreen
