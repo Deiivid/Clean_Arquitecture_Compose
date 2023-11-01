@@ -5,13 +5,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.annotation.ExperimentalCoilApi
-import es.clean.architecture.models.RickyMortyCharacter
-import es.clean.architecture.ui.character.screens.detail.CharacterDetailScreen
-import es.clean.architecture.ui.character.screens.list.CharactersListScreen
+import es.clean.architecture.domain.characters.models.character.RickyMortyCharacter
+import es.clean.architecture.ui.views.characters.screens.detail.CharacterDetailScreen
+import es.clean.architecture.ui.views.characters.screens.list.CharactersListScreen
 import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomBarScreen
 import es.clean.architecture.ui.common.navigation.routes.Routes
-import es.clean.architecture.ui.episodes.EpisodesScreen
-import es.clean.architecture.ui.locations.LocationsScreen
+import es.clean.architecture.ui.views.episodes.EpisodesScreen
+import es.clean.architecture.ui.views.locations.LocationsScreen
 
 
 @OptIn(ExperimentalCoilApi::class)
