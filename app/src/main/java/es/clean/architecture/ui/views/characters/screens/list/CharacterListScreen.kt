@@ -21,16 +21,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.airbnb.lottie.compose.*
 import es.clean.architecture.R
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacter
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
-import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.common.states.ResourceState
-
+import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
 @Composable
 fun CharactersListScreen(
@@ -39,20 +40,25 @@ fun CharactersListScreen(
 ) {
     val charactersState by charactersViewModel.charactersSearched.collectAsState()
 
-    charactersViewModel.fetchCharacters()
     when (charactersState) {
         is ResourceState.Success -> {
-            val characters =
-                (charactersState as ResourceState.Success).data
-            CharacterItem(characters,
-                onItemClick = { character ->
-                    //We first save the data & then navigate
-                    navController.currentBackStackEntry?.savedStateHandle?.set(
-                        "character",
-                        value = character
-                    )
-                    navController.navigate(Routes.CharacterDetailScreen.route)
-                })
+            val lazyPagingItems = charactersViewModel.fetchCharacters().collectAsLazyPagingItems()
+
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(16.dp)
+            ) {
+                items(lazyPagingItems) { item ->
+                    CharacterItem(character = item!!, onItemClick = { character ->
+                        //We send item to onClick
+                        navController.currentBackStackEntry?.savedStateHandle?.set(
+                            "character",
+                            value = character
+                        )
+                        navController.navigate(Routes.CharacterDetailScreen.route)
+                    })
+                }
+            }
         }
 
         is ResourceState.Loading -> {
@@ -77,106 +83,94 @@ fun CharactersListScreen(
     }
 }
 
-
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun CharacterItem(
-    items: List<RickyMortyCharacter.Character>,
+    character: RickyMortyCharacter.Character,
     onItemClick: (character: RickyMortyCharacter.Character) -> Unit
 ) {
-    LazyColumn(
+    Surface(
+        shape = RoundedCornerShape(16.dp),
+        color = Color(0xFFDAE1E7),
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp, top = 30.dp)
+            .clickable {
+                onItemClick(character)
+            }
+            .height(165.dp)
+            .padding(10.dp),
+        shadowElevation = 10.dp
     ) {
-        items.forEachIndexed { index, character ->
-            item {
-                Surface(
-                    shape = RoundedCornerShape(16.dp),
-                    color = Color(0xFFDAE1E7),
-                    modifier = Modifier
-                        .clickable {
-                            onItemClick(character)//We send item to onClick
-                        }
-                        .height(165.dp)
-                        .padding(10.dp),
-                    shadowElevation = 10.dp
-                ) {
-                    Row(
-                        modifier = Modifier.padding(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column(
+        Row(
+            modifier = Modifier.padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(2f),
+                verticalArrangement = Arrangement.Center
+            ) {
+                Box(
+                    modifier = Modifier.wrapContentSize(),
+                    contentAlignment = Alignment.Center,
+                    content = {
+                        Text(
+                            text = character.status,
+                            fontSize = 12.sp,
+                            style = MaterialTheme.typography.titleLarge,
                             modifier = Modifier
-                                .fillMaxSize()
-                                .weight(2f),
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Box(
-                                modifier = Modifier.wrapContentSize(),
-                                contentAlignment = Alignment.Center,
-                                content = {
-                                    Text(
-                                        text = character.status,
-                                        fontSize = 12.sp,
-                                        style = MaterialTheme.typography.titleLarge,
-                                        modifier = Modifier
-                                            .padding(vertical = 4.dp, horizontal = 8.dp)
-                                            .clip(RoundedCornerShape(14.dp))
-                                            .background(Color(0xFFD1D5E1))
-                                    )
-                                }
-                            )
-
-                            Spacer(modifier = Modifier.height(4.dp))
-
-                            Text(
-                                text = character.name,
-                                fontSize = 20.sp,
-                                style = MaterialTheme.typography.titleLarge,
-                                fontWeight = FontWeight.SemiBold
-                            )
-
-                            Spacer(modifier = Modifier.height(2.dp))
-
-                            Text(text = character.gender)
-
-                            Spacer(modifier = Modifier.height(2.dp))
-
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text(
-                                    text = character.characterLocation.name,
-                                    fontSize = 12.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                                Spacer(modifier = Modifier.width(4.dp))
-                            }
-
-                            Spacer(modifier = Modifier.height(4.dp))
-
-                        }
-                        Spacer(modifier = Modifier.width(12.dp))
-                        Box(
-                            modifier = Modifier
-                                .size(width = 135.dp, height = 110.dp)
-                                .padding(top = 10.dp),
-                            contentAlignment = Alignment.Center,
-                            content = {
-                                Image(
-                                    painter = rememberImagePainter(data = character.image),
-                                    contentDescription = null,
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .clip(RoundedCornerShape(16.dp))
-                                        .background(Color.White)
-                                )
-                            }
+                                .padding(vertical = 4.dp, horizontal = 8.dp)
+                                .clip(RoundedCornerShape(14.dp))
+                                .background(Color(0xFFD1D5E1))
                         )
                     }
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = character.name,
+                    fontSize = 20.sp,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.SemiBold
+                )
+
+                Spacer(modifier = Modifier.height(2.dp))
+
+                Text(text = character.gender)
+
+                Spacer(modifier = Modifier.height(2.dp))
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = character.characterLocation.name,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
                 }
+
+                Spacer(modifier = Modifier.height(4.dp))
             }
+            Spacer(modifier = Modifier.width(12.dp))
+            Box(
+                modifier = Modifier
+                    .size(width = 135.dp, height = 110.dp)
+                    .padding(top = 10.dp),
+                contentAlignment = Alignment.Center,
+                content = {
+                    Image(
+                        painter = rememberImagePainter(data = character.image),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(16.dp))
+                            .background(Color.White)
+                    )
+                }
+            )
         }
     }
 }
@@ -225,5 +219,5 @@ fun LottieErrorState() {
 fun CharacterListScreenPreview() {
     val character = listOf(createCharacterResult())
     val onItemClick: (RickyMortyCharacter.Character) -> Unit = { }
-    CharacterItem(items = character, onItemClick = onItemClick)
+//    CharacterItem(items = character, onItemClick = onItemClick)
 }
