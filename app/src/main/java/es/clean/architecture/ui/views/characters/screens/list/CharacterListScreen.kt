@@ -6,12 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -23,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,10 +26,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import com.airbnb.lottie.compose.*
 import es.clean.architecture.R
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
@@ -49,88 +45,107 @@ fun CharactersListScreen(
     charactersViewModel: CharactersViewModel = hiltViewModel(),
 ) {
     val characters = charactersViewModel.allCharacters.collectAsLazyPagingItems()
-    val scope = rememberCoroutineScope()
-    val context = LocalContext.current
-    var isSearching by remember {
+    /* val scope = rememberCoroutineScope()
+     val context = LocalContext.current
+    */
+    val isSearching by remember {
         mutableStateOf(false)
     }
-    var searchString by remember {
-        mutableStateOf("")
-    }
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            CenterAlignedTopAppBar(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                title = {
-                    if (!isSearching) {
-                        Text(
-                            text = stringResource(id = R.string.app_name),
-                            color = MaterialTheme.colorScheme.onPrimary
-                        )
-                    } else {
-                        /*TextField(
-                            modifier = Modifier
-                                .padding(end = 12.dp)
-                                .fillMaxWidth(),
-                            value = searchString,
-                            onValueChange = { newSearchString ->
-                                searchString = newSearchString
-                            },
-                            label = { Text("Cadena de Búsqueda") },
-                            maxLines = 1
-                        )*/
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
-               /* actions = {
-                    IconButton(onClick = { isSearching = !isSearching }) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimary
-                        )
-                    }
-                }*/
-            )
+    // var searchString by remember {
+    //   mutableStateOf("")
+    //}
+    val charactersr: LazyPagingItems<RickyMortyCharacterModel.RickyMortyCharacter> =
+        charactersViewModel.allCharacters.collectAsLazyPagingItems()
+
+
+    when (charactersr.loadState.refresh) {
+        is LoadState.Loading -> {
+            // Mostrar animación de carga
+            LottieProgressBar()
         }
-    ) { paddingValues ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
-            items(
-                count = characters.itemCount,
-                key = characters.itemKey { character -> character.id }
-            ) { characterIndex ->
-                characters[characterIndex]?.let { item ->
-                    CharacterItem(
-                        character = item,
-                    ) { currentCharacter ->
 
-                        navController.currentBackStackEntry?.savedStateHandle?.set(
-                            "character",
-                            value = currentCharacter
-                        )
-                        navController.navigate(Routes.CharacterDetailScreen.route)
-
-                        /* scope.launch {
-                             withContext(Dispatchers.Main){
-                                 Toast.makeText(context, "Personaje: ${currentCharacter.name}", Toast.LENGTH_LONG).show()
+        is LoadState.NotLoading -> {
+            // Si no está cargando, muestras los personajes en el LazyColumn
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                topBar = {
+                    CenterAlignedTopAppBar(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        title = {
+                            if (!isSearching) {
+                                Text(
+                                    text = stringResource(id = R.string.app_name),
+                                    color = MaterialTheme.colorScheme.onPrimary
+                                )
+                            } else {
+                                /* TextField(
+                                      modifier = Modifier
+                                          .padding(end = 12.dp)
+                                          .fillMaxWidth(),
+                                      value = searchString,
+                                      onValueChange = { newSearchString ->
+                                          searchString = newSearchString
+                                      },
+                                      label = { Text("Cadena de Búsqueda") },
+                                      maxLines = 1
+                                  )*/
+                            }
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
+                        /* actions = {
+                             IconButton(onClick = { isSearching = !isSearching }) {
+                                 Icon(
+                                     imageVector = Icons.Default.Search,
+                                     contentDescription = null,
+                                     tint = MaterialTheme.colorScheme.onPrimary
+                                 )
                              }
-                         }
-                     }*/
+                         }*/
+                    )
+                }
+            ) { paddingValues ->
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues)
+                ) {
+                    items(
+                        count = characters.itemCount,
+                        key = characters.itemKey { character -> character.id }
+                    ) { characterIndex ->
+                        characters[characterIndex]?.let { item ->
+                            CharacterItem(
+                                character = item,
+                            ) { currentCharacter ->
+
+                                navController.currentBackStackEntry?.savedStateHandle?.set(
+                                    "character",
+                                    value = currentCharacter
+                                )
+                                navController.navigate(Routes.CharacterDetailScreen.route)
+
+                                /* scope.launch {
+                                     withContext(Dispatchers.Main){
+                                         Toast.makeText(context, "Personaje: ${currentCharacter.name}", Toast.LENGTH_LONG).show()
+                                     }
+                                 }
+                             }*/
+                            }
+                        }
                     }
                 }
+
             }
+        }
+
+        is LoadState.Error -> {
+            LottieErrorState()
         }
     }
 }
 
 
-@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun CharacterItem(
     character: RickyMortyCharacterModel.RickyMortyCharacter,
@@ -158,21 +173,21 @@ fun CharacterItem(
                 verticalArrangement = Arrangement.Center
             ) {
                 Box(
-                    modifier = Modifier.wrapContentSize(),
-                    contentAlignment = Alignment.Center,
-                    content = {
-                        Text(
-                            text = character.status,
-                            fontSize = 12.sp,
-                            style = MaterialTheme.typography.titleLarge,
-                            modifier = Modifier
-                                .padding(vertical = 4.dp, horizontal = 8.dp)
-                                .clip(RoundedCornerShape(14.dp))
-                                .background(Color(0xFFD1D5E1))
-                        )
-                    }
-                )
-
+                    modifier = Modifier
+                        .wrapContentSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = character.status,
+                        fontSize = 12.sp,
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier
+                            .padding(vertical = 2.dp, horizontal = 2.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(Color(0xFFD1D5E1))
+                            .padding(2.dp) // Este padding es para el espacio dentro del fondo, alrededor del texto.
+                    )
+                }
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
@@ -208,7 +223,7 @@ fun CharacterItem(
                 contentAlignment = Alignment.Center,
                 content = {
                     Image(
-                        painter = rememberImagePainter(data = character.image),
+                        painter = rememberAsyncImagePainter(model = character.image),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
@@ -225,18 +240,11 @@ fun CharacterItem(
 
 @Composable
 fun LottieProgressBar() {
-    val compositeResult: LottieCompositionResult = rememberLottieComposition(
-        spec = LottieCompositionSpec.RawRes(R.raw.loadinglottie)
-    )
-    val progressAnimation by animateLottieCompositionAsState(
-        composition = compositeResult.value,
-        isPlaying = true,
-        iterations = LottieConstants.IterateForever,
-        speed = 1.0f
-    )
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loadinglottie))
+    val progress by animateLottieCompositionAsState(composition)
     LottieAnimation(
-        composition = compositeResult.value,
-        progress = progressAnimation,
+        composition = composition,
+        progress = { progress },
         modifier = Modifier.fillMaxSize()
     )
 
@@ -244,27 +252,20 @@ fun LottieProgressBar() {
 
 @Composable
 fun LottieErrorState() {
-    val compositeResult: LottieCompositionResult = rememberLottieComposition(
-        spec = LottieCompositionSpec.RawRes(R.raw.cryricky)
-    )
-    val progressAnimation by animateLottieCompositionAsState(
-        composition = compositeResult.value,
-        isPlaying = true,
-        iterations = LottieConstants.IterateForever,
-        speed = 1.0f
-    )
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.cryricky))
+    val progress by animateLottieCompositionAsState(composition)
     LottieAnimation(
-        composition = compositeResult.value,
-        progress = progressAnimation,
+        composition = composition,
+        progress = { progress },
         modifier = Modifier.fillMaxSize()
     )
 
 }
 
-@Preview(widthDp = 320, heightDp = 480)
+@Preview
 @Composable
 fun CharacterListScreenPreview() {
-    val character = listOf(createCharacterResult())
+    val character = createCharacterResult()
     val onItemClick: (RickyMortyCharacterModel.RickyMortyCharacter) -> Unit = { }
-//    CharacterItem(items = character, onItemClick = onItemClick)
+    CharacterItem(character = character, onItemClick = onItemClick)
 }

@@ -13,4 +13,5 @@ open class CharactersViewModel @Inject constructor(
     allCharactersUseCase: AllCharactersUseCase
 ) : ViewModel() {
     val allCharacters: Flow<PagingData<RickyMortyCharacterModel.RickyMortyCharacter>> = allCharactersUseCase(20)
+
 }
