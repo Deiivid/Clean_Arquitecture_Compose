@@ -3,15 +3,15 @@ package es.clean.architecture.data.remote.characters.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import es.clean.architecture.data.remote.characters.repository.CharactersRepository
-import es.clean.architecture.models.CharacterModel
+import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import javax.inject.Inject
 
 open class CharactersPaging @Inject constructor(
     private val repository: CharactersRepository
-) : PagingSource<Int, CharacterModel.CharacterResult>() {
+) : PagingSource<Int, RickyMortyCharacterModel.RickyMortyCharacter>() {
     // Este método es as is, no se toca salvo lo estrictamente necesario
     // (obtención de la clave de páginación) :D
-    override fun getRefreshKey(state: PagingState<Int, CharacterModel.CharacterResult>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, RickyMortyCharacterModel.RickyMortyCharacter>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
@@ -19,7 +19,7 @@ open class CharactersPaging @Inject constructor(
     }
 
     // Aquí sí hay que tocar un poquito...
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CharacterModel.CharacterResult> =
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RickyMortyCharacterModel.RickyMortyCharacter> =
         try {
             val page = params.key ?: 1
             val limit = params.loadSize

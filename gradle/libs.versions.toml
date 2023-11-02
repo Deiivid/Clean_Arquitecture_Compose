@@ -17,7 +17,7 @@ testRunner = "androidx.test.runner.AndroidJUnitRunnel"
 jvmTarget = "17"
 buildTypeNameRelease = "release"
 proguardRule = "proguard-rules.pro"
-proguardOptimmize = "proguard-android-optimize.txt"
+proguardOptimize = "proguard-android-optimize.txt"
 #endregion
 
 #region [COMPOSE]
@@ -86,7 +86,6 @@ kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.re
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCoreVersion" }
 runtimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycleVersion" }
 iconsExtended = { module = "androidx.compose.material:material-icons-extended", version.ref = "iconsExtendedVersion" }
-
 #endregion
 
 #region [DAGGER - HILT]
@@ -145,11 +144,8 @@ androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name 
 androidx-paging-common-ktx = { group = "androidx.paging", name = "paging-common-ktx", version = "3.2.1" }
 androidx-paging-runtime-ktx = { group = "androidx.paging", name = "paging-runtime-ktx", version = "3.2.1" }
 androidx-paging-compose-ktx = { group = "androidx.paging", name = "paging-compose", version = "3.2.1" }
-
-
-#endregion
-
-
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.1.4" }
+#endregion [LOTTIE]
 [plugins]
 #region [DAGGER - HILT]
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

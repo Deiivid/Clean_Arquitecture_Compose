@@ -1,4 +1,4 @@
-package es.clean.architecture.ui.character
+package es.clean.architecture.ui.views.characters
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Spacer
@@ -45,7 +45,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import es.clean.architecture.R
-import es.clean.architecture.models.CharacterModel
+import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -54,11 +54,11 @@ import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CharactersListScreen(
+fun CharactersListssScreen(
     navController: NavHostController,
-    viewModel: CharactersViewModel = hiltViewModel()
+    charactersViewModel: CharactersViewModel = hiltViewModel(),
 ) {
-    val characters = viewModel.allCharacters.collectAsLazyPagingItems()
+    val characters = charactersViewModel.allCharacters.collectAsLazyPagingItems()
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     var isSearching by remember {
@@ -142,9 +142,9 @@ fun CharactersListScreen(
 @Composable
 fun RickAndMortyCharacterItem(
     @PreviewParameter(CharacterPreviewParameter::class)
-    character: CharacterModel.CharacterResult,
+    character: RickyMortyCharacterModel.RickyMortyCharacter,
     modifier: Modifier = Modifier,
-    onClick: (CharacterModel.CharacterResult) -> Unit = {}
+    onClick: (RickyMortyCharacterModel.RickyMortyCharacter) -> Unit = {}
 ) {
     Card(
         modifier = modifier,
@@ -213,21 +213,21 @@ fun RickAndMortyCharacterItem(
     Spacer(modifier = Modifier.height(4.dp))
 }
 
-class CharacterPreviewParameter : PreviewParameterProvider<CharacterModel.CharacterResult> {
-    override val values: Sequence<CharacterModel.CharacterResult>
+class CharacterPreviewParameter : PreviewParameterProvider<RickyMortyCharacterModel.RickyMortyCharacter> {
+    override val values: Sequence<RickyMortyCharacterModel.RickyMortyCharacter>
         get() = sequenceOf(
-            CharacterModel.CharacterResult(
+    RickyMortyCharacterModel.RickyMortyCharacter(
                 id = 1,
                 name = "name bla bla",
                 status = "status bla bla",
                 species = "species bla bla",
                 type = "type bla bla",
                 gender = "gender bla bla",
-                characterOrigin = CharacterModel.CharacterResult.CharacterOrigin(
+                characterOrigin = RickyMortyCharacterModel.RickyMortyCharacter.CharacterOrigin(
                     "miLocalizacion",
                     "https"
                 ),
-                characterLocation = CharacterModel.CharacterResult.CharacterLocation(
+                characterLocation = RickyMortyCharacterModel.RickyMortyCharacter.CharacterLocation(
                     "miLocalizacion",
                     "https"
                 ),
