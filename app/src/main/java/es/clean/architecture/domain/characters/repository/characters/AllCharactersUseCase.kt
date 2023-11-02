@@ -1,4 +1,4 @@
-package es.clean.architecture.domain.characters
+package es.clean.architecture.domain.characters.repository.characters
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
