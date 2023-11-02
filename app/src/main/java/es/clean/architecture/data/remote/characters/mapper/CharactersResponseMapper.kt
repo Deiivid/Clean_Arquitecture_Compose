@@ -1,4 +1,4 @@
-package es.clean.architecture.data.remote.mapper
+package es.clean.architecture.data.remote.characters.mapper
 
 import es.clean.architecture.data.remote.characters.models.RemoteCharacter
 import es.clean.architecture.data.remote.characters.models.RemoteLocation
