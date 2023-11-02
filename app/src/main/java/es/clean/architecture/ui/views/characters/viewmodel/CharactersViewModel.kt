@@ -3,8 +3,8 @@ package es.clean.architecture.ui.views.characters.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import es.clean.architecture.domain.characters.AllCharactersUseCase
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
+import es.clean.architecture.domain.characters.repository.characters.AllCharactersUseCase
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
