@@ -6,9 +6,9 @@ import androidx.annotation.Keep
 import kotlinx.parcelize.Parcelize
 
 @Keep
-data class RickyMortyCharacter(
+data class RickyMortyCharacterModel(
     val info: Info,
-    val characters: List<Character>
+    val rickyMortyCharacters: List<RickyMortyCharacter>
 ) {
     @Keep
     @Parcelize
@@ -21,7 +21,7 @@ data class RickyMortyCharacter(
 
     @Keep
     @Parcelize
-    data class Character(
+    data class RickyMortyCharacter(
         val created: String,
         val episode: List<String>,
         val gender: String,
@@ -54,24 +54,24 @@ data class RickyMortyCharacter(
 /**
  * We use this section to inicialize the detail screen to get the preview
  */
-fun createCharacterResult(): RickyMortyCharacter.Character {
-    val characterLocation = RickyMortyCharacter.Character.CharacterLocation(
+fun createCharacterResult(): RickyMortyCharacterModel.RickyMortyCharacter {
+    val rickyMortyCharacterLocation = RickyMortyCharacterModel.RickyMortyCharacter.CharacterLocation(
         name = "Earth",
         url = "https://example.com/earth"
     )
-    val characterOrigin = RickyMortyCharacter.Character.CharacterOrigin(
+    val rickyMortyCharacterOrigin = RickyMortyCharacterModel.RickyMortyCharacter.CharacterOrigin(
         name = "Unknown",
         url = "https://example.com/unknown"
     )
-    return RickyMortyCharacter.Character(
+    return RickyMortyCharacterModel.RickyMortyCharacter(
         created = "2023-10-25",
         episode = listOf("Episode 1", "Episode 2"),
         gender = "Male",
         id = 1,
         image = "https://example.com/character1.png",
-        characterLocation = characterLocation,
+        characterLocation = rickyMortyCharacterLocation,
         name = "Character Name",
-        characterOrigin = characterOrigin,
+        characterOrigin = rickyMortyCharacterOrigin,
         species = "Human",
         status = "Alive",
         type = "Main Character"
