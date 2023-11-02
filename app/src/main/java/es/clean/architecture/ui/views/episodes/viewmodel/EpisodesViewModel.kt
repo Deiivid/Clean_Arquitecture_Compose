@@ -3,8 +3,8 @@ package es.clean.architecture.ui.views.episodes.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import es.clean.architecture.domain.characters.models.episodes.RickyMortyEpisodesModel
-import es.clean.architecture.domain.characters.repository.episodes.AllEpisodesUseCase
+import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
+import es.clean.architecture.domain.episodes.repository.AllEpisodesUseCase
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

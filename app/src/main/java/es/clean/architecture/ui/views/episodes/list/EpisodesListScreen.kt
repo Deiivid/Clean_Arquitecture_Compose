@@ -30,7 +30,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.airbnb.lottie.compose.*
 import es.clean.architecture.R
-import es.clean.architecture.domain.characters.models.episodes.RickyMortyEpisodesModel
+import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.views.episodes.viewmodel.EpisodesViewModel
 
