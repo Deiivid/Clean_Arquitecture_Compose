@@ -1,7 +1,7 @@
 package es.clean.architecture.data.remote.episodes.mapper
 
 import es.clean.architecture.data.remote.episodes.models.RemoteEpisodesModel
-import es.clean.architecture.domain.characters.models.episodes.RickyMortyEpisodesModel
+import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 
 
 fun RemoteEpisodesModel.RemoteEpisode.toDomain(): RickyMortyEpisodesModel.Episode =

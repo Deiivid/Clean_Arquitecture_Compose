@@ -3,7 +3,7 @@ package es.clean.architecture.data.remote.episodes.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import es.clean.architecture.data.remote.episodes.repository.EpisodesRepository
-import es.clean.architecture.domain.characters.models.episodes.RickyMortyEpisodesModel
+import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import javax.inject.Inject
 
 open class EpisodePaging @Inject constructor(

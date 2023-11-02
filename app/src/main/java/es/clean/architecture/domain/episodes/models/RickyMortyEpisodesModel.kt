@@ -1,4 +1,4 @@
-package es.clean.architecture.domain.characters.models.episodes
+package es.clean.architecture.domain.episodes.models
 
 
 import android.os.Parcelable
