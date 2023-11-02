@@ -1,18 +1,18 @@
 package es.clean.architecture.ui.common.navigation.navgraph.main
 
+//import es.clean.architecture.ui.views.characters.CharactersListScreen
+
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.annotation.ExperimentalCoilApi
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
-//import es.clean.architecture.ui.views.characters.CharactersListScreen
 import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomBarScreen
 import es.clean.architecture.ui.common.navigation.routes.Routes
-
 import es.clean.architecture.ui.views.characters.screens.detail.CharacterDetailScreen
 import es.clean.architecture.ui.views.characters.screens.list.CharactersListScreen
-import es.clean.architecture.ui.views.episodes.EpisodesScreen
+import es.clean.architecture.ui.views.episodes.list.EpisodesListScreen
 import es.clean.architecture.ui.views.locations.LocationsScreen
 
 
@@ -44,7 +44,7 @@ fun MainNavGraph(navController: NavHostController) {
         //endregion [CHARACTERS]
 
         composable(route = BottomBarScreen.Episodes.route) {
-            EpisodesScreen()
+            EpisodesListScreen(navController = navController)
         }
         composable(route = BottomBarScreen.Locations.route) {
             LocationsScreen()

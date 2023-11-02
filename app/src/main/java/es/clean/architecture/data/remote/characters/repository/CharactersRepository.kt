@@ -1,4 +1,4 @@
-package es.clean.architecture.data.remote.characters.repository.intereface
+package es.clean.architecture.data.remote.characters.repository
 
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 
