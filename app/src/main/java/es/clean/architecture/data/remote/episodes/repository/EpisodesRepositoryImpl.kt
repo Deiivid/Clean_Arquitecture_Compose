@@ -1,7 +1,7 @@
 package es.clean.architecture.data.remote.episodes.repository
 
 import es.clean.architecture.data.remote.episodes.factory.RickAndMortyEpisodeFactory
-import es.clean.architecture.domain.characters.models.episodes.RickyMortyEpisodesModel
+import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import javax.inject.Inject
 import javax.inject.Singleton
 
