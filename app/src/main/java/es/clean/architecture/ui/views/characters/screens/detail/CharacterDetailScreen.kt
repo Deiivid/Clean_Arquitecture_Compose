@@ -37,13 +37,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import es.clean.architecture.domain.characters.models.character.RickyMortyCharacter
+import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
 
 @ExperimentalCoilApi
 @Composable
 fun CharacterDetailScreen(
-    character: RickyMortyCharacter.Character //We receive the data
+    rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyCharacter //We receive the data
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -62,7 +62,7 @@ fun CharacterDetailScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = rememberImagePainter(data = character.image),
+                    painter = rememberImagePainter(data = rickyMortyCharacter.image),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -121,7 +121,7 @@ fun CharacterDetailScreen(
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    character.name,
+                                    rickyMortyCharacter.name,
                                     style = MaterialTheme.typography.titleLarge,
                                     fontSize = 20.sp,
                                     textAlign = TextAlign.Center
@@ -153,7 +153,7 @@ fun CharacterDetailScreen(
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    character.gender,
+                                    rickyMortyCharacter.gender,
                                     style = MaterialTheme.typography.titleLarge,
                                     fontSize = 20.sp,
                                     textAlign = TextAlign.Center
@@ -184,7 +184,7 @@ fun CharacterDetailScreen(
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    character.species,
+                                    rickyMortyCharacter.species,
                                     style = MaterialTheme.typography.titleLarge,
                                     fontSize = 20.sp,
                                     textAlign = TextAlign.Center
@@ -208,7 +208,7 @@ fun CharacterDetailScreen(
                                 verticalAlignment = CenterVertically,
                                 horizontalArrangement = Arrangement.Center
                             ) {
-                                val iconColor = if (character.status != "Alive") {
+                                val iconColor = if (rickyMortyCharacter.status != "Alive") {
                                     Color.Red
                                 } else {
                                     Color.Black
@@ -220,7 +220,7 @@ fun CharacterDetailScreen(
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    character.status,
+                                    rickyMortyCharacter.status,
                                     style = MaterialTheme.typography.titleLarge,
                                     fontSize = 20.sp,
                                     textAlign = TextAlign.Center
@@ -240,5 +240,5 @@ fun CharacterDetailScreen(
 @Composable
 fun CharacterDetailScreenPreview() {
     val character = createCharacterResult()
-    CharacterDetailScreen(character = character)
+    CharacterDetailScreen(rickyMortyCharacter = character)
 }

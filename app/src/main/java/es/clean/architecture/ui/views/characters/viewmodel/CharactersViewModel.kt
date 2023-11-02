@@ -1,24 +1,6 @@
 package es.clean.architecture.ui.views.characters.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import dagger.hilt.android.lifecycle.HiltViewModel
-import es.clean.architecture.domain.characters.CharacterUseCase
-import es.clean.architecture.domain.characters.models.character.RickyMortyCharacter
-import es.clean.architecture.ui.common.states.ResourceState
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.update
-import javax.inject.Inject
-
-@HiltViewModel
+/*@HiltViewModel
 class CharactersViewModel @Inject constructor(
     private val getCharacterUseCase: CharacterUseCase
 ) : ViewModel() {
@@ -26,7 +8,7 @@ class CharactersViewModel @Inject constructor(
     val charactersSearched: StateFlow<ResourceState<*>>
         get() = _charactersSearched
 
-    fun fetchCharacters(): Flow<PagingData<RickyMortyCharacter.Character>> {
+    fun fetchCharacters(): Flow<PagingData<RickyMortyCharacterModel.RickyMortyCharacter>> {
         return getCharacterUseCase()
             .catch { error ->
                 _charactersSearched.update { ResourceState.Error(error) }
@@ -42,4 +24,4 @@ class CharactersViewModel @Inject constructor(
             .cachedIn(viewModelScope)
     }
 }
-
+*/

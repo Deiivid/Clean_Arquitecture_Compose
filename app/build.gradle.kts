@@ -26,7 +26,7 @@ android {
         getByName(libs.versions.buildTypeNameRelease.get()) {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile( libs.versions.proguardOptimmize.get()),
+                getDefaultProguardFile( libs.versions.proguardOptimize.get()),
                 libs.versions.proguardRule.get()
             )
         }
