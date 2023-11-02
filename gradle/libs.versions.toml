@@ -37,7 +37,7 @@ junitVersion = "4.13.2"
 androidxTextExtJunitVersion = "1.1.5"
 androidxTestEspressoCoreVersion = "3.5.1"
 espresso-core = "3.5.1"
-mockkVersion = "1.12.0"
+mockkVersion = "1.13.5"
 #endregion
 
 #region [ANDROIDX]
@@ -62,8 +62,8 @@ kotlinxCoroutinestestVersion = "1.7.3"
 
 #region [DAGGER - HILT]
 hilt = "2.48"
-hiltExt = "1.0.0"
-androidxHiltNavigationCompose = "1.0.0"
+hiltExt = "1.1.0"
+androidxHiltNavigationCompose = "1.1.0"
 #endregion
 
 #region [COIL]
@@ -75,7 +75,7 @@ kspVersion = "1.9.0-1.0.13"
 #endregion
 
 #region [LOTTIE]
-lottieVersion = "6.0.1"
+lottieVersion = "6.1.0"
 #endregion
 agp = "8.1.2"
 core-ktx = "1.9.0"
@@ -108,6 +108,8 @@ navigationCompose = { module = "androidx.navigation:navigation-compose", version
 
 #region [MATERIAL 3]
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
+androidx-compose-material3 = { group = "androidx.wear.compose", name = "compose-material3", version = "1.0.0-alpha14" }
+
 #endregion
 
 #region [TESTING]
@@ -137,15 +139,24 @@ coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", vers
 coilCompose = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
 #endregion
 
-#region [LOTTIE]
-lottieCompose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieVersion" }
-androidx-compose-material3 = { group = "androidx.wear.compose", name = "compose-material3", version = "1.0.0-alpha14" }
+#region [CONSTRAINT LAYOUT]
 androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version = "1.0.1" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.1.4" }
+#endregion
+
+#region [PAGING - 3]
 androidx-paging-common-ktx = { group = "androidx.paging", name = "paging-common-ktx", version = "3.2.1" }
 androidx-paging-runtime-ktx = { group = "androidx.paging", name = "paging-runtime-ktx", version = "3.2.1" }
 androidx-paging-compose-ktx = { group = "androidx.paging", name = "paging-compose", version = "3.2.1" }
-androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.1.4" }
+#endregion
+
+#region [LOTTIE]
+lottieCompose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieVersion" }
+
 #endregion [LOTTIE]
+
+
+
 [plugins]
 #region [DAGGER - HILT]
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

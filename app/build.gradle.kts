@@ -49,6 +49,7 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packaging {
+
         resources {
             excludes.addAll(
                 listOf(
@@ -57,8 +58,9 @@ android {
                     "META-INF/ASL2.0",
                     "META-INF/NOTICE",
                     "META-INF/LICENSE",
-                    "META-INF/gradle/incremental.annotation.processors"
-
+                    "META-INF/gradle/incremental.annotation.processors",
+                    "META-INF/LICENSE.md",
+                    "META-INF/LICENSE-notice.md"
                 )
             )
         }

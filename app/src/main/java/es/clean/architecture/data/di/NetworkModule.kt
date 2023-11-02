@@ -7,7 +7,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import es.clean.architecture.data.common.BASE_URL
 import es.clean.architecture.data.remote.characters.datastore.RemoteCharacterDataStoreImpl
-import es.clean.architecture.data.remote.characters.interfaces.CharactersDataStore
 import es.clean.architecture.data.remote.characters.repository.CharactersRepository
 import es.clean.architecture.data.service.RickyMortyService
 import okhttp3.OkHttpClient
