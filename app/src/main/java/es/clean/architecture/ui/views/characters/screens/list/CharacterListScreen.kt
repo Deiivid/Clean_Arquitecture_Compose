@@ -6,15 +6,25 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,72 +32,109 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
+import androidx.paging.compose.itemKey
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.airbnb.lottie.compose.*
 import es.clean.architecture.R
-import es.clean.architecture.domain.characters.models.character.RickyMortyCharacter
+import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
 import es.clean.architecture.ui.common.navigation.routes.Routes
-import es.clean.architecture.ui.common.states.ResourceState
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharactersListScreen(
     navController: NavHostController,
     charactersViewModel: CharactersViewModel = hiltViewModel(),
 ) {
-    val charactersState by charactersViewModel.charactersSearched.collectAsState()
+    val characters = charactersViewModel.allCharacters.collectAsLazyPagingItems()
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    var isSearching by remember {
+        mutableStateOf(false)
+    }
+    var searchString by remember {
+        mutableStateOf("")
+    }
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            CenterAlignedTopAppBar(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                title = {
+                    if (!isSearching) {
+                        Text(
+                            text = stringResource(id = R.string.app_name),
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
+                    } else {
+                        /*TextField(
+                            modifier = Modifier
+                                .padding(end = 12.dp)
+                                .fillMaxWidth(),
+                            value = searchString,
+                            onValueChange = { newSearchString ->
+                                searchString = newSearchString
+                            },
+                            label = { Text("Cadena de Búsqueda") },
+                            maxLines = 1
+                        )*/
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
+               /* actions = {
+                    IconButton(onClick = { isSearching = !isSearching }) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
+                }*/
+            )
+        }
+    ) { paddingValues ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
+            items(
+                count = characters.itemCount,
+                key = characters.itemKey { character -> character.id }
+            ) { characterIndex ->
+                characters[characterIndex]?.let { item ->
+                    CharacterItem(
+                        character = item,
+                    ) { currentCharacter ->
 
-    when (charactersState) {
-        is ResourceState.Success -> {
-            val lazyPagingItems = charactersViewModel.fetchCharacters().collectAsLazyPagingItems()
-
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(16.dp)
-            ) {
-                items(lazyPagingItems) { item ->
-                    CharacterItem(character = item!!, onItemClick = { character ->
-                        //We send item to onClick
                         navController.currentBackStackEntry?.savedStateHandle?.set(
                             "character",
-                            value = character
+                            value = currentCharacter
                         )
                         navController.navigate(Routes.CharacterDetailScreen.route)
-                    })
+
+                        /* scope.launch {
+                             withContext(Dispatchers.Main){
+                                 Toast.makeText(context, "Personaje: ${currentCharacter.name}", Toast.LENGTH_LONG).show()
+                             }
+                         }
+                     }*/
+                    }
                 }
             }
         }
-
-        is ResourceState.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                LottieProgressBar()
-            }
-        }
-
-        is ResourceState.Error -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                LottieErrorState()
-            }
-        }
-
-        else -> {}
     }
 }
+
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun CharacterItem(
-    character: RickyMortyCharacter.Character,
-    onItemClick: (character: RickyMortyCharacter.Character) -> Unit
+    character: RickyMortyCharacterModel.RickyMortyCharacter,
+    onItemClick: (rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyCharacter) -> Unit
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
@@ -101,7 +148,7 @@ fun CharacterItem(
         shadowElevation = 10.dp
     ) {
         Row(
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(bottom = 14.dp, top = 8.dp, start = 8.dp, end = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
@@ -218,6 +265,6 @@ fun LottieErrorState() {
 @Composable
 fun CharacterListScreenPreview() {
     val character = listOf(createCharacterResult())
-    val onItemClick: (RickyMortyCharacter.Character) -> Unit = { }
+    val onItemClick: (RickyMortyCharacterModel.RickyMortyCharacter) -> Unit = { }
 //    CharacterItem(items = character, onItemClick = onItemClick)
 }
