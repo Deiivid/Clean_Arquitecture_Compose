@@ -1,4 +1,4 @@
-package es.clean.architecture.data.characters.remote.models
+package es.clean.architecture.data.remote.characters.models
 
 import android.os.Parcelable
 import androidx.annotation.Keep
@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 
 @Keep
-data class RemoteRickyMortyCharacter(
+data class RemoteRickyMortyCharacterModel(
     @SerializedName("info")
     val info: RemoteInfo,
     @SerializedName("results")
