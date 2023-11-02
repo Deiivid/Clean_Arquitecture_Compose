@@ -7,7 +7,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import es.clean.architecture.data.common.BASE_URL
 import es.clean.architecture.data.remote.characters.datastore.RemoteCharacterDataStoreImpl
-import es.clean.architecture.data.remote.characters.repository.intereface.CharactersRepository
+import es.clean.architecture.data.remote.characters.repository.CharactersRepository
+import es.clean.architecture.data.remote.episodes.datastore.RemoteEpisodesDataStoreImpl
+import es.clean.architecture.data.remote.episodes.repository.EpisodesRepository
 import es.clean.architecture.data.service.RickyMortyService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -44,4 +46,9 @@ object NetworkModule {
         return RemoteCharacterDataStoreImpl(remoteService)
     }
 
+    @Provides
+    @Singleton
+    fun provideEpisodesRepository(remoteService: RickyMortyService): EpisodesRepository {
+        return RemoteEpisodesDataStoreImpl(remoteService)
+    }
 }
