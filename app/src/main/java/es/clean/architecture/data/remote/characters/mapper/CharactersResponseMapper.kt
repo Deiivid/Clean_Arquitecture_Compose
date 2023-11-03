@@ -1,7 +1,7 @@
 package es.clean.architecture.data.remote.characters.mapper
 
 import es.clean.architecture.data.remote.characters.models.RemoteCharacter
-import es.clean.architecture.data.remote.characters.models.RemoteLocation
+import es.clean.architecture.data.remote.characters.models.RemoteCharacterLocation
 import es.clean.architecture.data.remote.characters.models.RemoteOrigin
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 
@@ -13,7 +13,7 @@ fun RemoteCharacter.toDomain(): RickyMortyCharacterModel.RickyMortyCharacter =
         gender = this.gender,
         id = this.id,
         image = this.image,
-        characterLocation = this.remoteLocation.toDomain(),
+        characterLocation = this.remoteCharacterLocation.toDomain(),
         name = this.name,
         characterOrigin = this.remoteOrigin.toDomain(),
         species = this.species,
@@ -22,7 +22,7 @@ fun RemoteCharacter.toDomain(): RickyMortyCharacterModel.RickyMortyCharacter =
 
     )
 
-fun RemoteLocation.toDomain(): RickyMortyCharacterModel.RickyMortyCharacter.CharacterLocation =
+fun RemoteCharacterLocation.toDomain(): RickyMortyCharacterModel.RickyMortyCharacter.CharacterLocation =
     RickyMortyCharacterModel.RickyMortyCharacter.CharacterLocation(
         name = this.name,
         url = this.url
