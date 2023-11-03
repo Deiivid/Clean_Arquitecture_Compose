@@ -26,7 +26,7 @@ sealed class BottomBarScreen(
     )
 
     data object Locations : BottomBarScreen(
-        route = "LOCATIONS",
+        route = Routes.LocationListScreen.route,
         title = "LOCATIONS",
         icon = Icons.Default.Explore
     )
