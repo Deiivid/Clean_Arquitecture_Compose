@@ -1,5 +1,6 @@
 package es.clean.architecture.ui.views.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.*
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import es.clean.architecture.ui.common.navigation.navgraph.main.MainNavGraph
 import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomBarScreen
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavHostController = rememberNavController()) {

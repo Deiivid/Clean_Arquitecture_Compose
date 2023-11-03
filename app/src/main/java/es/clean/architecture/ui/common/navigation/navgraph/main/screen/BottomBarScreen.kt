@@ -20,7 +20,7 @@ sealed class BottomBarScreen(
     )
 
     data object Episodes : BottomBarScreen(
-        route = "EPISODES",
+        route = Routes.EpisodeListScreen.route,
         title = "EPISODES",
         icon = Icons.Default.RocketLaunch
     )
