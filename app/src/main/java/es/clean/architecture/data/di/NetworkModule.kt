@@ -10,6 +10,8 @@ import es.clean.architecture.data.remote.characters.datastore.RemoteCharacterDat
 import es.clean.architecture.data.remote.characters.repository.CharactersRepository
 import es.clean.architecture.data.remote.episodes.datastore.RemoteEpisodesDataStoreImpl
 import es.clean.architecture.data.remote.episodes.repository.EpisodesRepository
+import es.clean.architecture.data.remote.locations.datastore.RemoteLocationsDataStoreImpl
+import es.clean.architecture.data.remote.locations.repository.LocationsRepository
 import es.clean.architecture.data.service.RickyMortyService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -50,5 +52,11 @@ object NetworkModule {
     @Singleton
     fun provideEpisodesRepository(remoteService: RickyMortyService): EpisodesRepository {
         return RemoteEpisodesDataStoreImpl(remoteService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationRepository(remoteService: RickyMortyService): LocationsRepository {
+        return RemoteLocationsDataStoreImpl(remoteService)
     }
 }

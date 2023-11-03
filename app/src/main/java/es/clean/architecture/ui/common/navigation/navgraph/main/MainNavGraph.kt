@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import coil.annotation.ExperimentalCoilApi
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
+import es.clean.architecture.domain.locations.models.RickyMortyLocationsModel
 import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomBarScreen
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.views.characters.screens.detail.CharacterDetailScreen
@@ -69,7 +70,7 @@ fun MainNavGraph(navController: NavHostController) {
         }
         composable(route = Routes.LocationDetailScreen.route) {
             val result =
-                navController.previousBackStackEntry?.savedStateHandle?.get<RickyMortyEpisodesModel.Episode>(
+                navController.previousBackStackEntry?.savedStateHandle?.get<RickyMortyLocationsModel.Location>(
                     LOCATION_OBJECT
                 )
             result?.let {
