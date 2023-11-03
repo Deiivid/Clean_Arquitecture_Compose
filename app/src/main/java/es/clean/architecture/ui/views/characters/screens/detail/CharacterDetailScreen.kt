@@ -36,6 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
@@ -62,7 +63,7 @@ fun CharacterDetailScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = rememberImagePainter(data = rickyMortyCharacter.image),
+                    painter = rememberAsyncImagePainter(model = rickyMortyCharacter.image),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
