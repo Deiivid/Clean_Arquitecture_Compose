@@ -32,17 +32,20 @@ import com.airbnb.lottie.compose.*
 import es.clean.architecture.R
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import es.clean.architecture.domain.episodes.models.createEpisodesResult
+import es.clean.architecture.domain.locations.models.RickyMortyLocationsModel
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.common.EPISODE_OBJECT
+import es.clean.architecture.ui.common.LOCATION_OBJECT
 import es.clean.architecture.ui.views.episodes.viewmodel.EpisodesViewModel
+import es.clean.architecture.ui.views.locations.viewmodel.LocationsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LocationsListScreen(
     navController: NavHostController,
-    episodesViewModel: EpisodesViewModel = hiltViewModel(),
+    locationsViewModel: LocationsViewModel = hiltViewModel(),
 ) {
-    val characters = episodesViewModel.allEpisodes.collectAsLazyPagingItems()
+    val characters = locationsViewModel.allLocations.collectAsLazyPagingItems()
     /* val scope = rememberCoroutineScope()
      val context = LocalContext.current
     */
@@ -52,11 +55,11 @@ fun LocationsListScreen(
     // var searchString by remember {
     //   mutableStateOf("")
     //}
-    val episodes: LazyPagingItems<RickyMortyEpisodesModel.Episode> =
-        episodesViewModel.allEpisodes.collectAsLazyPagingItems()
+    val locations: LazyPagingItems<RickyMortyLocationsModel.Location> =
+        locationsViewModel.allLocations.collectAsLazyPagingItems()
 
 
-    when (episodes.loadState.refresh) {
+    when (locations.loadState.refresh) {
         is LoadState.Loading -> {
             // Mostrar animación de carga
             LottieProgressBar()
@@ -109,19 +112,19 @@ fun LocationsListScreen(
                         .padding(paddingValues)
                 ) {
                     items(
-                        count = episodes.itemCount,
-                        key = episodes.itemKey { episode -> episode.id }
-                    ) { episodesIndex ->
-                        episodes[episodesIndex]?.let { item ->
-                            EpisodesItem(
-                                episodes = item,
-                            ) { currentEpisode ->
+                        count = locations.itemCount,
+                        key = locations.itemKey { location -> location.id }
+                    ) { locationsIndex ->
+                        locations[locationsIndex]?.let { item ->
+                            LocationItem(
+                                locations = item,
+                            ) { currentLocation ->
 
                                 navController.currentBackStackEntry?.savedStateHandle?.set(
-                                    EPISODE_OBJECT,
-                                    value = currentEpisode
+                                    LOCATION_OBJECT,
+                                    value = currentLocation
                                 )
-                                navController.navigate(Routes.EpisodeDetailScreen.route)
+                                navController.navigate(Routes.LocationDetailScreen.route)
 
                                 /* scope.launch {
                                      withContext(Dispatchers.Main){
@@ -145,16 +148,16 @@ fun LocationsListScreen(
 
 
 @Composable
-fun EpisodesItem(
-    episodes: RickyMortyEpisodesModel.Episode,
-    onItemClick: (rickyMortyEpisode: RickyMortyEpisodesModel.Episode) -> Unit
+fun LocationItem(
+    locations: RickyMortyLocationsModel.Location,
+    onItemClick: (rickyMortyLocation: RickyMortyLocationsModel.Location) -> Unit
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
         color = Color(0xFFDAE1E7),
         modifier = Modifier
             .clickable {
-                onItemClick(episodes)
+                onItemClick(locations)
             }
             .height(165.dp)
             .padding(10.dp),
@@ -176,7 +179,7 @@ fun EpisodesItem(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = episodes.name,
+                        text = locations.name,
                         fontSize = 12.sp,
                         style = MaterialTheme.typography.titleLarge,
                         modifier = Modifier
@@ -189,7 +192,7 @@ fun EpisodesItem(
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = episodes.name,
+                    text = locations.name,
                     fontSize = 20.sp,
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold
@@ -197,13 +200,13 @@ fun EpisodesItem(
 
                 Spacer(modifier = Modifier.height(2.dp))
 
-                Text(text = episodes.airDate)
+                Text(text = locations.name)
 
                 Spacer(modifier = Modifier.height(2.dp))
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = episodes.url,
+                        text = locations.url,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.SemiBold,
                         style = MaterialTheme.typography.titleMedium
@@ -249,6 +252,6 @@ fun LottieErrorState() {
 fun CharacterListScreenPreview() {
     val character = createEpisodesResult()
     val onItemClick: (RickyMortyEpisodesModel.Episode) -> Unit = { }
-    EpisodesItem(episodes = character, onItemClick = onItemClick)
+    //LocationItem(episodes = character, onItemClick = onItemClick)
 
 }
