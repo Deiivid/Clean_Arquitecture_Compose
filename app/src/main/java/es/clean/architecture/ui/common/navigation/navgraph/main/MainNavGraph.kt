@@ -8,10 +8,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.annotation.ExperimentalCoilApi
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
+import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomBarScreen
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.views.characters.screens.detail.CharacterDetailScreen
 import es.clean.architecture.ui.views.characters.screens.list.CharactersListScreen
+import es.clean.architecture.ui.common.CHARACTER_OBJECT
+import es.clean.architecture.ui.common.EPISODE_OBJECT
+import es.clean.architecture.ui.common.LOCATION_OBJECT
+import es.clean.architecture.ui.views.episodes.detail.EpisodeDetailScreen
 import es.clean.architecture.ui.views.episodes.list.EpisodesListScreen
 import es.clean.architecture.ui.views.locations.LocationsScreen
 
@@ -24,10 +29,9 @@ fun MainNavGraph(navController: NavHostController) {
         startDestination = Routes.CharacterList.route
     ) {
         //region [CHARACTERS]
-        composable(route = Routes.CharacterList.route) {
+            composable(route = BottomBarScreen.Characters.route) {
             CharactersListScreen(navController = navController)
         }
-        //charactersNavGraph(navController = navController)
         /**
          * To pass data we need first start with parcelable, set this in the gradle.app plugin section
          * and then be careful in the screen use currentBackStackEntry and here previousBackStackEntry
@@ -35,7 +39,7 @@ fun MainNavGraph(navController: NavHostController) {
         composable(route = Routes.CharacterDetailScreen.route) {
             val result =
                 navController.previousBackStackEntry?.savedStateHandle?.get<RickyMortyCharacterModel.RickyMortyCharacter>(
-                    "character"
+                    CHARACTER_OBJECT
                 )
             result?.let {
                 CharacterDetailScreen(rickyMortyCharacter = it)
@@ -43,12 +47,37 @@ fun MainNavGraph(navController: NavHostController) {
         }
         //endregion [CHARACTERS]
 
+        //region [EPISODES]
+
         composable(route = BottomBarScreen.Episodes.route) {
             EpisodesListScreen(navController = navController)
         }
+
+        composable(route = Routes.EpisodeDetailScreen.route) {
+            val result =
+                navController.previousBackStackEntry?.savedStateHandle?.get<RickyMortyEpisodesModel.Episode>(
+                    EPISODE_OBJECT
+                )
+            result?.let {
+                EpisodeDetailScreen(rickyMortyEpisode = it)
+            }
+        }
+        //endregion [EPISODES]
+        //region [LOCATIONS]
         composable(route = BottomBarScreen.Locations.route) {
             LocationsScreen()
         }
+        composable(route = Routes.LocationDetailScreen.route) {
+            val result =
+                navController.previousBackStackEntry?.savedStateHandle?.get<RickyMortyEpisodesModel.Episode>(
+                    LOCATION_OBJECT
+                )
+            result?.let {
+              //  LocationDetailScreen(rickyMortyLocation = it)
+            }
+        }
+        //endregion [LOCATIONS]
+
     }
 }
 
@@ -81,3 +110,4 @@ sealed class DetailsScreen(val route: String) {
     object Overview : DetailsScreen(route = "OVERVIEW")
 }
 */
+

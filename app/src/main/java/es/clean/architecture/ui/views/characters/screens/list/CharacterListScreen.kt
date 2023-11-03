@@ -37,6 +37,7 @@ import es.clean.architecture.domain.characters.models.character.RickyMortyCharac
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
+import es.clean.architecture.ui.common.CHARACTER_OBJECT
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -120,7 +121,7 @@ fun CharactersListScreen(
                             ) { currentCharacter ->
 
                                 navController.currentBackStackEntry?.savedStateHandle?.set(
-                                    "character",
+                                    CHARACTER_OBJECT,
                                     value = currentCharacter
                                 )
                                 navController.navigate(Routes.CharacterDetailScreen.route)

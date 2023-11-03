@@ -42,7 +42,7 @@ data class RemoteCharacter(
     @SerializedName("image")
     val image: String,
     @SerializedName("location")
-    val remoteLocation: RemoteLocation,
+    val remoteCharacterLocation: RemoteCharacterLocation,
     @SerializedName("name")
     val name: String,
     @SerializedName("origin")
@@ -57,7 +57,7 @@ data class RemoteCharacter(
 
 @Keep
 @Parcelize
-data class RemoteLocation(
+data class RemoteCharacterLocation(
     @SerializedName("name")
     val name: String,
     @SerializedName("url")
