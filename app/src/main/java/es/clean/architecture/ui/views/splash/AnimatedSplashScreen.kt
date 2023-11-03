@@ -16,7 +16,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import es.clean.architecture.R
-import es.clean.architecture.ui.common.navigation.navgraph.root.Graph
+import es.clean.architecture.ui.common.MAIN
 import kotlinx.coroutines.delay
 
 @Composable
@@ -29,7 +29,7 @@ fun AnimatedSplashScreen(navController: NavHostController) {
         navController.popBackStack() // to get back and don't show error
         //  navController.navigate(Routes.HomeScreen.route)
         // navController.navigate(Routes.CharacterList.route)
-        navController.navigate(Graph.MAIN)
+        navController.navigate(MAIN)
     }
     LottieSplashScreen()
 }

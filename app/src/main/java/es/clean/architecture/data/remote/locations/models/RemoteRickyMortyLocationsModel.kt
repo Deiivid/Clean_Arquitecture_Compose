@@ -1,17 +1,15 @@
-package es.clean.architecture.data.remote.episodes.models
-
+package es.clean.architecture.data.remote.locations.models
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-
 @Parcelize
-data class RemoteEpisodesModel(
+data class RemoteRickyMortyLocationsModel(
     @SerializedName("info")
     val info: Info,
     @SerializedName("results")
-    val results: List<RemoteEpisode>
-) : Parcelable {
+    val results: List<RemoteLocation>
+): Parcelable {
     @Parcelize
     data class Info(
         @SerializedName("count")
@@ -22,23 +20,22 @@ data class RemoteEpisodesModel(
         val pages: Int,
         @SerializedName("prev")
         val prev: String
-    ) : Parcelable
-
+    ): Parcelable
     @Parcelize
-    data class RemoteEpisode(
-        @SerializedName("air_date")
-        val airDate: String,
-        @SerializedName("characters")
-        val characters: List<String>,
+    data class RemoteLocation(
         @SerializedName("created")
         val created: String,
-        @SerializedName("episode")
-        val episode: String,
+        @SerializedName("dimension")
+        val dimension: String,
         @SerializedName("id")
         val id: Int,
         @SerializedName("name")
         val name: String,
+        @SerializedName("residents")
+        val residents: List<String>,
+        @SerializedName("type")
+        val type: String,
         @SerializedName("url")
         val url: String
-    ) : Parcelable
+    ): Parcelable
 }
