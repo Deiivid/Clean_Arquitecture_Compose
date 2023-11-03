@@ -31,7 +31,9 @@ import androidx.paging.compose.itemKey
 import com.airbnb.lottie.compose.*
 import es.clean.architecture.R
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
+import es.clean.architecture.domain.episodes.models.createEpisodesResult
 import es.clean.architecture.ui.common.navigation.routes.Routes
+import es.clean.architecture.ui.common.EPISODE_OBJECT
 import es.clean.architecture.ui.views.episodes.viewmodel.EpisodesViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -107,19 +109,19 @@ fun EpisodesListScreen(
                         .padding(paddingValues)
                 ) {
                     items(
-                        count = characters.itemCount,
-                        key = characters.itemKey { character -> character.id }
-                    ) { characterIndex ->
-                        characters[characterIndex]?.let { item ->
+                        count = episodes.itemCount,
+                        key = episodes.itemKey { episode -> episode.id }
+                    ) { episodesIndex ->
+                        episodes[episodesIndex]?.let { item ->
                             EpisodesItem(
                                 episodes = item,
-                            ) { currentCharacter ->
+                            ) { currentEpisode ->
 
                                 navController.currentBackStackEntry?.savedStateHandle?.set(
-                                    "character",
-                                    value = currentCharacter
+                                    EPISODE_OBJECT,
+                                    value = currentEpisode
                                 )
-                                navController.navigate(Routes.CharacterDetailScreen.route)
+                                navController.navigate(Routes.EpisodeDetailScreen.route)
 
                                 /* scope.launch {
                                      withContext(Dispatchers.Main){
@@ -245,8 +247,8 @@ fun LottieErrorState() {
 @Preview
 @Composable
 fun CharacterListScreenPreview() {
-    /*val character = createCharacterResult()
-    val onItemClick: (RickyMortyCharacterModel.RickyMortyCharacter) -> Unit = { }
-    EpisodesItem(episodes = , onItemClick = )
-*/
+    val character = createEpisodesResult()
+    val onItemClick: (RickyMortyEpisodesModel.Episode) -> Unit = { }
+    EpisodesItem(episodes = character, onItemClick = onItemClick)
+
 }
