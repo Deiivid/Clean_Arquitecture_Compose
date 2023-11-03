@@ -1,10 +1,10 @@
 package es.clean.architecture.data.remote.episodes.mapper
 
-import es.clean.architecture.data.remote.episodes.models.RemoteEpisodesModel
+import es.clean.architecture.data.remote.episodes.models.RemoteRickyMortyEpisodesModel
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 
 
-fun RemoteEpisodesModel.RemoteEpisode.toDomain(): RickyMortyEpisodesModel.Episode =
+fun RemoteRickyMortyEpisodesModel.RemoteEpisode.toDomain(): RickyMortyEpisodesModel.Episode =
     RickyMortyEpisodesModel.Episode(
         airDate = this.created,
         characters = this.characters,
