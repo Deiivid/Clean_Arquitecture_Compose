@@ -8,24 +8,24 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import es.clean.architecture.ui.common.navigation.routes.Routes
 
 
-sealed class BottomBarScreen(
+sealed class BottomNavigationBar(
     val route: String,
     val title: String,
     val icon: ImageVector
 ) {
-    data object Characters : BottomBarScreen(
+    data object Characters : BottomNavigationBar(
         route = Routes.CharacterList.route,
         title = "CHARACTERS",
         icon = Icons.Rounded.Stars
     )
 
-    data object Episodes : BottomBarScreen(
+    data object Episodes : BottomNavigationBar(
         route = Routes.EpisodeListScreen.route,
         title = "EPISODES",
         icon = Icons.Default.RocketLaunch
     )
 
-    data object Locations : BottomBarScreen(
+    data object Locations : BottomNavigationBar(
         route = Routes.LocationListScreen.route,
         title = "LOCATIONS",
         icon = Icons.Default.Explore
