@@ -18,7 +18,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import es.clean.architecture.ui.common.navigation.navgraph.main.MainNavGraph
-import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomBarScreen
+import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomNavigationBar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,9 +34,9 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
 @Composable
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
-        BottomBarScreen.Characters,
-        BottomBarScreen.Episodes,
-        BottomBarScreen.Locations,
+        BottomNavigationBar.Characters,
+        BottomNavigationBar.Episodes,
+        BottomNavigationBar.Locations,
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -57,7 +57,7 @@ fun BottomBar(navController: NavHostController) {
 
 @Composable
 fun RowScope.AddItem(
-    screen: BottomBarScreen,
+    screen: BottomNavigationBar,
     currentDestination: NavDestination?,
     navController: NavHostController
 ) {
