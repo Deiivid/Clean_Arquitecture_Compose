@@ -1,237 +1,227 @@
 package es.clean.architecture.ui.views.characters.screens.detail
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.GraphicEq
-import androidx.compose.material.icons.filled.LocalHospital
-import androidx.compose.material.icons.outlined.DarkMode
-import androidx.compose.material.icons.outlined.EmojiPeople
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import es.clean.architecture.R
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
 
-@ExperimentalCoilApi
+class CutCornersShapeCustom(private val bigCut: Dp) : Shape {
+    override fun createOutline(
+        size: androidx.compose.ui.geometry.Size,
+        layoutDirection: LayoutDirection,
+        density: Density
+    ): Outline {
+        val bigCutSize = bigCut.toPx(size.width, density)
+        val path = Path().apply {
+            // Draw the top edge to the top right corner with a big cut
+            lineTo(size.width - bigCutSize, 0f)
+            lineTo(size.width, bigCutSize)
+            // Draw the right edge to the bottom right corner
+            lineTo(size.width, size.height)
+            // Draw the bottom edge to the bottom left corner with a big cut
+            lineTo(bigCutSize, size.height)
+            lineTo(0f, size.height - bigCutSize)
+            // Close the path by connecting back to the start
+            close()
+        }
+        return Outline.Generic(path)
+    }
+
+}
+
+// Extension function to easily convert Dp to Px
+private fun Dp.toPx(width: Float, density: Density): Float = this.value * density.density
+
 @Composable
-fun CharacterDetailScreen(
-    rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyCharacter //We receive the data
-) {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background,
+fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyCharacter) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(colorResource(id = R.color.app_background))
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Top
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 55.dp, bottom = 55.dp, start = 24.dp, end = 24.dp)
+                .background(
+                    color = colorResource(id = R.color.card_border), // Define el color de tu borde aquí
+                    shape = CutCornersShapeCustom(40.dp)
+                )
+                .clip(
+                    CutCornerShape(
+                        topStart = 40.dp,
+                        bottomEnd = 40.dp
+                    )
+                )
+                .padding(2.dp) // Este será el grosor de tu borde regular
+                .background(
+                    color = colorResource(
+                        R.color.card_background
+                    ), // El color del fondo de tu tarjeta
+                    shape = CutCornersShapeCustom(40.dp)
+                )
+                .padding(16.dp) // Este es el padding interno
         ) {
-            Box(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(400.dp)
-                    .clip(RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp))
-                    .background(Color.LightGray),
-                contentAlignment = Alignment.Center
+                    .padding(start = 5.dp)
             ) {
-                Image(
-                    painter = rememberAsyncImagePainter(model = rickyMortyCharacter.image),
-                    contentDescription = null,
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    val (statusIcon, statusTint) = getStatusIconWithTint(rickyMortyCharacter.status)
+                    Icon(
+                        modifier = Modifier
+                            .height(35.dp)
+                            .width(40.dp)
+                            .padding(start = 4.dp, end = 6.dp),
+                        painter = painterResource(id = statusIcon),
+                        contentDescription = "Status Icon",
+                        tint = statusTint
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = rickyMortyCharacter.status,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                        fontSize = 22.sp
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(rickyMortyCharacter.image)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = rickyMortyCharacter.image,
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 1.dp)
-                        .background(Color.White)
-                )
-                /*Image(
-                    painter = painterResource(R.drawable.test_image),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 1.dp)
-                        .background(Color.White)
-                )*/
-            }
-
-            Column(
-                modifier = Modifier.padding(16.dp),
-            ) {
-                Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(Color.Transparent)
-                        .shadow(elevation = 4.dp),
-                    contentAlignment = Alignment.Center
+                        .height(350.dp)
+                        .clip(CutCornerShape(16.dp))
+                        .align(Alignment.CenterHorizontally)
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Text(
+                    text = rickyMortyCharacter.name,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 28.sp
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                EpisodesGrid(rickyMortyCharacter.episode)
+
+                Spacer(modifier = Modifier.height(12.dp))
+                HorizontalDivider(thickness = 1.dp, color = Color.White)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Column(
-                        modifier = Modifier.padding(16.dp)
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(6.dp))
-                                .shadow(elevation = 2.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(60.dp)
-                                    .padding(6.dp),
-                                verticalAlignment = CenterVertically,
-                                horizontalArrangement = Arrangement.Center
-
-                            ) {
-                                Icon(
-                                    modifier = Modifier
-                                        .fillMaxHeight()
-                                        .align(CenterVertically),
-                                    imageVector = Icons.Outlined.DarkMode,
-                                    contentDescription = null,
-                                    tint = Color.Black,
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(
-                                    rickyMortyCharacter.name,
-                                    style = MaterialTheme.typography.titleLarge,
-                                    fontSize = 20.sp,
-                                    textAlign = TextAlign.Center
-
-                                )
-                            }
-                        }
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(6.dp))
-                                .shadow(elevation = 2.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(60.dp)
-                                    .padding(6.dp),
-                                verticalAlignment = CenterVertically,
-                                horizontalArrangement = Arrangement.Center
-
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Outlined.EmojiPeople,
-                                    contentDescription = null,
-                                    tint = Color.Black
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(
-                                    rickyMortyCharacter.gender,
-                                    style = MaterialTheme.typography.titleLarge,
-                                    fontSize = 20.sp,
-                                    textAlign = TextAlign.Center
-
-                                )
-                            }
-                        }
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(6.dp))
-                                .shadow(elevation = 2.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(60.dp)
-                                    .padding(6.dp),
-                                verticalAlignment = CenterVertically,
-                                horizontalArrangement = Arrangement.Center
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.GraphicEq,
-                                    contentDescription = null,
-                                    tint = Color.Black
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(
-                                    rickyMortyCharacter.species,
-                                    style = MaterialTheme.typography.titleLarge,
-                                    fontSize = 20.sp,
-                                    textAlign = TextAlign.Center
-
-                                )
-                            }
-                        }
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(6.dp))
-                                .shadow(elevation = 2.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(60.dp)
-                                    .padding(6.dp),
-                                verticalAlignment = CenterVertically,
-                                horizontalArrangement = Arrangement.Center
-                            ) {
-                                val iconColor = if (rickyMortyCharacter.status != "Alive") {
-                                    Color.Red
-                                } else {
-                                    Color.Black
-                                }
-                                Icon(
-                                    imageVector = Icons.Default.LocalHospital,
-                                    contentDescription = null,
-                                    tint = iconColor
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(
-                                    rickyMortyCharacter.status,
-                                    style = MaterialTheme.typography.titleLarge,
-                                    fontSize = 20.sp,
-                                    textAlign = TextAlign.Center
-
-                                )
-                            }
-                        }
-                    }
+                    Text(
+                        text = "Origin: ${rickyMortyCharacter.characterOrigin.name}",
+                        color = Color.White,
+                        fontSize = 12.sp
+                    )
+                    Text(
+                        text = "Location: ${rickyMortyCharacter.characterLocation.name}",
+                        color = Color.White,
+                        fontSize = 12.sp
+                    )
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun Chip(text: String) {
+    Box(
+        modifier = Modifier
+            .padding(end = 8.dp) // Espacio entre chips
+            .background(
+                colorResource(id = R.color.card_border),
+                shape = RoundedCornerShape(50)
+            )
+            .padding(horizontal = 16.dp, vertical = 8.dp) // Padding dentro del chip
+    ) {
+        Text(
+            text = text,
+            color = Color.White,
+            fontWeight = Bold,
+            fontSize = 14.sp,
+            maxLines = 1
+        )
+    }
+}
+
+@Composable
+fun getStatusIconWithTint(status: String): Pair<Int, Color> {
+    return when (status) {
+        "Alive" -> Pair(R.drawable.heartbeat, Color.Unspecified)
+        else -> Pair(R.drawable.skull, Color.Gray)
+    }
+}
+
+@Composable
+fun EpisodesGrid(episodes: List<String>) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 16.dp)
+    ) {
+        items(episodes) { episode ->
+            val episodeNumber = episode.substringAfterLast("/")
+            Chip(text = "Ep. $episodeNumber")
         }
     }
 }
