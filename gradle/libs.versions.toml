@@ -26,6 +26,7 @@ compose-bom = "2023.03.00"
 composeVersion = "1.5.4"
 lifecycleViewmodelComposeVersion = "2.7.0-alpha03"
 navigationComposeVersion = "2.7.4"
+composeLayoutsVersion = "1.5.4"
 #endregion
 
 #region [RETROFIT]
@@ -104,6 +105,8 @@ composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", v
 composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeVersion" }
 composeUiTest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeVersion" }
 navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationComposeVersion" }
+androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "composeLayoutsVersion" }
+androidx-compose-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "composeLayoutsVersion" }
 #endregion
 
 #region [MATERIAL 3]
@@ -142,6 +145,7 @@ coilCompose = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVe
 #region [CONSTRAINT LAYOUT]
 androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version = "1.0.1" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.1.4" }
+
 #endregion
 
 #region [PAGING - 3]
@@ -204,6 +208,8 @@ appDependencies = [
     "androidx-paging-runtime-ktx",
     "androidx-paging-compose-ktx",
     "androidx-constraintlayout-compose",
-    "androidx-compose-material3"
+    "androidx-compose-material3",
+    "androidx-compose-foundation",
+    "androidx-compose-foundation-layout"
 ]
 

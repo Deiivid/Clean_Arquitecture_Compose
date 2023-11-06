@@ -10,7 +10,7 @@ import coil.annotation.ExperimentalCoilApi
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import es.clean.architecture.domain.locations.models.RickyMortyLocationsModel
-import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomBarScreen
+import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomNavigationBar
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.views.characters.screens.detail.CharacterDetailScreen
 import es.clean.architecture.ui.views.characters.screens.list.CharactersListScreen
@@ -30,7 +30,7 @@ fun MainNavGraph(navController: NavHostController) {
         startDestination = Routes.CharacterList.route
     ) {
         //region [CHARACTERS]
-            composable(route = BottomBarScreen.Characters.route) {
+            composable(route = BottomNavigationBar.Characters.route) {
             CharactersListScreen(navController = navController)
         }
         /**
@@ -50,7 +50,7 @@ fun MainNavGraph(navController: NavHostController) {
 
         //region [EPISODES]
 
-        composable(route = BottomBarScreen.Episodes.route) {
+        composable(route = BottomNavigationBar.Episodes.route) {
             EpisodesListScreen(navController = navController)
         }
 
@@ -65,7 +65,7 @@ fun MainNavGraph(navController: NavHostController) {
         }
         //endregion [EPISODES]
         //region [LOCATIONS]
-        composable(route = BottomBarScreen.Locations.route) {
+        composable(route = BottomNavigationBar.Locations.route) {
             LocationsScreen()
         }
         composable(route = Routes.LocationDetailScreen.route) {
