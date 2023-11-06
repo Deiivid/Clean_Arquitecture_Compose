@@ -4,9 +4,18 @@
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="teal_700">#037271</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="black_transparency">#00555151</color>
+    <color name="black_transparency_custom20">#E1000000</color>
+    <color name="blue">#E14885FF</color>
+
+
+
+    <color name="app_background">#1E2A45</color> <!-- Azul oscuro -->
+    <color name="card_background">#92C099</color> <!-- Verde agua suave -->
+    <color name="card_border">#438D41</color> <!-- Verde oscuro para el borde -->
+    <color name="image_background">#5F758E</color> <!-- Gris azulado -->
 
 </resources>
