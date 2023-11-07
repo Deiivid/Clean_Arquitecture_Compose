@@ -1,6 +1,7 @@
 package es.clean.architecture.ui.views.characters.screens.list
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -160,77 +161,88 @@ fun CharacterItem(
             .padding(10.dp),
         shadowElevation = 10.dp
     ) {
-        Row(
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 14.dp, top = 8.dp, start = 8.dp, end = 8.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
+                .padding(3.dp)
+                .border(
+                    width = 2.dp,
+                    color = Color.Black,
+                    shape = CutCornersShapeCustom(16.dp)
+                )
         ) {
-            Column(
+            Row(
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(2f),
-                verticalArrangement = Arrangement.Center
+                    .fillMaxWidth()
+                    .padding(bottom = 14.dp, top = 8.dp, start = 8.dp, end = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
+                Column(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .weight(2f),
+                    verticalArrangement = Arrangement.Center
                 ) {
-                    val (statusIcon, statusTint) = getStatusIconWithTint(character.status)
-                    Icon(
-                        painter = painterResource(id = statusIcon),
-                        contentDescription = "Status Icon",
-                        tint = statusTint,
-                        modifier = Modifier
-                            .size(24.dp)
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        val (statusIcon, statusTint) = getStatusIconWithTint(character.status)
+                        Icon(
+                            painter = painterResource(id = statusIcon),
+                            contentDescription = "Status Icon",
+                            tint = statusTint,
+                            modifier = Modifier
+                                .size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = character.status,
+                            color = Color.White,
+                            fontSize = 14.sp
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
                     Text(
-                        text = character.status,
+                        text = character.name,
+                        color = Color.White,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Spacer(modifier = Modifier.height(2.dp))
+
+                    Text(
+                        text = "Gender: ${character.gender}",
                         color = Color.White,
                         fontSize = 14.sp
                     )
+
+                    Spacer(modifier = Modifier.height(2.dp))
+
+                    Text(
+                        text = "Location: ${character.characterLocation.name}",
+                        color = Color.White,
+                        fontSize = 12.sp
+                    )
+
+                    Spacer(modifier = Modifier.height(4.dp))
                 }
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Text(
-                    text = character.name,
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
+                Spacer(modifier = Modifier.width(12.dp))
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(character.image)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = "Character Image",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(width = 135.dp, height = 110.dp)
+                        .clip(CutCornersShapeCustom(16.dp))
+                        .background(colorResource(id = R.color.card_border))
                 )
-
-                Spacer(modifier = Modifier.height(2.dp))
-
-                Text(
-                    text = "Gender: ${character.gender}",
-                    color = Color.White,
-                    fontSize = 14.sp
-                )
-
-                Spacer(modifier = Modifier.height(2.dp))
-
-                Text(
-                    text = "Location: ${character.characterLocation.name}",
-                    color = Color.White,
-                    fontSize = 12.sp
-                )
-
-                Spacer(modifier = Modifier.height(4.dp))
             }
-            Spacer(modifier = Modifier.width(12.dp))
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(character.image)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = "Character Image",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(width = 135.dp, height = 110.dp)
-                    .clip(CutCornersShapeCustom(16.dp))
-                    .background(colorResource(id = R.color.card_border))
-            )
         }
     }
 }
