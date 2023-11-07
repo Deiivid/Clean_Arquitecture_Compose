@@ -1,5 +1,6 @@
 package es.clean.architecture.ui.views.characters.screens.detail
 
+import androidx.annotation.ColorRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -103,7 +104,7 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
                     color = colorResource(id = R.color.border),
                     shape = CutCornersShapeCustom(42.dp)
                 )
-                .padding(16.dp)
+                .padding(14.dp)
         ) {
             Column(
                 modifier = Modifier
@@ -181,13 +182,13 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
 
 @Composable
 fun Chip(text: String) {
+    val chipShape = CutCornersShapeCustom(16.dp)
     Box(
         modifier = Modifier
             .padding(end = 8.dp)
-            .background(
-                colorResource(id = R.color.card_border),
-                shape = RoundedCornerShape(50)
-            )
+            .clip(chipShape)
+            .background( colorResource(id = R.color.card_border))
+            .border(2.dp, colorResource(id = R.color.border), chipShape)
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Text(
@@ -199,6 +200,7 @@ fun Chip(text: String) {
         )
     }
 }
+
 
 @Composable
 fun EpisodesGrid(episodes: List<String>) {
