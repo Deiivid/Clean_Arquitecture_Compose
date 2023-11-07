@@ -101,7 +101,7 @@ fun CharactersListScreen(
                                   )*/
                             }
                         },
-                        colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
+                        colors = TopAppBarDefaults.topAppBarColors(containerColor = colorResource(id = R.color.app_background)),
                         /* actions = {
                              IconButton(onClick = { isSearching = !isSearching }) {
                                  Icon(
@@ -114,30 +114,39 @@ fun CharactersListScreen(
                     )
                 }
             ) { paddingValues ->
-                LazyColumn(
+                Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(paddingValues)
+                        .background(
+                            colorResource(id = R.color.app_background)
+                        )
+                        .padding(bottom = 10.dp)
                 ) {
-                    items(
-                        count = characters.itemCount,
-                        key = characters.itemKey { character -> character.id }
-                    ) { characterIndex ->
-                        characters[characterIndex]?.let { item ->
-                            CharacterItem(
-                                character = item,
-                            ) { currentCharacter ->
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValues)
+                    ) {
+                        items(
+                            count = characters.itemCount,
+                            key = characters.itemKey { character -> character.id }
+                        ) { characterIndex ->
+                            characters[characterIndex]?.let { item ->
+                                CharacterItem(
+                                    character = item,
+                                ) { currentCharacter ->
 
-                                navController.currentBackStackEntry?.savedStateHandle?.set(
-                                    CHARACTER_OBJECT,
-                                    value = currentCharacter
-                                )
-                                navController.navigate(Routes.CharacterDetailScreen.route)
+                                    navController.currentBackStackEntry?.savedStateHandle?.set(
+                                        CHARACTER_OBJECT,
+                                        value = currentCharacter
+                                    )
+                                    navController.navigate(Routes.CharacterDetailScreen.route)
+                                }
                             }
                         }
                     }
-                }
 
+                }
             }
         }
 
@@ -157,7 +166,7 @@ fun CharacterItem(
         color = colorResource(id = R.color.card_background),
         modifier = Modifier
             .clickable { onItemClick(character) }
-            .height(165.dp)
+            .height(175.dp)
             .padding(10.dp),
         shadowElevation = 10.dp
     ) {
@@ -167,7 +176,7 @@ fun CharacterItem(
                 .padding(3.dp)
                 .border(
                     width = 2.dp,
-                    color = Color.Black,
+                    color = colorResource(id = R.color.app_background),
                     shape = CutCornersShapeCustom(16.dp)
                 )
         ) {
@@ -224,12 +233,13 @@ fun CharacterItem(
                     Text(
                         text = "Location: ${character.characterLocation.name}",
                         color = Color.White,
-                        fontSize = 12.sp
+                        fontSize = 12.sp,
+                        maxLines = 2
                     )
 
                     Spacer(modifier = Modifier.height(4.dp))
                 }
-                Spacer(modifier = Modifier.width(12.dp))
+                Spacer(modifier = Modifier.width(6.dp))
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(character.image)
