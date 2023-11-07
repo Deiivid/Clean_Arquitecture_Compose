@@ -1,6 +1,7 @@
 package es.clean.architecture.ui.views.characters.screens.detail
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -82,6 +83,11 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
                 .background(
                     color = colorResource(id = R.color.card_border),
                     shape = CutCornersShapeCustom(40.dp)
+                )
+                .border(
+                    width = 2.dp,
+                    color = colorResource(id = R.color.app_background),
+                    shape = CutCornersShapeCustom(16.dp)
                 )
                 .clip(
                     CutCornerShape(
