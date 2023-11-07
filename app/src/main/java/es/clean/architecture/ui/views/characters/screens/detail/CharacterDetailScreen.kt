@@ -1,6 +1,7 @@
 package es.clean.architecture.ui.views.characters.screens.detail
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,7 +32,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
@@ -45,6 +45,7 @@ import coil.request.ImageRequest
 import es.clean.architecture.R
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
+import es.clean.architecture.ui.views.characters.common.getStatusIconWithTint
 
 class CutCornersShapeCustom(private val bigCut: Dp) : Shape {
     override fun createOutline(
@@ -52,17 +53,13 @@ class CutCornersShapeCustom(private val bigCut: Dp) : Shape {
         layoutDirection: LayoutDirection,
         density: Density
     ): Outline {
-        val bigCutSize = bigCut.toPx(size.width, density)
+        val bigCutSize = bigCut.toPx(density)
         val path = Path().apply {
-            // Draw the top edge to the top right corner with a big cut
             lineTo(size.width - bigCutSize, 0f)
             lineTo(size.width, bigCutSize)
-            // Draw the right edge to the bottom right corner
             lineTo(size.width, size.height)
-            // Draw the bottom edge to the bottom left corner with a big cut
             lineTo(bigCutSize, size.height)
             lineTo(0f, size.height - bigCutSize)
-            // Close the path by connecting back to the start
             close()
         }
         return Outline.Generic(path)
@@ -70,8 +67,7 @@ class CutCornersShapeCustom(private val bigCut: Dp) : Shape {
 
 }
 
-// Extension function to easily convert Dp to Px
-private fun Dp.toPx(width: Float, density: Density): Float = this.value * density.density
+private fun Dp.toPx(density: Density): Float = this.value * density.density
 
 @Composable
 fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyCharacter) {
@@ -85,8 +81,13 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
                 .fillMaxSize()
                 .padding(top = 55.dp, bottom = 55.dp, start = 24.dp, end = 24.dp)
                 .background(
-                    color = colorResource(id = R.color.card_border), // Define el color de tu borde aquí
+                    color = colorResource(id = R.color.card_border),
                     shape = CutCornersShapeCustom(40.dp)
+                )
+                .border(
+                    width = 2.dp,
+                    color = colorResource(id = R.color.app_background),
+                    shape = CutCornersShapeCustom(16.dp)
                 )
                 .clip(
                     CutCornerShape(
@@ -94,14 +95,14 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
                         bottomEnd = 40.dp
                     )
                 )
-                .padding(2.dp) // Este será el grosor de tu borde regular
+                .padding(2.dp)
                 .background(
                     color = colorResource(
                         R.color.card_background
-                    ), // El color del fondo de tu tarjeta
+                    ),
                     shape = CutCornersShapeCustom(40.dp)
                 )
-                .padding(16.dp) // Este es el padding interno
+                .padding(16.dp)
         ) {
             Column(
                 modifier = Modifier
@@ -124,7 +125,7 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = rickyMortyCharacter.status,
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = Bold,
                         color = Color.White,
                         fontSize = 22.sp
                     )
@@ -148,7 +149,7 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
                 Text(
                     text = rickyMortyCharacter.name,
                     color = Color.White,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = Bold,
                     fontSize = 28.sp
                 )
                 Spacer(modifier = Modifier.height(6.dp))
@@ -181,12 +182,12 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
 fun Chip(text: String) {
     Box(
         modifier = Modifier
-            .padding(end = 8.dp) // Espacio entre chips
+            .padding(end = 8.dp)
             .background(
                 colorResource(id = R.color.card_border),
                 shape = RoundedCornerShape(50)
             )
-            .padding(horizontal = 16.dp, vertical = 8.dp) // Padding dentro del chip
+            .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Text(
             text = text,
@@ -195,14 +196,6 @@ fun Chip(text: String) {
             fontSize = 14.sp,
             maxLines = 1
         )
-    }
-}
-
-@Composable
-fun getStatusIconWithTint(status: String): Pair<Int, Color> {
-    return when (status) {
-        "Alive" -> Pair(R.drawable.heartbeat, Color.Unspecified)
-        else -> Pair(R.drawable.skull, Color.Gray)
     }
 }
 
