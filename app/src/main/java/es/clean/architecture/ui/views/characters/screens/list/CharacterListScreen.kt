@@ -1,13 +1,12 @@
 package es.clean.architecture.ui.views.characters.screens.list
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -19,6 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,14 +32,17 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import coil.compose.rememberAsyncImagePainter
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.airbnb.lottie.compose.*
 import es.clean.architecture.R
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
-import es.clean.architecture.ui.common.navigation.routes.Routes
-import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 import es.clean.architecture.ui.common.CHARACTER_OBJECT
+import es.clean.architecture.ui.common.navigation.routes.Routes
+import es.clean.architecture.ui.views.characters.common.getStatusIconWithTint
+import es.clean.architecture.ui.views.characters.screens.detail.CutCornersShapeCustom
+import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -66,9 +71,11 @@ fun CharactersListScreen(
         }
 
         is LoadState.NotLoading -> {
-            // Si no está cargando, muestras los personajes en el LazyColumn
+
             Scaffold(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(colorResource(id = R.color.app_background)),
                 topBar = {
                     CenterAlignedTopAppBar(
                         modifier = Modifier
@@ -125,13 +132,6 @@ fun CharactersListScreen(
                                     value = currentCharacter
                                 )
                                 navController.navigate(Routes.CharacterDetailScreen.route)
-
-                                /* scope.launch {
-                                     withContext(Dispatchers.Main){
-                                         Toast.makeText(context, "Personaje: ${currentCharacter.name}", Toast.LENGTH_LONG).show()
-                                     }
-                                 }
-                             }*/
                             }
                         }
                     }
@@ -146,93 +146,90 @@ fun CharactersListScreen(
     }
 }
 
-
 @Composable
 fun CharacterItem(
     character: RickyMortyCharacterModel.RickyMortyCharacter,
-    onItemClick: (rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyCharacter) -> Unit
+    onItemClick: (RickyMortyCharacterModel.RickyMortyCharacter) -> Unit
 ) {
     Surface(
-        shape = RoundedCornerShape(16.dp),
-        color = Color(0xFFDAE1E7),
+        shape = CutCornersShapeCustom(16.dp),
+        color = colorResource(id = R.color.card_background),
         modifier = Modifier
-            .clickable {
-                onItemClick(character)
-            }
+            .clickable { onItemClick(character) }
             .height(165.dp)
             .padding(10.dp),
         shadowElevation = 10.dp
     ) {
         Row(
-            modifier = Modifier.padding(bottom = 14.dp, top = 8.dp, start = 8.dp, end = 8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 14.dp, top = 8.dp, start = 8.dp, end = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxHeight()
                     .weight(2f),
                 verticalArrangement = Arrangement.Center
             ) {
-                Box(
-                    modifier = Modifier
-                        .wrapContentSize(),
-                    contentAlignment = Alignment.Center
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
+                    val (statusIcon, statusTint) = getStatusIconWithTint(character.status)
+                    Icon(
+                        painter = painterResource(id = statusIcon),
+                        contentDescription = "Status Icon",
+                        tint = statusTint,
+                        modifier = Modifier
+                            .size(24.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = character.status,
-                        fontSize = 12.sp,
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier
-                            .padding(vertical = 2.dp, horizontal = 2.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(Color(0xFFD1D5E1))
-                            .padding(2.dp) // Este padding es para el espacio dentro del fondo, alrededor del texto.
+                        color = Color.White,
+                        fontSize = 14.sp
                     )
                 }
+
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
                     text = character.name,
+                    color = Color.White,
                     fontSize = 20.sp,
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.SemiBold
+                    fontWeight = FontWeight.Bold
                 )
 
                 Spacer(modifier = Modifier.height(2.dp))
 
-                Text(text = character.gender)
+                Text(
+                    text = "Gender: ${character.gender}",
+                    color = Color.White,
+                    fontSize = 14.sp
+                )
 
                 Spacer(modifier = Modifier.height(2.dp))
 
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = character.characterLocation.name,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                }
+                Text(
+                    text = "Location: ${character.characterLocation.name}",
+                    color = Color.White,
+                    fontSize = 12.sp
+                )
 
                 Spacer(modifier = Modifier.height(4.dp))
             }
             Spacer(modifier = Modifier.width(12.dp))
-            Box(
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(character.image)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = "Character Image",
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(width = 135.dp, height = 110.dp)
-                    .padding(top = 10.dp),
-                contentAlignment = Alignment.Center,
-                content = {
-                    Image(
-                        painter = rememberAsyncImagePainter(model = character.image),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .clip(RoundedCornerShape(16.dp))
-                            .background(Color.White)
-                    )
-                }
+                    .clip(CutCornersShapeCustom(16.dp))
+                    .background(colorResource(id = R.color.card_border))
             )
         }
     }
