@@ -82,13 +82,9 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
                 .padding(top = 55.dp, bottom = 55.dp, start = 24.dp, end = 24.dp)
                 .background(
                     color = colorResource(id = R.color.card_border),
-                    shape = CutCornersShapeCustom(40.dp)
+                    shape = CutCornersShapeCustom(38.dp)
                 )
-                .border(
-                    width = 2.dp,
-                    color = colorResource(id = R.color.app_background),
-                    shape = CutCornersShapeCustom(16.dp)
-                )
+
                 .clip(
                     CutCornerShape(
                         topStart = 40.dp,
@@ -101,6 +97,11 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
                         R.color.card_background
                     ),
                     shape = CutCornersShapeCustom(40.dp)
+                )
+                .border(
+                    width = 2.dp,
+                    color = colorResource(id = R.color.border),
+                    shape = CutCornersShapeCustom(42.dp)
                 )
                 .padding(16.dp)
         ) {
