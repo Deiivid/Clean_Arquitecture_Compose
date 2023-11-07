@@ -17,5 +17,6 @@
     <color name="card_background">#92C099</color> <!-- Verde agua suave -->
     <color name="card_border">#438D41</color> <!-- Verde oscuro para el borde -->
     <color name="image_background">#5F758E</color> <!-- Gris azulado -->
+    <color name="border">#CE4BFF00</color> <!-- Gris azulado -->
 
 </resources>
