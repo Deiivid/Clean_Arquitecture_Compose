@@ -87,6 +87,9 @@ kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.re
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCoreVersion" }
 runtimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycleVersion" }
 iconsExtended = { module = "androidx.compose.material:material-icons-extended", version.ref = "iconsExtendedVersion" }
+compsoeAnimiation = { module = "androidx.compose.animation:animation", version.ref = "composeVersion" }
+
+
 #endregion
 
 #region [DAGGER - HILT]
@@ -210,6 +213,7 @@ appDependencies = [
     "androidx-constraintlayout-compose",
     "androidx-compose-material3",
     "androidx-compose-foundation",
-    "androidx-compose-foundation-layout"
+    "androidx-compose-foundation-layout",
+    "compsoeAnimiation"
 ]
 
