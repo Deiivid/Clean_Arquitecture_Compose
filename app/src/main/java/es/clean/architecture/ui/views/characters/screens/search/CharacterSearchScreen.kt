@@ -50,7 +50,7 @@ fun CharacterSearchScreen() {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
-            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
+            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f),
             shape = RoundedCornerShape(16.dp)
         ) {
             Column(
@@ -77,27 +77,6 @@ fun CharacterSearchScreen() {
             }
         }
     }
-}
-@Composable
-fun StyledTextField(value: String, onValueChange: (String) -> Unit, placeholder: String) {
-    BasicTextField(
-        value = value,
-        onValueChange = onValueChange,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(80.dp)
-            .padding(10.dp)
-            .clip(CutCornersShapeCustom(16.dp)) // Usando la forma personalizada
-            .border(2.dp, colorResource(id = R.color.app_background), CutCornersShapeCustom(16.dp))
-            .background(colorResource(id = R.color.card_background))
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        decorationBox = { innerTextField ->
-            if (value.isEmpty()) { // Muestra el placeholder si el campo está vacío
-                Text(placeholder, color = Color.Gray)
-            }
-            innerTextField()
-        }
-    )
 }
 
 @Composable
