@@ -11,6 +11,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DeviceUnknown
+import androidx.compose.material.icons.filled.Female
+import androidx.compose.material.icons.filled.Male
+import androidx.compose.material.icons.filled.Transgender
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -74,6 +79,21 @@ fun CharacterSearchScreen() {
         )
 
         Spacer(modifier = Modifier.height(16.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            IconButton(onClick = { /* tu función de filtro aquí */ }) {
+                Icon(Icons.Default.Female, contentDescription = "Female")
+            }
+            IconButton(onClick = { /* tu función de filtro aquí */ }) {
+                Icon(Icons.Default.Male, contentDescription = "Male")
+            }
+            IconButton(onClick = { /* tu función de filtro aquí */ }) {
+                Icon(Icons.Default.Transgender, contentDescription = "Male")
+            }
+            IconButton(onClick = { /* tu función de filtro aquí */ }) {
+                Icon(Icons.Default.DeviceUnknown, contentDescription = "Male")
+            }
+        }
+    }
     }
 
 }
