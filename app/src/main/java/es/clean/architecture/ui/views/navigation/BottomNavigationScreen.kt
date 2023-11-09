@@ -66,7 +66,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
                         onClick = {
                             when (currentDestination?.route) {
                                 BottomNavigationBar.Characters.route -> {
-                                    navController.navigate(Routes.LocationListScreen.route)
+                                    navController.navigate(Routes.CharacterSearchScreen.route)
                                 }
 
                                 BottomNavigationBar.Episodes.route -> {
