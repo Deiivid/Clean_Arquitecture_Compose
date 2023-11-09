@@ -3,6 +3,8 @@ package es.clean.architecture.ui.views.characters.screens.search
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,16 +21,20 @@ import androidx.compose.material.icons.filled.DeviceUnknown
 import androidx.compose.material.icons.filled.Female
 import androidx.compose.material.icons.filled.Male
 import androidx.compose.material.icons.filled.Transgender
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.isUnspecified
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
@@ -37,6 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import es.clean.architecture.R
 import es.clean.architecture.ui.views.characters.screens.detail.CutCornersShapeCustom
+
 @Composable
 fun CharacterSearchScreen() {
     Box(modifier = Modifier.fillMaxSize()) {
@@ -181,35 +188,31 @@ fun StatusIconRow() {
         }
     }
 }
-@Composable
-fun SearchIcon() {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.searchimage),
-            contentDescription = "Busqueda",
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
-}
+
 @Composable
 fun GenderIconButton(
     icon: ImageVector,
     onClick: () -> Unit,
     tint: Color = Color.Unspecified
 ) {
+    val backgroundColor =
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.4f) // Fondo ligero con transparencia
+    val contentColor =
+        MaterialTheme.colorScheme.onPrimary // Color del contenido que garantiza contraste
+
     IconButton(onClick = onClick) {
         Icon(
             imageVector = icon,
-            contentDescription = null, // Asegúrate de definir una descripción adecuada para la accesibilidad.
-            tint = tint,
+            contentDescription = null,
+            tint = if (tint == Color.Unspecified) LocalContentColor.current else tint,
             modifier = Modifier
-                .clip(CutCornersShapeCustom(16.dp))
-                .background(colorResource(id = R.color.card_background))
+                .clip(RoundedCornerShape(16.dp))
+                .background(backgroundColor)
+                .clickable( // Efecto al hacer clic
+                    onClick = onClick,
+                    indication = rememberRipple(bounded = true), // Efecto de onda al tocar
+                    interactionSource = remember { MutableInteractionSource() }
+                )
                 .padding(10.dp)
         )
     }
