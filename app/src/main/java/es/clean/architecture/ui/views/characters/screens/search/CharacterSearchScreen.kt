@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.Male
 import androidx.compose.material.icons.filled.Transgender
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,7 +37,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import es.clean.architecture.R
 import es.clean.architecture.ui.views.characters.screens.detail.CutCornersShapeCustom
-
 @Composable
 fun CharacterSearchScreen() {
     Box(modifier = Modifier.fillMaxSize()) {
@@ -46,38 +46,38 @@ fun CharacterSearchScreen() {
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-
-        Column(
+        Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .background(colorResource(id = R.color.app_background))
                 .padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
+            shape = RoundedCornerShape(16.dp)
         ) {
-            Spacer(modifier = Modifier.height(32.dp))
-            SearchIcon()
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.Start // Alineación a la izquierda
+            ) {
+                Spacer(modifier = Modifier.height(32.dp))
+                SearchField(
+                    value = "Especie",
+                    onValueChange = { /* actualiza tu estado aquí */ },
+                    placeholder = { Text("Filtrar por especie") }
+                )
 
-            Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(32.dp))
 
-            SearchField(
-                value = "Especie",
-                onValueChange = { /* actualiza tu estado aquí */ },
-                placeholder = { Text("Filtrar por especie") }
-            )
+                GenderIconRow()
 
-            Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(32.dp))
 
-            GenderIconRow()
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            StatusIconRow()
-
+                StatusIconRow()
+            }
         }
     }
 }
-
 @Composable
 fun StyledTextField(value: String, onValueChange: (String) -> Unit, placeholder: String) {
     BasicTextField(
