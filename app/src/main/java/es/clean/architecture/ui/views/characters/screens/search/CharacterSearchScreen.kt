@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DeviceUnknown
 import androidx.compose.material.icons.filled.Female
 import androidx.compose.material.icons.filled.Male
 import androidx.compose.material.icons.filled.Transgender
@@ -34,7 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.isUnspecified
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
@@ -139,55 +138,101 @@ fun GenderIconRow() {
 }
 
 @Composable
-fun StatusIconRow() {
+fun StatusIconRow(
+) {
+    // Organiza los iconos de género en una fila centrada
     Row(
         horizontalArrangement = Arrangement.SpaceEvenly, // Espaciado uniforme entre los iconos
-        verticalAlignment = Alignment.CenterVertically, // Alineación vertical centrada
-        modifier = Modifier.fillMaxWidth() // Llenar el ancho disponible
+        verticalAlignment = Alignment.CenterVertically, // Centrar verticalmente en la fila
+        modifier = Modifier.fillMaxWidth() // Llenar el ancho máximo disponible
     ) {
-        // Botón para el estado "Alive"
-        IconButton(onClick = { /* tu función de filtro aquí */ }) {
-            Icon(
-                painter = painterResource(id = R.drawable.heartbeat), // Asume que tienes este drawable
-                contentDescription = "Alive",
-                modifier = Modifier
-                    .background(
-                        colorResource(id = R.color.card_background),
-                        RoundedCornerShape(16.dp)
-                    )
-                    .padding(10.dp)
-            )
-        }
+        StatusIconButton(
+            icon = painterResource(id = R.drawable.skull),
+            onClick = { /* tu función de filtro aquí */ })
+        StatusIconButton(
+            icon = painterResource(id = R.drawable.heartbeat),
+            onClick = { /* tu función de filtro aquí */ })
+        StatusIconButton(
+            icon = painterResource(id = R.drawable.target),
+            onClick = { /* tu función de filtro aquí */ })
 
-        // Botón para el estado "Dead"
-        IconButton(onClick = { /* tu función de filtro aquí */ }) {
-            Icon(
-                painter = painterResource(id = R.drawable.skull), // Asume que tienes este drawable
-                contentDescription = "Dead",
-                modifier = Modifier
-                    .background(
-                        colorResource(id = R.color.card_background),
-                        RoundedCornerShape(16.dp)
-                    )
-                    .padding(10.dp)
-            )
-        }
+        // Añade más botones si es necesario
+    }
+    /*
+            IconButton(onClick = onClick) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = if (tint == Color.Unspecified) LocalContentColor.current else tint,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(backgroundColor)
+                        .clickable( // Efecto al hacer clic
+                            onClick = onClick,
+                            indication = rememberRipple(bounded = true), // Efecto de onda al tocar
+                            interactionSource = remember { MutableInteractionSource() }
+                        )
+                        .padding(10.dp)
+                )
+            }
 
-        // Botón para el estado "Unknown"
-        IconButton(onClick = { /* tu función de filtro aquí */ }) {
-            Icon(
-                painter = painterResource(id = R.drawable.target), // Asume que tienes este drawable
-                contentDescription = "Unknown",
-                modifier = Modifier
-                    .background(
-                        colorResource(id = R.color.card_background),
-                        RoundedCornerShape(16.dp)
-                    )
-                    .padding(10.dp)
-            )
-        }
+            // Botón para el estado "Dead"
+            IconButton(onClick = { /* tu función de filtro aquí */ }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.skull), // Asume que tienes este drawable
+                    contentDescription = "Dead",
+                    modifier = Modifier
+                        .background(
+                            colorResource(id = R.color.card_background),
+                            RoundedCornerShape(16.dp)
+                        )
+                        .padding(10.dp)
+                )
+            }
+
+            // Botón para el estado "Unknown"
+            IconButton(onClick = { /* tu función de filtro aquí */ }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.target), // Asume que tienes este drawable
+                    contentDescription = "Unknown",
+                    modifier = Modifier
+                        .background(
+                            colorResource(id = R.color.card_background),
+                            RoundedCornerShape(16.dp)
+                        )
+                        .padding(10.dp)
+                )
+            }*/
+}
+@Composable
+fun StatusIconButton(
+    icon: Painter,
+    onClick: () -> Unit,
+    tint: Color = Color.Unspecified
+) {
+    val backgroundColor =
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.6f) // Fondo ligero con transparencia
+    val contentColor =
+        MaterialTheme.colorScheme.onPrimary // Color del contenido que garantiza contraste
+
+    IconButton(onClick = onClick) {
+        Icon(
+            painter = icon,
+            contentDescription = null,
+            tint = if (tint == Color.Unspecified) contentColor else tint, // Aquí utilizo contentColor
+            modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
+                .background(backgroundColor)
+                .clickable( // Efecto al hacer clic
+                    onClick = onClick,
+                    indication = rememberRipple(bounded = true), // Efecto de onda al tocar
+                    interactionSource = remember { MutableInteractionSource() }
+                )
+                .padding(10.dp)
+        )
     }
 }
+
 
 @Composable
 fun GenderIconButton(
@@ -196,7 +241,7 @@ fun GenderIconButton(
     tint: Color = Color.Unspecified
 ) {
     val backgroundColor =
-        MaterialTheme.colorScheme.primary.copy(alpha = 0.4f) // Fondo ligero con transparencia
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.6f) // Fondo ligero con transparencia
     val contentColor =
         MaterialTheme.colorScheme.onPrimary // Color del contenido que garantiza contraste
 
