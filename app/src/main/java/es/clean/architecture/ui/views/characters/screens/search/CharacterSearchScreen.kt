@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
@@ -42,14 +43,17 @@ import androidx.compose.ui.unit.dp
 import es.clean.architecture.R
 import es.clean.architecture.ui.views.characters.screens.detail.CutCornersShapeCustom
 
-
 @Composable
 fun CharacterSearchScreen() {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .height(500.dp)) {
         Image(
             painter = painterResource(id = R.drawable.searchimage),
             contentDescription = "background",
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(CutCornerShape(20.dp)),
             contentScale = ContentScale.Crop
         )
         Surface(
