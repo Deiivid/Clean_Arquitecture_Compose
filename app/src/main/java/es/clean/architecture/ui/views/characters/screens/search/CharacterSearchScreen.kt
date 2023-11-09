@@ -27,21 +27,18 @@ fun CharacterSearchScreen() {
         modifier = Modifier.fillMaxSize(
         ).padding(16.dp)
     ) {
-        // Campo de búsqueda para el nombre del personaje
         BasicTextField(
             value = "prueba",
             onValueChange = {/* actualiza tu estado aquí */},
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
-                .border(2.dp, Color.Gray, RoundedCornerShape(10.dp)) // bordes recortados con stroke
+                .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
                 .padding(16.dp),
-            // Agrega aquí el resto de tu configuración de TextField
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Iconos para el estado del personaje (alive, dead, unknown)
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             IconButton(onClick = { /* tu función de filtro aquí */ }) {
                 Icon(painter= painterResource(id = R.drawable.heartbeat), contentDescription = "Alive")
@@ -55,28 +52,25 @@ fun CharacterSearchScreen() {
         }
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Campo de entrada de texto para la especie del personaje
         BasicTextField(
             value ="personaje",
             onValueChange = {/* actualiza tu estado aquí */},
             modifier = Modifier
                 .fillMaxWidth()
-                .border(2.dp, Color.Gray, RoundedCornerShape(10.dp)) // bordes recortados con stroke
+                .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
                 .padding(16.dp),
-            // Agrega aquí el resto de tu configuración de TextField
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Campo de entrada de texto para el tipo del personaje
+
         BasicTextField(
             value = "estado",
             onValueChange = {/* actualiza tu estado aquí */},
             modifier = Modifier
                 .fillMaxWidth()
-                .border(2.dp, Color.Gray, RoundedCornerShape(10.dp)) // bordes recortados con stroke
+                .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
                 .padding(16.dp),
-            // Agrega aquí el resto de tu configuración de TextField
         )
 
         Spacer(modifier = Modifier.height(16.dp))
