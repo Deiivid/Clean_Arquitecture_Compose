@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
@@ -36,7 +37,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,11 +45,15 @@ import es.clean.architecture.ui.views.characters.screens.detail.CutCornersShapeC
 
 @Composable
 fun CharacterSearchScreen() {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .height(500.dp)) {
         Image(
             painter = painterResource(id = R.drawable.searchimage),
             contentDescription = "background",
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(CutCornerShape(20.dp)),
             contentScale = ContentScale.Crop
         )
         Surface(
@@ -67,7 +71,14 @@ fun CharacterSearchScreen() {
                 horizontalAlignment = Alignment.Start // Alineación a la izquierda
             ) {
                 Spacer(modifier = Modifier.height(32.dp))
-                SearchField(
+
+                SearchNameField(value = "Nombre",
+                    onValueChange = { /* actualiza tu estado aquí */ },
+                    placeholder = { Text("Filtrar por Nombre") })
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                SearchSpeciesField(
                     value = "Especie",
                     onValueChange = { /* actualiza tu estado aquí */ },
                     placeholder = { Text("Filtrar por especie") }
@@ -85,12 +96,15 @@ fun CharacterSearchScreen() {
     }
 }
 
+
 @Composable
-fun SearchField(
+fun SearchNameField(
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: @Composable () -> Unit
 ) {
+    val backgroundColor =
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.9f)
     BasicTextField(
         value = value,
         onValueChange = onValueChange,
@@ -98,11 +112,12 @@ fun SearchField(
         decorationBox = { innerTextField ->
             Surface(
                 shape = CutCornersShapeCustom(16.dp),
-                color = colorResource(id = R.color.card_background),
+                color = backgroundColor,
                 modifier = Modifier
+                    .fillMaxWidth()
                     .border(
                         width = 2.dp,
-                        color = colorResource(id = R.color.app_background),
+                        color = LocalContentColor.current,
                         shape = CutCornersShapeCustom(16.dp)
                     )
                     .padding(10.dp),
@@ -110,10 +125,13 @@ fun SearchField(
             ) {
                 Box(
                     modifier = Modifier
+                        .fillMaxWidth()
                         .padding(16.dp)
                 ) {
-                    innerTextField() // This is where the actual TextField is placed
-                    placeholder()
+                    if (value.isEmpty()) {
+                        placeholder()
+                    }
+                    innerTextField()
                 }
             }
         }
@@ -121,30 +139,69 @@ fun SearchField(
 }
 
 @Composable
+fun SearchSpeciesField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    placeholder: @Composable () -> Unit
+) {
+    val backgroundColor =
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.9f)
+    BasicTextField(
+        value = value,
+        onValueChange = onValueChange,
+        singleLine = true,
+        decorationBox = { innerTextField ->
+            Surface(
+                shape = CutCornersShapeCustom(16.dp),
+                color = backgroundColor,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .border(
+                        width = 2.dp,
+                        color = LocalContentColor.current,
+                        shape = CutCornersShapeCustom(16.dp)
+                    )
+                    .padding(10.dp),
+                shadowElevation = 10.dp
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    if (value.isEmpty()) {
+                        placeholder()
+                    }
+                    innerTextField()
+                }
+            }
+        }
+    )
+}
+
+
+@Composable
 fun GenderIconRow() {
-    // Organiza los iconos de género en una fila centrada
     Row(
-        horizontalArrangement = Arrangement.SpaceEvenly, // Espaciado uniforme entre los iconos
-        verticalAlignment = Alignment.CenterVertically, // Centrar verticalmente en la fila
-        modifier = Modifier.fillMaxWidth() // Llenar el ancho máximo disponible
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
     ) {
         GenderIconButton(icon = Icons.Default.Female, onClick = { /* tu función de filtro aquí */ })
         GenderIconButton(icon = Icons.Default.Male, onClick = { /* tu función de filtro aquí */ })
         GenderIconButton(
             icon = Icons.Default.Transgender,
             onClick = { /* tu función de filtro aquí */ })
-        // Añade más botones si es necesario
     }
 }
 
 @Composable
 fun StatusIconRow(
 ) {
-    // Organiza los iconos de género en una fila centrada
     Row(
-        horizontalArrangement = Arrangement.SpaceEvenly, // Espaciado uniforme entre los iconos
-        verticalAlignment = Alignment.CenterVertically, // Centrar verticalmente en la fila
-        modifier = Modifier.fillMaxWidth() // Llenar el ancho máximo disponible
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
     ) {
         StatusIconButton(
             icon = painterResource(id = R.drawable.skull),
@@ -156,54 +213,9 @@ fun StatusIconRow(
             icon = painterResource(id = R.drawable.target),
             onClick = { /* tu función de filtro aquí */ })
 
-        // Añade más botones si es necesario
     }
-    /*
-            IconButton(onClick = onClick) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = null,
-                    tint = if (tint == Color.Unspecified) LocalContentColor.current else tint,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(backgroundColor)
-                        .clickable( // Efecto al hacer clic
-                            onClick = onClick,
-                            indication = rememberRipple(bounded = true), // Efecto de onda al tocar
-                            interactionSource = remember { MutableInteractionSource() }
-                        )
-                        .padding(10.dp)
-                )
-            }
-
-            // Botón para el estado "Dead"
-            IconButton(onClick = { /* tu función de filtro aquí */ }) {
-                Icon(
-                    painter = painterResource(id = R.drawable.skull), // Asume que tienes este drawable
-                    contentDescription = "Dead",
-                    modifier = Modifier
-                        .background(
-                            colorResource(id = R.color.card_background),
-                            RoundedCornerShape(16.dp)
-                        )
-                        .padding(10.dp)
-                )
-            }
-
-            // Botón para el estado "Unknown"
-            IconButton(onClick = { /* tu función de filtro aquí */ }) {
-                Icon(
-                    painter = painterResource(id = R.drawable.target), // Asume que tienes este drawable
-                    contentDescription = "Unknown",
-                    modifier = Modifier
-                        .background(
-                            colorResource(id = R.color.card_background),
-                            RoundedCornerShape(16.dp)
-                        )
-                        .padding(10.dp)
-                )
-            }*/
 }
+
 @Composable
 fun StatusIconButton(
     icon: Painter,
@@ -211,21 +223,21 @@ fun StatusIconButton(
     tint: Color = Color.Unspecified
 ) {
     val backgroundColor =
-        MaterialTheme.colorScheme.primary.copy(alpha = 0.6f) // Fondo ligero con transparencia
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
     val contentColor =
-        MaterialTheme.colorScheme.onPrimary // Color del contenido que garantiza contraste
+        MaterialTheme.colorScheme.primary
 
     IconButton(onClick = onClick) {
         Icon(
             painter = icon,
             contentDescription = null,
-            tint = if (tint == Color.Unspecified) contentColor else tint, // Aquí utilizo contentColor
+            tint = if (tint == Color.Unspecified) LocalContentColor.current else tint,
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
                 .background(backgroundColor)
-                .clickable( // Efecto al hacer clic
+                .clickable(
                     onClick = onClick,
-                    indication = rememberRipple(bounded = true), // Efecto de onda al tocar
+                    indication = rememberRipple(bounded = true),
                     interactionSource = remember { MutableInteractionSource() }
                 )
                 .padding(10.dp)
@@ -241,9 +253,9 @@ fun GenderIconButton(
     tint: Color = Color.Unspecified
 ) {
     val backgroundColor =
-        MaterialTheme.colorScheme.primary.copy(alpha = 0.6f) // Fondo ligero con transparencia
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
     val contentColor =
-        MaterialTheme.colorScheme.onPrimary // Color del contenido que garantiza contraste
+        MaterialTheme.colorScheme.onPrimary
 
     IconButton(onClick = onClick) {
         Icon(
@@ -253,9 +265,9 @@ fun GenderIconButton(
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
                 .background(backgroundColor)
-                .clickable( // Efecto al hacer clic
+                .clickable(
                     onClick = onClick,
-                    indication = rememberRipple(bounded = true), // Efecto de onda al tocar
+                    indication = rememberRipple(bounded = true),
                     interactionSource = remember { MutableInteractionSource() }
                 )
                 .padding(10.dp)

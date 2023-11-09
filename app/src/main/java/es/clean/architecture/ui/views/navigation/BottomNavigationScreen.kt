@@ -29,6 +29,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -46,12 +50,19 @@ import es.clean.architecture.R
 import es.clean.architecture.ui.common.navigation.navgraph.main.MainNavGraph
 import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomNavigationBar
 import es.clean.architecture.ui.common.navigation.routes.Routes
+import es.clean.architecture.ui.views.characters.screens.search.CharacterSearchScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(navController: NavHostController = rememberNavController()) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+    var showDialog by remember { mutableStateOf(false) } // Estado para controlar la visibilidad del diálogo
+    if (showDialog) {
+        Dialog(onDismissRequest = { showDialog = false }) {
+            CharacterSearchScreen() // El contenido de tu diálogo
+        }
+    }
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
         floatingActionButton = {
@@ -66,7 +77,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
                         onClick = {
                             when (currentDestination?.route) {
                                 BottomNavigationBar.Characters.route -> {
-                                    navController.navigate(Routes.LocationListScreen.route)
+                                    showDialog = true
                                 }
 
                                 BottomNavigationBar.Episodes.route -> {
