@@ -17,7 +17,6 @@ import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomNav
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.views.characters.screens.detail.CharacterDetailScreen
 import es.clean.architecture.ui.views.characters.screens.list.CharactersListScreen
-import es.clean.architecture.ui.views.characters.screens.search.CharacterSearchScreen
 import es.clean.architecture.ui.views.episodes.detail.EpisodeDetailScreen
 import es.clean.architecture.ui.views.episodes.list.EpisodesListScreen
 import es.clean.architecture.ui.views.locations.LocationsScreen
@@ -33,9 +32,6 @@ fun MainNavGraph(navController: NavHostController) {
         //region [CHARACTERS]
         composable(route = BottomNavigationBar.Characters.route) {
             CharactersListScreen(navController = navController)
-        }
-        composable(route = Routes.CharacterSearchScreen.route) {
-            CharacterSearchScreen()
         }
 
         /**
