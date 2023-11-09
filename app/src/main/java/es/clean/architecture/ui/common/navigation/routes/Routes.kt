@@ -9,7 +9,7 @@ sealed class Routes(val route: String) {
     //region [Characters]
     data object CharacterList : Routes("character_list")
     data object CharacterDetailScreen : Routes("character_detail/{$CHARACTER_OBJECT}")
-    data object CharacterSearchScreen : Routes("character_search")
+    data object ShowCharacterSearchDialog : Routes("character_search")
 
     //endregion [Characters]
 
