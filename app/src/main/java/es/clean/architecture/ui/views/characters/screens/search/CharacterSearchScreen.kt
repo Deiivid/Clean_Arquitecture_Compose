@@ -53,6 +53,33 @@ fun CharacterSearchScreen() {
                 Icon(painter= painterResource(id = R.drawable.target), contentDescription = "Unknown")
             }
         }
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Campo de entrada de texto para la especie del personaje
+        BasicTextField(
+            value ="personaje",
+            onValueChange = {/* actualiza tu estado aquí */},
+            modifier = Modifier
+                .fillMaxWidth()
+                .border(2.dp, Color.Gray, RoundedCornerShape(10.dp)) // bordes recortados con stroke
+                .padding(16.dp),
+            // Agrega aquí el resto de tu configuración de TextField
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Campo de entrada de texto para el tipo del personaje
+        BasicTextField(
+            value = "estado",
+            onValueChange = {/* actualiza tu estado aquí */},
+            modifier = Modifier
+                .fillMaxWidth()
+                .border(2.dp, Color.Gray, RoundedCornerShape(10.dp)) // bordes recortados con stroke
+                .padding(16.dp),
+            // Agrega aquí el resto de tu configuración de TextField
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
     }
 
 }
