@@ -52,6 +52,7 @@ fun CharactersListScreen(
     charactersViewModel: CharactersViewModel = hiltViewModel(),
 ) {
     val characters = charactersViewModel.allCharacters.collectAsLazyPagingItems()
+
     /* val scope = rememberCoroutineScope()
      val context = LocalContext.current
     */
