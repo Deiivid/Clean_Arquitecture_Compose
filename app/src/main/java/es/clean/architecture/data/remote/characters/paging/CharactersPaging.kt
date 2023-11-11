@@ -7,7 +7,9 @@ import es.clean.architecture.domain.characters.models.character.RickyMortyCharac
 import javax.inject.Inject
 
 open class CharactersPaging @Inject constructor(
-    private val repository: CharactersRepository
+    private val repository: CharactersRepository,
+    private val query: String? // Aceptar el parámetro query
+
 ) : PagingSource<Int, RickyMortyCharacterModel.RickyMortyCharacter>() {
     // Este método es as is, no se toca salvo lo estrictamente necesario
     // (obtención de la clave de páginación) :D
@@ -28,6 +30,7 @@ open class CharactersPaging @Inject constructor(
             // es un repositorio, por tanto...
             val response = repository.getAllCharacters(
                 page = page,
+                name = query
             )
 
             LoadResult.Page(
