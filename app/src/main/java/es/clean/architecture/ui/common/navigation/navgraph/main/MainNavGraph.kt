@@ -10,13 +10,13 @@ import coil.annotation.ExperimentalCoilApi
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import es.clean.architecture.domain.locations.models.RickyMortyLocationsModel
+import es.clean.architecture.ui.common.CHARACTER_OBJECT
+import es.clean.architecture.ui.common.EPISODE_OBJECT
+import es.clean.architecture.ui.common.LOCATION_OBJECT
 import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomNavigationBar
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.views.characters.screens.detail.CharacterDetailScreen
 import es.clean.architecture.ui.views.characters.screens.list.CharactersListScreen
-import es.clean.architecture.ui.common.CHARACTER_OBJECT
-import es.clean.architecture.ui.common.EPISODE_OBJECT
-import es.clean.architecture.ui.common.LOCATION_OBJECT
 import es.clean.architecture.ui.views.episodes.detail.EpisodeDetailScreen
 import es.clean.architecture.ui.views.episodes.list.EpisodesListScreen
 import es.clean.architecture.ui.views.locations.LocationsScreen
@@ -30,9 +30,10 @@ fun MainNavGraph(navController: NavHostController) {
         startDestination = Routes.CharacterList.route
     ) {
         //region [CHARACTERS]
-            composable(route = BottomNavigationBar.Characters.route) {
+        composable(route = BottomNavigationBar.Characters.route) {
             CharactersListScreen(navController = navController)
         }
+
         /**
          * To pass data we need first start with parcelable, set this in the gradle.app plugin section
          * and then be careful in the screen use currentBackStackEntry and here previousBackStackEntry
@@ -74,7 +75,7 @@ fun MainNavGraph(navController: NavHostController) {
                     LOCATION_OBJECT
                 )
             result?.let {
-              //  LocationDetailScreen(rickyMortyLocation = it)
+                //  LocationDetailScreen(rickyMortyLocation = it)
             }
         }
         //endregion [LOCATIONS]

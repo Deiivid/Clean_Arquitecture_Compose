@@ -13,10 +13,14 @@ import retrofit2.http.Query
 
 interface RickyMortyService {
     @GET(CHARACTER)
-    suspend fun getAllCharacters(@Query("page") currentPage: Int): Response<RemoteRickyMortyCharacterModel>
+    suspend fun getAllCharacters(
+        @Query("page") currentPage: Int,
+        @Query("name") name: String? = null
+    ): Response<RemoteRickyMortyCharacterModel>
 
     @GET(EPISODE)
     suspend fun getAllEpisodes(@Query("page") currentPage: Int): Response<RemoteRickyMortyEpisodesModel>
+
     @GET(LOCATION)
     suspend fun getAllLocations(@Query("page") currentPage: Int): Response<RemoteRickyMortyLocationsModel>
 
