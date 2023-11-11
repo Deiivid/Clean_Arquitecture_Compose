@@ -1,5 +1,6 @@
 package es.clean.architecture.ui.views.characters.screens.search
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -29,6 +30,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,14 +43,23 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import es.clean.architecture.R
 import es.clean.architecture.ui.views.characters.screens.detail.CutCornersShapeCustom
+import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun CharacterSearchScreen() {
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .height(500.dp)) {
+fun CharacterSearchScreen(charactersViewModel: CharactersViewModel = hiltViewModel()) {
+    val searchQuery by charactersViewModel.searchQuery.collectAsState()
+    val updateSearchQuery = { query: String ->
+        charactersViewModel.searchCharacters(query)
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(500.dp)
+    ) {
         Image(
             painter = painterResource(id = R.drawable.searchimage),
             contentDescription = "background",
@@ -71,27 +83,23 @@ fun CharacterSearchScreen() {
                 horizontalAlignment = Alignment.Start // Alineación a la izquierda
             ) {
                 Spacer(modifier = Modifier.height(32.dp))
-
-                SearchNameField(value = "Nombre",
-                    onValueChange = { /* actualiza tu estado aquí */ },
-                    placeholder = { Text("Filtrar por Nombre") })
-
-                Spacer(modifier = Modifier.height(32.dp))
-
-                SearchSpeciesField(
-                    value = "Especie",
-                    onValueChange = { /* actualiza tu estado aquí */ },
-                    placeholder = { Text("Filtrar por especie") }
+                SearchNameField(
+                    value = searchQuery,
+                    onValueChange = updateSearchQuery,
+                    placeholder = { Text("Filtrar por Nombre") }
                 )
-
-                Spacer(modifier = Modifier.height(32.dp))
-
-                GenderIconRow()
-
-                Spacer(modifier = Modifier.height(32.dp))
-
-                StatusIconRow()
             }
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            GenderIconRow()
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            StatusIconRow()
         }
     }
 }
