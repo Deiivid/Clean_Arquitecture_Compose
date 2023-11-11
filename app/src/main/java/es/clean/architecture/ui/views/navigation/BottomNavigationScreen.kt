@@ -6,29 +6,40 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.QuestionMark
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -38,15 +49,86 @@ import androidx.navigation.compose.rememberNavController
 import es.clean.architecture.R
 import es.clean.architecture.ui.common.navigation.navgraph.main.MainNavGraph
 import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomNavigationBar
+import es.clean.architecture.ui.common.navigation.routes.Routes
+import es.clean.architecture.ui.views.characters.screens.search.CharacterSearchScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavHostController = rememberNavController()) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    var showDialog by remember { mutableStateOf(false) } // Estado para controlar la visibilidad del diálogo
+    if (showDialog) {
+        Dialog(onDismissRequest = { showDialog = false }) {
+            CharacterSearchScreen() // El contenido de tu diálogo
+        }
+    }
     Scaffold(
-        bottomBar = { BottomBar(navController = navController) }
+        bottomBar = { BottomBar(navController = navController) },
+        floatingActionButton = {
+            Box(
+                modifier = Modifier
+                    // offset(y = -tamaño del FAB / 2) para mover el FAB hacia arriba
+                    .offset(y = 1.dp)
+            ) {
+                if (shouldShowFloatingActionButton(navController)) {
+
+                    CustomFloatingActionButton(
+                        onClick = {
+                            when (currentDestination?.route) {
+                                BottomNavigationBar.Characters.route -> {
+                                    showDialog = true
+                                }
+
+                                BottomNavigationBar.Episodes.route -> {
+                                    navController.navigate(Routes.CharacterList.route)
+                                }
+                            }
+                        },
+                        isVisible = shouldShowFloatingActionButton(navController)
+                    )
+                }
+            }
+        },
+        floatingActionButtonPosition = FabPosition.Center, // Mantén esta línea para asegurarte de que el FAB sigue alineado en el eje x.
+
     ) {
         MainNavGraph(navController = navController)
+    }
+}
+
+@Composable
+fun CustomFloatingActionButton(onClick: () -> Unit, isVisible: Boolean) {
+    if (isVisible) {
+        FloatingActionButton(
+            onClick = { onClick() },
+            contentColor = Color.White,
+            modifier = Modifier
+                .clip(CutCornerShape(44.dp))
+                .background(Color.Black),
+            containerColor = colorResource(id = R.color.app_background),
+            elevation = FloatingActionButtonDefaults.elevation(8.dp),
+            shape = CutCornerShape(10.dp)
+
+        ) {
+            Icon(
+                imageVector = Icons.Default.QuestionMark,
+                contentDescription = "Add",
+                tint = Color.White
+            )
+        }
+    }
+}
+
+@Composable
+fun shouldShowFloatingActionButton(navController: NavHostController): Boolean {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
+    return when (currentDestination?.route) {
+        BottomNavigationBar.Characters.route -> true
+        BottomNavigationBar.Episodes.route -> true
+        else -> false
     }
 }
 
