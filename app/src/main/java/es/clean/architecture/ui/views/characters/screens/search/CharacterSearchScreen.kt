@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Female
 import androidx.compose.material.icons.filled.Male
@@ -44,17 +46,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import es.clean.architecture.R
 import es.clean.architecture.ui.views.characters.screens.detail.CutCornersShapeCustom
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun CharacterSearchScreen(charactersViewModel: CharactersViewModel = hiltViewModel()) {
+fun CharacterSearchScreen(
+    navController: NavHostController,
+    charactersViewModel: CharactersViewModel = hiltViewModel(),
+    onDialogClose: () -> Unit
+) {
     val searchQuery by charactersViewModel.searchQuery.collectAsState()
-    val updateSearchQuery = { query: String ->
-        charactersViewModel.searchCharacters(query)
-    }
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -85,8 +90,13 @@ fun CharacterSearchScreen(charactersViewModel: CharactersViewModel = hiltViewMod
                 Spacer(modifier = Modifier.height(32.dp))
                 SearchNameField(
                     value = searchQuery,
-                    onValueChange = updateSearchQuery,
-                    placeholder = { Text("Filtrar por Nombre") }
+                    onValueChange = { newValue ->
+                        charactersViewModel.searchCharacters(newValue)
+                    },
+                    onSearch = {
+                        charactersViewModel.searchCharacters(searchQuery)
+                        onDialogClose() // Cierra el diálogo
+                    }, placeholder = { Text("Filtrar por Nombre") }
                 )
             }
 
@@ -109,6 +119,7 @@ fun CharacterSearchScreen(charactersViewModel: CharactersViewModel = hiltViewMod
 fun SearchNameField(
     value: String,
     onValueChange: (String) -> Unit,
+    onSearch: () -> Unit, // Nuevo parámetro para manejar el evento de búsqueda
     placeholder: @Composable () -> Unit
 ) {
     val backgroundColor =
@@ -117,6 +128,15 @@ fun SearchNameField(
         value = value,
         onValueChange = onValueChange,
         singleLine = true,
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = androidx.compose.ui.text.input.ImeAction.Search),
+        keyboardActions = KeyboardActions(
+            onSearch = {
+                if (value.isNotEmpty()) {
+                    onValueChange(value) // Actualiza la consulta de búsqueda en el ViewModel
+                    onSearch() // Cierra el diálogo
+                }
+            }
+        ),
         decorationBox = { innerTextField ->
             Surface(
                 shape = CutCornersShapeCustom(16.dp),
@@ -286,5 +306,6 @@ fun GenderIconButton(
 @Preview
 @Composable
 fun ShowCharacterSearchScreen() {
-    CharacterSearchScreen()
+
+    // CharacterSearchScreen(rememberNavController(), onDialogClose = () -> Unit)
 }

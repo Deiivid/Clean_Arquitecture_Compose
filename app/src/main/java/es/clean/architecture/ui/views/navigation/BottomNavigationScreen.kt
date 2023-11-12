@@ -6,13 +6,11 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -55,53 +53,51 @@ import es.clean.architecture.ui.views.characters.screens.search.CharacterSearchS
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(navController: NavHostController = rememberNavController()) {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
-    var showDialog by remember { mutableStateOf(false) } // Estado para controlar la visibilidad del diálogo
-    if (showDialog) {
-        Dialog(onDismissRequest = { showDialog = false }) {
-            CharacterSearchScreen() // El contenido de tu diálogo
-        }
-    }
+    var showDialog by remember { mutableStateOf(false) }
+    var hasSearched by remember { mutableStateOf(false) }
+
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
         floatingActionButton = {
-            Box(
-                modifier = Modifier
-                    // offset(y = -tamaño del FAB / 2) para mover el FAB hacia arriba
-                    .offset(y = 1.dp)
-            ) {
-                if (shouldShowFloatingActionButton(navController)) {
-
-                    CustomFloatingActionButton(
-                        onClick = {
-                            when (currentDestination?.route) {
-                                BottomNavigationBar.Characters.route -> {
-                                    showDialog = true
-                                }
-
-                                BottomNavigationBar.Episodes.route -> {
-                                    navController.navigate(Routes.CharacterList.route)
-                                }
-                            }
-                        },
-                        isVisible = shouldShowFloatingActionButton(navController)
-                    )
-                }
-            }
+            CustomFloatingActionButton(
+                onShowDialogChange = { showDialog = it },
+                isVisible = shouldShowFloatingActionButton(navController.currentBackStackEntryAsState().value?.destination),
+                navController = navController
+            )
         },
-        floatingActionButtonPosition = FabPosition.Center, // Mantén esta línea para asegurarte de que el FAB sigue alineado en el eje x.
-
+        floatingActionButtonPosition = FabPosition.Center
     ) {
-        MainNavGraph(navController = navController)
+        MainNavGraph(navController = navController, hasSearched)
+    }
+
+    if (showDialog) {
+        Dialog(onDismissRequest = { showDialog = false }) {
+            CharacterSearchScreen(
+                navController = navController,
+                onDialogClose = {
+                    hasSearched = true
+                    showDialog = false
+                }
+            )
+        }
     }
 }
 
 @Composable
-fun CustomFloatingActionButton(onClick: () -> Unit, isVisible: Boolean) {
+fun CustomFloatingActionButton(
+    navController: NavHostController,
+    onShowDialogChange: (Boolean) -> Unit,
+    isVisible: Boolean,
+) {
+    val currentDestination = navController.currentBackStackEntryAsState().value?.destination
     if (isVisible) {
         FloatingActionButton(
-            onClick = { onClick() },
+            onClick = {
+                when (currentDestination?.route) {
+                    BottomNavigationBar.Characters.route -> onShowDialogChange(true)
+                    BottomNavigationBar.Episodes.route -> navController.navigate(Routes.CharacterList.route)
+                }
+            },
             contentColor = Color.White,
             modifier = Modifier
                 .clip(CutCornerShape(44.dp))
@@ -109,7 +105,6 @@ fun CustomFloatingActionButton(onClick: () -> Unit, isVisible: Boolean) {
             containerColor = colorResource(id = R.color.app_background),
             elevation = FloatingActionButtonDefaults.elevation(8.dp),
             shape = CutCornerShape(10.dp)
-
         ) {
             Icon(
                 imageVector = Icons.Default.QuestionMark,
@@ -121,10 +116,7 @@ fun CustomFloatingActionButton(onClick: () -> Unit, isVisible: Boolean) {
 }
 
 @Composable
-fun shouldShowFloatingActionButton(navController: NavHostController): Boolean {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
-
+fun shouldShowFloatingActionButton(currentDestination: NavDestination?): Boolean {
     return when (currentDestination?.route) {
         BottomNavigationBar.Characters.route -> true
         BottomNavigationBar.Episodes.route -> true
