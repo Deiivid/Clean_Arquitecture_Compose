@@ -1,5 +1,6 @@
 package es.clean.architecture.ui.views.characters.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -27,9 +28,16 @@ open class CharactersViewModel @Inject constructor(
         }.stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
 
     fun searchCharacters(query: String) {
-        // Solo actualiza el query si es diferente para evitar refrescos innecesarios
+        Log.d("Search", "Query: $query")
         if (searchQuery.value != query) {
             searchQuery.value = query
+        }
+    }
+
+    fun refreshCharacters() {
+        // Solo invalida si hay una búsqueda activa
+        if (searchQuery.value.isNotEmpty()) {
+            searchQuery.value = searchQuery.value
         }
     }
 }
