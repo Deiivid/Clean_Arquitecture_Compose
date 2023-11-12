@@ -49,6 +49,7 @@ import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 @Composable
 fun CharactersListScreen(
     navController: NavHostController,
+    hasSearched: Boolean,
     charactersViewModel: CharactersViewModel = hiltViewModel(),
 ) {
     val characters = charactersViewModel.allCharacters.collectAsLazyPagingItems()
@@ -56,6 +57,12 @@ fun CharactersListScreen(
     /* val scope = rememberCoroutineScope()
      val context = LocalContext.current
     */
+    LaunchedEffect(hasSearched) {
+        if (hasSearched) {
+            charactersViewModel.refreshCharacters() // Refresca los personajes
+        }
+    }
+
     val isSearching by remember {
         mutableStateOf(false)
     }
