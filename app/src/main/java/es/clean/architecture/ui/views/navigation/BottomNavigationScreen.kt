@@ -55,6 +55,7 @@ import es.clean.architecture.ui.views.characters.screens.search.CharacterSearchS
 fun HomeScreen(navController: NavHostController = rememberNavController()) {
     var showDialog by remember { mutableStateOf(false) }
     var hasSearched by remember { mutableStateOf(false) }
+    var search by remember { mutableStateOf("") }
 
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
@@ -67,7 +68,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
         },
         floatingActionButtonPosition = FabPosition.Center
     ) {
-        MainNavGraph(navController = navController, hasSearched)
+        MainNavGraph(navController = navController, hasSearched, search)
     }
 
     if (showDialog) {
@@ -77,6 +78,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
                 onDialogClose = {
                     hasSearched = true
                     showDialog = false
+                    search = "rick" // se me destruye e lviemodel por eso no persiste
                 }
             )
         }
