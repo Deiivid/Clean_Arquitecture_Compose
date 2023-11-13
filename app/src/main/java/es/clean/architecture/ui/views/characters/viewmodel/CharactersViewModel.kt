@@ -35,9 +35,10 @@ open class CharactersViewModel @Inject constructor(
     }
 
     fun refreshCharacters() {
-        // Solo invalida si hay una búsqueda activa
-        if (searchQuery.value.isNotEmpty()) {
-            searchQuery.value = searchQuery.value
+        val currentQuery = searchQuery.value
+        if (currentQuery.isNotEmpty()) {
+            searchQuery.value = "" // O algún valor especial que indique refresco
+            searchQuery.value = currentQuery
         }
     }
 }
