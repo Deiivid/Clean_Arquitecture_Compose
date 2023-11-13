@@ -47,7 +47,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import es.clean.architecture.R
+import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.ui.views.characters.screens.detail.CutCornersShapeCustom
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
@@ -59,7 +62,8 @@ fun CharacterSearchScreen(
     onDialogClose: () -> Unit
 ) {
     val searchQuery by charactersViewModel.searchQuery.collectAsState()
-
+    val characters: LazyPagingItems<RickyMortyCharacterModel.RickyMortyCharacter> =
+        charactersViewModel.allCharacters.collectAsLazyPagingItems()
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -94,6 +98,7 @@ fun CharacterSearchScreen(
                         charactersViewModel.searchCharacters(newValue)
                     },
                     onSearch = {
+                        characters.refresh()
                         charactersViewModel.searchCharacters(searchQuery)
                         onDialogClose() // Cierra el diálogo
                     }, placeholder = { Text("Filtrar por Nombre") }
