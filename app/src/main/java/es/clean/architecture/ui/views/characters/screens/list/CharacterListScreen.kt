@@ -52,8 +52,8 @@ fun CharactersListScreen(
     hasSearched: Boolean,
     charactersViewModel: CharactersViewModel = hiltViewModel(),
 ) {
-    val characters = charactersViewModel.allCharacters.collectAsLazyPagingItems()
-
+    val characters: LazyPagingItems<RickyMortyCharacterModel.RickyMortyCharacter> =
+        charactersViewModel.allCharacters.collectAsLazyPagingItems()
     /* val scope = rememberCoroutineScope()
      val context = LocalContext.current
     */
@@ -66,14 +66,10 @@ fun CharactersListScreen(
     val isSearching by remember {
         mutableStateOf(false)
     }
-    // var searchString by remember {
-    //   mutableStateOf("")
-    //}
-    val charactersr: LazyPagingItems<RickyMortyCharacterModel.RickyMortyCharacter> =
-        charactersViewModel.allCharacters.collectAsLazyPagingItems()
 
 
-    when (charactersr.loadState.refresh) {
+
+    when (characters.loadState.refresh) {
         is LoadState.Loading -> {
             // Mostrar animación de carga
             LottieProgressBar()
