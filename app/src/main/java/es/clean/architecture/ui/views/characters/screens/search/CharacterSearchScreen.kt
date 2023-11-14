@@ -1,5 +1,6 @@
 package es.clean.architecture.ui.views.characters.screens.search
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,6 +18,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Female
 import androidx.compose.material.icons.filled.Male
@@ -29,6 +32,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,14 +45,30 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import es.clean.architecture.R
+import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.ui.views.characters.screens.detail.CutCornersShapeCustom
+import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun CharacterSearchScreen() {
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .height(500.dp)) {
+fun CharacterSearchScreen(
+    navController: NavHostController,
+    charactersViewModel: CharactersViewModel = hiltViewModel(),
+    onSearchComplete: (String) -> Unit
+) {
+    val searchQuery by charactersViewModel.searchQuery.collectAsState()
+    val characters: LazyPagingItems<RickyMortyCharacterModel.RickyMortyCharacter> =
+        charactersViewModel.allCharacters.collectAsLazyPagingItems()
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(500.dp)
+    ) {
         Image(
             painter = painterResource(id = R.drawable.searchimage),
             contentDescription = "background",
@@ -72,26 +93,30 @@ fun CharacterSearchScreen() {
             ) {
                 Spacer(modifier = Modifier.height(32.dp))
 
-                SearchNameField(value = "Nombre",
-                    onValueChange = { /* actualiza tu estado aquí */ },
-                    placeholder = { Text("Filtrar por Nombre") })
-
-                Spacer(modifier = Modifier.height(32.dp))
-
-                SearchSpeciesField(
-                    value = "Especie",
-                    onValueChange = { /* actualiza tu estado aquí */ },
-                    placeholder = { Text("Filtrar por especie") }
+                SearchNameField(
+                    value = searchQuery,
+                    onValueChange = { newValue ->
+                        charactersViewModel.searchCharacters(newValue)
+                    },
+                    onSearch = {
+                        characters.refresh()
+                        charactersViewModel.searchCharacters(searchQuery)
+                        onSearchComplete(searchQuery) // Invoca el callback cuando se complete la búsqueda
+                    },
+                    placeholder = { Text("Filtrar por Nombre") }
                 )
-
-                Spacer(modifier = Modifier.height(32.dp))
-
-                GenderIconRow()
-
-                Spacer(modifier = Modifier.height(32.dp))
-
-                StatusIconRow()
             }
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            GenderIconRow()
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            StatusIconRow()
         }
     }
 }
@@ -101,6 +126,7 @@ fun CharacterSearchScreen() {
 fun SearchNameField(
     value: String,
     onValueChange: (String) -> Unit,
+    onSearch: () -> Unit, // Nuevo parámetro para manejar el evento de búsqueda
     placeholder: @Composable () -> Unit
 ) {
     val backgroundColor =
@@ -109,6 +135,15 @@ fun SearchNameField(
         value = value,
         onValueChange = onValueChange,
         singleLine = true,
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = androidx.compose.ui.text.input.ImeAction.Search),
+        keyboardActions = KeyboardActions(
+            onSearch = {
+                if (value.isNotEmpty()) {
+                    onValueChange(value) // Actualiza la consulta de búsqueda en el ViewModel
+                    onSearch() // Cierra el diálogo
+                }
+            }
+        ),
         decorationBox = { innerTextField ->
             Surface(
                 shape = CutCornersShapeCustom(16.dp),
@@ -278,5 +313,6 @@ fun GenderIconButton(
 @Preview
 @Composable
 fun ShowCharacterSearchScreen() {
-    CharacterSearchScreen()
+
+    // CharacterSearchScreen(rememberNavController(), onDialogClose = () -> Unit)
 }

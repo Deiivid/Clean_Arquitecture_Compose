@@ -8,8 +8,12 @@ import es.clean.architecture.domain.characters.models.character.RickyMortyCharac
 internal class RemoteCharacterDataStoreImpl(
     private val rickyMortyService: RickyMortyService
 ) : CharactersRepository {
-    override suspend fun getAllCharacters(page: Int): List<RickyMortyCharacterModel.RickyMortyCharacter> {
-        val result = this@RemoteCharacterDataStoreImpl.rickyMortyService.getAllCharacters(page)
+    override suspend fun getAllCharacters(
+        page: Int,
+        name: String?
+    ): List<RickyMortyCharacterModel.RickyMortyCharacter> {
+        val result =
+            this@RemoteCharacterDataStoreImpl.rickyMortyService.getAllCharacters(page, name)
 
         if (result.isSuccessful)
             return (result.body()?.results?.map { character ->
