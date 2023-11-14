@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.QuestionMark
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -26,6 +27,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,35 +56,52 @@ import es.clean.architecture.ui.views.characters.screens.search.CharacterSearchS
 @Composable
 fun HomeScreen(navController: NavHostController = rememberNavController()) {
     var showDialog by remember { mutableStateOf(false) }
-    var hasSearched by remember { mutableStateOf(false) }
-    var search by remember { mutableStateOf("") }
+    var searchQuery by remember { mutableStateOf<String?>(null) }
+
+    LaunchedEffect(navController.currentBackStackEntryAsState().value?.destination?.route) {
+        if (navController.currentDestination?.route == BottomNavigationBar.Characters.route) {
+            searchQuery = null
+        }
+    }
 
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
         floatingActionButton = {
-            CustomFloatingActionButton(
-                onShowDialogChange = { showDialog = it },
-                isVisible = shouldShowFloatingActionButton(navController.currentBackStackEntryAsState().value?.destination),
-                navController = navController
-            )
+            if (searchQuery.isNullOrEmpty()) {
+                CustomFloatingActionButton(
+                    onShowDialogChange = { showDialog = it },
+                    isVisible = shouldShowFloatingActionButton(navController.currentBackStackEntryAsState().value?.destination),
+                    navController = navController
+
+                )
+            } else {
+                //TODO remember fix this
+                CustomFloatingActionButton2(
+                    onShowDialogChange = { showDialog = it },
+                    isVisible = shouldShowFloatingActionButton(navController.currentBackStackEntryAsState().value?.destination),
+                    navController = navController
+                )
+            }
         },
         floatingActionButtonPosition = FabPosition.Center
     ) {
-        MainNavGraph(navController = navController, hasSearched, search)
+        MainNavGraph(navController = navController, searchQuery = searchQuery)
     }
 
     if (showDialog) {
         Dialog(onDismissRequest = { showDialog = false }) {
             CharacterSearchScreen(
                 navController = navController,
-                onDialogClose = {
-                    hasSearched = true
+                onSearchComplete = { query ->
+                    searchQuery = query
                     showDialog = false
-                    search = "rick" // se me destruye e lviemodel por eso no persiste
+                    navController.navigate(BottomNavigationBar.Characters.route)
                 }
             )
         }
     }
+
+
 }
 
 @Composable
@@ -118,6 +137,38 @@ fun CustomFloatingActionButton(
 }
 
 @Composable
+fun CustomFloatingActionButton2(
+    navController: NavHostController,
+    onShowDialogChange: (Boolean) -> Unit,
+    isVisible: Boolean,
+) {
+    val currentDestination = navController.currentBackStackEntryAsState().value?.destination
+    if (isVisible) {
+        FloatingActionButton(
+            onClick = {
+                when (currentDestination?.route) {
+                    BottomNavigationBar.Characters.route -> onShowDialogChange(true)
+                    BottomNavigationBar.Episodes.route -> navController.navigate(Routes.CharacterList.route)
+                }
+            },
+            contentColor = Color.Red,
+            modifier = Modifier
+                .clip(CutCornerShape(44.dp))
+                .background(Color.White),
+            containerColor = colorResource(id = R.color.app_background),
+            elevation = FloatingActionButtonDefaults.elevation(8.dp),
+            shape = CutCornerShape(10.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Cancel,
+                contentDescription = "Add",
+                tint = Color.White
+            )
+        }
+    }
+}
+
+@Composable
 fun shouldShowFloatingActionButton(currentDestination: NavDestination?): Boolean {
     return when (currentDestination?.route) {
         BottomNavigationBar.Characters.route -> true
@@ -133,6 +184,7 @@ fun BottomBar(navController: NavHostController) {
         BottomNavigationBar.Episodes,
         BottomNavigationBar.Locations,
     )
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
@@ -140,6 +192,7 @@ fun BottomBar(navController: NavHostController) {
     if (bottomBarDestination) {
         CustomBottomBar(navController, screens, currentDestination)
     }
+
 }
 
 @Composable
