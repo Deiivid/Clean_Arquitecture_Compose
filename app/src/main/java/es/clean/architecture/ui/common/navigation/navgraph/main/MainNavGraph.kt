@@ -24,14 +24,15 @@ import es.clean.architecture.ui.views.locations.LocationsScreen
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-fun MainNavGraph(navController: NavHostController, hasSearched: Boolean, search: String) {
+fun MainNavGraph(navController: NavHostController, searchQuery: String?) {
     NavHost(
         navController = navController,
         startDestination = Routes.CharacterList.route
     ) {
         //region [CHARACTERS]
         composable(route = BottomNavigationBar.Characters.route) {
-            CharactersListScreen(navController = navController, hasSearched, search = search)
+            CharactersListScreen(navController = navController, searchQuery = searchQuery ?: "")
+
         }
 
         /**
