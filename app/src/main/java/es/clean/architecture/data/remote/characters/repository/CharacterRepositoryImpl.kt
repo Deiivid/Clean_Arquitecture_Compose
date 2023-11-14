@@ -9,6 +9,9 @@ import javax.inject.Singleton
 class CharacterRepositoryImpl @Inject constructor(
     private val factory: RickAndMortyCharacterFactory
 ) : CharactersRepository {
-    override suspend fun getAllCharacters(page: Int): List<RickyMortyCharacterModel.RickyMortyCharacter> =
+    override suspend fun getAllCharacters(
+        page: Int,
+        name: String?
+    ): List<RickyMortyCharacterModel.RickyMortyCharacter> =
         factory.remote.getAllCharacters(page)
 }
