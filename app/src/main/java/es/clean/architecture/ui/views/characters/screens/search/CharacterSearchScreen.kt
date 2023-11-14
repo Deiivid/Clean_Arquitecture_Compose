@@ -59,7 +59,7 @@ import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 fun CharacterSearchScreen(
     navController: NavHostController,
     charactersViewModel: CharactersViewModel = hiltViewModel(),
-    onDialogClose: () -> Unit
+    onSearchComplete: (String) -> Unit
 ) {
     val searchQuery by charactersViewModel.searchQuery.collectAsState()
     val characters: LazyPagingItems<RickyMortyCharacterModel.RickyMortyCharacter> =
@@ -92,6 +92,7 @@ fun CharacterSearchScreen(
                 horizontalAlignment = Alignment.Start // Alineación a la izquierda
             ) {
                 Spacer(modifier = Modifier.height(32.dp))
+
                 SearchNameField(
                     value = searchQuery,
                     onValueChange = { newValue ->
@@ -100,8 +101,9 @@ fun CharacterSearchScreen(
                     onSearch = {
                         characters.refresh()
                         charactersViewModel.searchCharacters(searchQuery)
-                        onDialogClose() // Cierra el diálogo
-                    }, placeholder = { Text("Filtrar por Nombre") }
+                        onSearchComplete(searchQuery) // Invoca el callback cuando se complete la búsqueda
+                    },
+                    placeholder = { Text("Filtrar por Nombre") }
                 )
             }
 
