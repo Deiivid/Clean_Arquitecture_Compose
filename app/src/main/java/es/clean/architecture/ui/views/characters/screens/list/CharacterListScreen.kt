@@ -61,7 +61,7 @@ fun CharactersListScreen(
     LaunchedEffect(hasSearched) {
         if (hasSearched) {
             characters.refresh()
-            charactersViewModel.searchCharacters(search)
+            charactersViewModel.searchCharacters("rick")
 
         }
     }
