@@ -21,14 +21,9 @@ open class CharactersViewModel @Inject constructor(
 ) : ViewModel() {
 
     val searchQuery = MutableStateFlow("")
-    var searchName = ""
     val allCharacters: StateFlow<PagingData<RickyMortyCharacterModel.RickyMortyCharacter>> =
         searchQuery.flatMapLatest { query ->
-            if (searchName != "") {
-                allCharactersUseCase(searchName, 20).cachedIn(viewModelScope)
-            } else {
                 allCharactersUseCase(query, 20).cachedIn(viewModelScope)
-            }
         }.stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
 
 
@@ -36,7 +31,6 @@ open class CharactersViewModel @Inject constructor(
         Log.d("Search", "Query: $query")
         if (searchQuery.value != query) {
             searchQuery.value = query
-            searchName = query
         }
     }
 }
