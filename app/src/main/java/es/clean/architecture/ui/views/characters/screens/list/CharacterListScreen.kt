@@ -49,8 +49,7 @@ import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 @Composable
 fun CharactersListScreen(
     navController: NavHostController,
-    hasSearched: Boolean,
-    search: String,
+    searchQuery: String?,
     charactersViewModel: CharactersViewModel = hiltViewModel(),
 ) {
     val characters: LazyPagingItems<RickyMortyCharacterModel.RickyMortyCharacter> =
@@ -58,10 +57,9 @@ fun CharactersListScreen(
     /* val scope = rememberCoroutineScope()
      val context = LocalContext.current
     */
-    LaunchedEffect(hasSearched) {
-        if (hasSearched) {
-            characters.refresh()
-            charactersViewModel.searchCharacters("rick")
+    LaunchedEffect(searchQuery != "") {
+        if (searchQuery != null) {
+            charactersViewModel.searchCharacters(searchQuery)
 
         }
     }
