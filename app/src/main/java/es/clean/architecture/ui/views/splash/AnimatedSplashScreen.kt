@@ -25,7 +25,7 @@ fun AnimatedSplashScreen(navController: NavHostController) {
 
     LaunchedEffect(key1 = true) {
         startAnimation = true
-        delay(3000)
+        delay(2000)
         navController.popBackStack() // to get back and don't show error
         //  navController.navigate(Routes.HomeScreen.route)
         // navController.navigate(Routes.CharacterList.route)
@@ -43,7 +43,7 @@ fun LottieSplashScreen() {
         composition = compositeResult.value,
         isPlaying = true,
         iterations = LottieConstants.IterateForever,
-        speed = 1.0f
+        speed = 2.0f
     )
     LottieAnimation(
         composition = compositeResult.value,
