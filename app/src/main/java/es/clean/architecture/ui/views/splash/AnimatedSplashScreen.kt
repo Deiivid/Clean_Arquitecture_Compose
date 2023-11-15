@@ -26,9 +26,7 @@ fun AnimatedSplashScreen(navController: NavHostController) {
     LaunchedEffect(key1 = true) {
         startAnimation = true
         delay(2000)
-        navController.popBackStack() // to get back and don't show error
-        //  navController.navigate(Routes.HomeScreen.route)
-        // navController.navigate(Routes.CharacterList.route)
+        navController.popBackStack()
         navController.navigate(MAIN)
     }
     LottieSplashScreen()
