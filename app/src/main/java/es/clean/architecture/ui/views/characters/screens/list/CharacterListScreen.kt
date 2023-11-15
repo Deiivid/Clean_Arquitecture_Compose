@@ -76,7 +76,6 @@ fun CharactersListScreen(
             if (searchQuery != "") {
                 LottieSearch()
             } else {
-                // Mostrar animación de carga
                 LottieProgressBar()
             }
         }

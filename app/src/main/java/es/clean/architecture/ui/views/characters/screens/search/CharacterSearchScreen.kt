@@ -89,7 +89,7 @@ fun CharacterSearchScreen(
                     .fillMaxSize()
                     .padding(16.dp),
                 verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.Start // Alineación a la izquierda
+                horizontalAlignment = Alignment.Start
             ) {
                 Spacer(modifier = Modifier.height(32.dp))
 
@@ -101,7 +101,7 @@ fun CharacterSearchScreen(
                     onSearch = {
                         characters.refresh()
                         charactersViewModel.searchCharacters(searchQuery)
-                        onSearchComplete(searchQuery) // Invoca el callback cuando se complete la búsqueda
+                        onSearchComplete(searchQuery)
                     },
                     placeholder = { Text("Filtrar por Nombre") }
                 )
@@ -126,7 +126,7 @@ fun CharacterSearchScreen(
 fun SearchNameField(
     value: String,
     onValueChange: (String) -> Unit,
-    onSearch: () -> Unit, // Nuevo parámetro para manejar el evento de búsqueda
+    onSearch: () -> Unit,
     placeholder: @Composable () -> Unit
 ) {
     val backgroundColor =
@@ -139,8 +139,8 @@ fun SearchNameField(
         keyboardActions = KeyboardActions(
             onSearch = {
                 if (value.isNotEmpty()) {
-                    onValueChange(value) // Actualiza la consulta de búsqueda en el ViewModel
-                    onSearch() // Cierra el diálogo
+                    onValueChange(value)
+                    onSearch()
                 }
             }
         ),
