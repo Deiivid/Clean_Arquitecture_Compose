@@ -70,7 +70,7 @@ fun CharacterSearchScreen(
             .height(500.dp)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.searchimage),
+            painter = painterResource(id = R.drawable.backgound2),
             contentDescription = "background",
             modifier = Modifier
                 .fillMaxSize()
