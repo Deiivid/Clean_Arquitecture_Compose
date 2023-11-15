@@ -73,8 +73,11 @@ fun CharactersListScreen(
 
     when (characters.loadState.refresh) {
         is LoadState.Loading -> {
-            // Mostrar animación de carga
-            LottieProgressBar()
+            if (searchQuery != "") {
+                LottieSearch()
+            } else {
+                LottieProgressBar()
+            }
         }
 
         is LoadState.NotLoading -> {
@@ -277,13 +280,24 @@ fun LottieProgressBar() {
 }
 
 @Composable
+fun LottieSearch() {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loadingsearch))
+    val progress by animateLottieCompositionAsState(composition,speed = 2f)
+    LottieAnimation(
+        composition = composition,
+        progress = { progress },
+        modifier = Modifier.fillMaxSize()
+    )
+
+}
+@Composable
 fun LottieErrorState() {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.cryricky))
     val progress by animateLottieCompositionAsState(composition)
     LottieAnimation(
         composition = composition,
         progress = { progress },
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     )
 
 }
