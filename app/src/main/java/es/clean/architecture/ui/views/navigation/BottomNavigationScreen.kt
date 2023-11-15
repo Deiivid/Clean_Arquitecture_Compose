@@ -67,20 +67,24 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
         floatingActionButton = {
-            if (searchQuery.isNullOrEmpty()) {
-                CustomFloatingActionButton(
-                    onShowDialogChange = { showDialog = it },
-                    isVisible = shouldShowFloatingActionButton(navController.currentBackStackEntryAsState().value?.destination),
-                    navController = navController
+            val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+            val isCharactersScreen = currentRoute == BottomNavigationBar.Characters.route
+            val isSearchQueryPresent = !searchQuery.isNullOrEmpty()
 
-                )
-            } else {
-                //TODO remember fix this need fix this
-                CustomFloatingActionButton2(
-                    onShowDialogChange = { showDialog = it },
-                    isVisible = shouldShowFloatingActionButton(navController.currentBackStackEntryAsState().value?.destination),
-                    navController = navController
-                )
+            if (shouldShowFloatingActionButton(navController.currentBackStackEntryAsState().value?.destination)) {
+                if (isCharactersScreen && isSearchQueryPresent) {
+                    CustomFloatingActionButtonCancel(
+                        onShowDialogChange = { showDialog = it },
+                        isVisible = true,
+                        navController = navController
+                    )
+                } else {
+                    CustomFloatingActionButton(
+                        onShowDialogChange = { showDialog = it },
+                        isVisible = true,
+                        navController = navController
+                    )
+                }
             }
         },
         floatingActionButtonPosition = FabPosition.Center
@@ -137,7 +141,7 @@ fun CustomFloatingActionButton(
 }
 
 @Composable
-fun CustomFloatingActionButton2(
+fun CustomFloatingActionButtonCancel(
     navController: NavHostController,
     onShowDialogChange: (Boolean) -> Unit,
     isVisible: Boolean,
