@@ -73,7 +73,6 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
                     onShowDialogChange = { showDialog = it },
                     isVisible = shouldShowFloatingActionButton(navController.currentBackStackEntryAsState().value?.destination),
                     navController = navController
-
                 )
             } else {
                 CustomFloatingActionButtonClose(
