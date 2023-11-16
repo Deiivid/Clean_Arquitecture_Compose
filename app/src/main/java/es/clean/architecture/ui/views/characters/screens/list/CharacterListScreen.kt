@@ -73,11 +73,7 @@ fun CharactersListScreen(
 
     when (characters.loadState.refresh) {
         is LoadState.Loading -> {
-            if (searchQuery != "") {
-                LottieSearch()
-            } else {
-                LottieProgressBar()
-            }
+            LottieProgressBar()
         }
 
         is LoadState.NotLoading -> {
@@ -123,41 +119,54 @@ fun CharactersListScreen(
                     )
                 }
             ) { paddingValues ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(
-                            colorResource(id = R.color.app_background)
-                        )
-                        .padding(bottom = 10.dp)
-                ) {
-                    LazyColumn(
+                if (characters.itemCount == 0) {
+                    Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(paddingValues)
+                            .background(
+                                colorResource(id = R.color.app_background)
+                            ), contentAlignment = Alignment.Center
                     ) {
-                        items(
-                            count = characters.itemCount,
-                            key = characters.itemKey { character -> character.id }
-                        ) { characterIndex ->
-                            characters[characterIndex]?.let { item ->
-                                CharacterItem(
-                                    character = item,
-                                ) { currentCharacter ->
+                        LottieEmptyState()
+                    }
+                } else {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(
+                                colorResource(id = R.color.app_background)
+                            )
+                            .padding(bottom = 10.dp)
+                    ) {
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(paddingValues)
+                        ) {
+                            items(
+                                count = characters.itemCount,
+                                key = characters.itemKey { character -> character.id }
+                            ) { characterIndex ->
+                                characters[characterIndex]?.let { item ->
+                                    CharacterItem(
+                                        character = item,
+                                    ) { currentCharacter ->
 
-                                    navController.currentBackStackEntry?.savedStateHandle?.set(
-                                        CHARACTER_OBJECT,
-                                        value = currentCharacter
-                                    )
-                                    navController.navigate(Routes.CharacterDetailScreen.route)
+                                        navController.currentBackStackEntry?.savedStateHandle?.set(
+                                            CHARACTER_OBJECT,
+                                            value = currentCharacter
+                                        )
+                                        navController.navigate(Routes.CharacterDetailScreen.route)
+                                    }
                                 }
                             }
                         }
-                    }
 
+                    }
                 }
             }
         }
+
 
         is LoadState.Error -> {
             LottieErrorState()
@@ -282,7 +291,7 @@ fun LottieProgressBar() {
 @Composable
 fun LottieSearch() {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loadingsearch))
-    val progress by animateLottieCompositionAsState(composition,speed = 2f)
+    val progress by animateLottieCompositionAsState(composition, speed = 2f)
     LottieAnimation(
         composition = composition,
         progress = { progress },
@@ -290,6 +299,7 @@ fun LottieSearch() {
     )
 
 }
+
 @Composable
 fun LottieErrorState() {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.cryricky))
@@ -298,6 +308,18 @@ fun LottieErrorState() {
         composition = composition,
         progress = { progress },
         modifier = Modifier.fillMaxSize(),
+    )
+
+}
+
+@Composable
+fun LottieEmptyState() {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.emptylottie))
+    val progress by animateLottieCompositionAsState(composition)
+    LottieAnimation(
+        composition = composition,
+        progress = { progress },
+        modifier = Modifier.fillMaxSize()
     )
 
 }
