@@ -5,6 +5,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -67,25 +68,20 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
         floatingActionButton = {
-            val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
-            val isCharactersScreen = currentRoute == BottomNavigationBar.Characters.route
-            val isSearchQueryPresent = !searchQuery.isNullOrEmpty()
+            if (searchQuery.isNullOrEmpty()) {
+                CustomFloatingActionButton(
+                    onShowDialogChange = { showDialog = it },
+                    isVisible = shouldShowFloatingActionButton(navController.currentBackStackEntryAsState().value?.destination),
+                    navController = navController
+                )
+            } else {
+                CustomFloatingActionButtonClose(
+                    onShowDialogChange = { showDialog = it },
+                    isVisible = shouldShowFloatingActionButton(navController.currentBackStackEntryAsState().value?.destination),
+                    navController = navController,
+                    onSearchQueryReset = { searchQuery = "" }
 
-            if (shouldShowFloatingActionButton(navController.currentBackStackEntryAsState().value?.destination)) {
-                if (isCharactersScreen && isSearchQueryPresent) {
-                    CustomFloatingActionButtonCancel(
-                        onShowDialogChange = { showDialog = it },
-                        isVisible = true,
-                        navController = navController
-                    )
-                } else {
-                    CustomFloatingActionButton(
-                        onShowDialogChange = { showDialog = it },
-                        isVisible = true,
-                        navController = navController
-                    )
-                }
-
+                )
             }
         },
         floatingActionButtonPosition = FabPosition.Center
@@ -127,7 +123,10 @@ fun CustomFloatingActionButton(
             contentColor = Color.White,
             modifier = Modifier
                 .clip(CutCornerShape(44.dp))
-                .background(Color.Black),
+                .border(
+                    width = 4.dp,
+                    color = colorResource(id = R.color.white),
+                ),
             containerColor = colorResource(id = R.color.app_background),
             elevation = FloatingActionButtonDefaults.elevation(8.dp),
             shape = CutCornerShape(10.dp)
@@ -142,24 +141,32 @@ fun CustomFloatingActionButton(
 }
 
 @Composable
-fun CustomFloatingActionButtonCancel(
+fun CustomFloatingActionButtonClose(
     navController: NavHostController,
     onShowDialogChange: (Boolean) -> Unit,
     isVisible: Boolean,
+    onSearchQueryReset: () -> Unit
 ) {
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
     if (isVisible) {
         FloatingActionButton(
             onClick = {
                 when (currentDestination?.route) {
-                    BottomNavigationBar.Characters.route -> onShowDialogChange(true)
+                    BottomNavigationBar.Characters.route -> {
+                        onShowDialogChange(true)
+                        onSearchQueryReset()
+                    }
+
                     BottomNavigationBar.Episodes.route -> navController.navigate(Routes.CharacterList.route)
                 }
             },
-            contentColor = Color.Red,
+            contentColor = Color.White,
             modifier = Modifier
                 .clip(CutCornerShape(44.dp))
-                .background(Color.White),
+                .border(
+                    width = 4.dp,
+                    color = colorResource(id = R.color.white),
+                ),
             containerColor = colorResource(id = R.color.app_background),
             elevation = FloatingActionButtonDefaults.elevation(8.dp),
             shape = CutCornerShape(10.dp)
