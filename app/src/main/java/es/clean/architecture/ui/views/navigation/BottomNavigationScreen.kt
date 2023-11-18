@@ -3,7 +3,13 @@ package es.clean.architecture.ui.views.navigation
 import android.annotation.SuppressLint
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -148,6 +154,15 @@ fun CustomFloatingActionButtonClose(
     isVisible: Boolean,
     onSearchQueryReset: () -> Unit
 ) {
+    val infiniteTransition = rememberInfiniteTransition(label = "")
+    val pulseScale = infiniteTransition.animateFloat(
+        initialValue = 0.8f,
+        targetValue = 1.2f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(500, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ), label = ""
+    )
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
     if (isVisible) {
         FloatingActionButton(
@@ -167,7 +182,11 @@ fun CustomFloatingActionButtonClose(
                 .border(
                     width = 4.dp,
                     color = colorResource(id = R.color.white),
-                ),
+                )
+                .graphicsLayer {
+                    scaleX = pulseScale.value
+                    scaleY = pulseScale.value
+                },
             containerColor = colorResource(id = R.color.app_background),
             elevation = FloatingActionButtonDefaults.elevation(8.dp),
             shape = CutCornerShape(10.dp)
