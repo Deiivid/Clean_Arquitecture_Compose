@@ -117,6 +117,15 @@ fun CustomFloatingActionButton(
     onShowDialogChange: (Boolean) -> Unit,
     isVisible: Boolean,
 ) {
+    val infiniteTransition = rememberInfiniteTransition(label = "")
+    val pulseScale = infiniteTransition.animateFloat(
+        initialValue = 0.8f,
+        targetValue = 1.2f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(500, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ), label = ""
+    )
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
     if (isVisible) {
         FloatingActionButton(
@@ -132,7 +141,11 @@ fun CustomFloatingActionButton(
                 .border(
                     width = 4.dp,
                     color = colorResource(id = R.color.white),
-                ),
+                )
+                .graphicsLayer {
+                    scaleX = pulseScale.value
+                    scaleY = pulseScale.value
+                },
             containerColor = colorResource(id = R.color.app_background),
             elevation = FloatingActionButtonDefaults.elevation(8.dp),
             shape = CutCornerShape(10.dp)
