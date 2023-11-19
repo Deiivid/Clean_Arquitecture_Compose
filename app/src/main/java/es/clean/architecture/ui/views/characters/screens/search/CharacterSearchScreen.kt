@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -37,6 +38,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -54,7 +56,7 @@ import es.clean.architecture.domain.characters.models.character.RickyMortyCharac
 import es.clean.architecture.ui.views.characters.screens.detail.CutCornersShapeCustom
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
-@SuppressLint("StateFlowValueCalledInComposition")
+@SuppressLint("StateFlowValueCalledInComposition", "ResourceAsColor")
 @Composable
 fun CharacterSearchScreen(
     navController: NavHostController,
@@ -68,20 +70,22 @@ fun CharacterSearchScreen(
         modifier = Modifier
             .fillMaxWidth()
             .height(500.dp)
+
     ) {
         Image(
             painter = painterResource(id = R.drawable.backgound2),
             contentDescription = "background",
             modifier = Modifier
                 .fillMaxSize()
-                .clip(CutCornerShape(20.dp)),
+                .clip(CutCornerShape(20.dp))
+                .alpha(0.5f),
             contentScale = ContentScale.Crop
         )
         Surface(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
-            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f),
+            color = MaterialTheme.colorScheme.background, // Usa el color de fondo del tema
             shape = RoundedCornerShape(16.dp)
         ) {
             Column(
@@ -251,25 +255,23 @@ fun StatusIconRow(
     }
 }
 
+@SuppressLint("ResourceAsColor")
 @Composable
 fun StatusIconButton(
     icon: Painter,
     onClick: () -> Unit,
     tint: Color = Color.Unspecified
 ) {
-    val backgroundColor =
-        MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
-    val contentColor =
-        MaterialTheme.colorScheme.primary
-
+    val iconSize = 40.dp // Define un tamaño más grande para el icono
     IconButton(onClick = onClick) {
         Icon(
             painter = icon,
             contentDescription = null,
             tint = if (tint == Color.Unspecified) LocalContentColor.current else tint,
             modifier = Modifier
+                .size(iconSize) // Aplica el tamaño aquí
                 .clip(RoundedCornerShape(16.dp))
-                .background(backgroundColor)
+                .background(Color(R.color.image_background))
                 .clickable(
                     onClick = onClick,
                     indication = rememberRipple(bounded = true),
