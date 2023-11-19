@@ -73,7 +73,7 @@ fun CharacterSearchScreen(
 
     ) {
         Image(
-            painter = painterResource(id = R.drawable.backgound2),
+            painter = painterResource(id = R.drawable.background1),
             contentDescription = "background",
             modifier = Modifier
                 .fillMaxSize()
@@ -85,7 +85,7 @@ fun CharacterSearchScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
-            color = MaterialTheme.colorScheme.background, // Usa el color de fondo del tema
+            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f),
             shape = RoundedCornerShape(16.dp)
         ) {
             Column(
@@ -262,7 +262,7 @@ fun StatusIconButton(
     onClick: () -> Unit,
     tint: Color = Color.Unspecified
 ) {
-    val iconSize = 40.dp // Define un tamaño más grande para el icono
+    val iconSize = 50.dp
     IconButton(onClick = onClick) {
         Icon(
             painter = icon,
