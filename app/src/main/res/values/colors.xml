@@ -10,8 +10,12 @@
     <color name="black_transparency">#00555151</color>
     <color name="black_transparency_custom20">#E1000000</color>
     <color name="blue">#E14885FF</color>
-
-
+    <color name="coral">#FFFFAB91</color>
+    <color name="light_green">#FFAED581</color>
+    <color name="light_blue">#FF64B5F6</color>
+    <color name="rosa">#FFF06292</color>
+    <color name="yellow">#FFFFD54F</color>
+    <color name="special_blue">#FF4DB6AC</color>
 
     <color name="app_background">#1E2A45</color> <!-- Azul oscuro -->
     <color name="card_background">#92C099</color> <!-- Verde agua suave -->
