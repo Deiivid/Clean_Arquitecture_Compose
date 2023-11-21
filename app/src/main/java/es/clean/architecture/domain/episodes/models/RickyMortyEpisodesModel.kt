@@ -42,6 +42,6 @@ fun createEpisodesResult(): RickyMortyEpisodesModel.Episode {
         episode = "episodio pruebas",
         id = 1,
         name = "nombre pruebas",
-        url = "Character Name"
+        url = "https://pruebas"
     )
 }
