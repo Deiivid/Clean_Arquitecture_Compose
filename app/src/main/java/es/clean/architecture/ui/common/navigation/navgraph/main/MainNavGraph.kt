@@ -19,7 +19,7 @@ import es.clean.architecture.ui.views.characters.screens.detail.CharacterDetailS
 import es.clean.architecture.ui.views.characters.screens.list.CharactersListScreen
 import es.clean.architecture.ui.views.episodes.detail.EpisodeDetailScreen
 import es.clean.architecture.ui.views.episodes.list.EpisodesListScreen
-import es.clean.architecture.ui.views.locations.LocationsScreen
+import es.clean.architecture.ui.views.locations.list.LocationsListScreen
 
 
 @OptIn(ExperimentalCoilApi::class)
@@ -68,7 +68,7 @@ fun MainNavGraph(navController: NavHostController, searchQuery: String?) {
         //endregion [EPISODES]
         //region [LOCATIONS]
         composable(route = BottomNavigationBar.Locations.route) {
-            LocationsScreen()
+            LocationsListScreen(navController = navController)
         }
         composable(route = Routes.LocationDetailScreen.route) {
             val result =

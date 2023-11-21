@@ -158,7 +158,7 @@ fun EpisodesListScreen(
 
                                     Toast.makeText(
                                         context,
-                                        "Has Pulsado en un elemento",
+                                        "Has Pulsado en un elemento ${item.name}",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                     /* navController.currentBackStackEntry?.savedStateHandle?.set(
