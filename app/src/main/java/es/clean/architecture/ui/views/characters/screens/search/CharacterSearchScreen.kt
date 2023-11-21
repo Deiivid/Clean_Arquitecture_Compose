@@ -1,6 +1,7 @@
 package es.clean.architecture.ui.views.characters.screens.search
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -44,6 +45,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -69,11 +71,11 @@ fun CharacterSearchScreen(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(500.dp)
+            .height(600.dp)
 
     ) {
         Image(
-            painter = painterResource(id = R.drawable.background1),
+            painter = painterResource(id = R.drawable.background2),
             contentDescription = "background",
             modifier = Modifier
                 .fillMaxSize()
@@ -90,7 +92,7 @@ fun CharacterSearchScreen(
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
                     .padding(16.dp),
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.Start
@@ -109,18 +111,23 @@ fun CharacterSearchScreen(
                     },
                     placeholder = { Text("Filtrar por Nombre") }
                 )
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    GenderIconRow()
+
+                }
+
+                Spacer(modifier = Modifier.height(32.dp))
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    StatusIconRow()
+
+                }
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
 
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            GenderIconRow()
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            StatusIconRow()
         }
     }
 }
@@ -221,22 +228,52 @@ fun SearchSpeciesField(
 
 @Composable
 fun GenderIconRow() {
+    val context = LocalContext.current
     Row(
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ) {
-        GenderIconButton(icon = Icons.Default.Female, onClick = { /* tu función de filtro aquí */ })
-        GenderIconButton(icon = Icons.Default.Male, onClick = { /* tu función de filtro aquí */ })
+        GenderIconButton(icon = Icons.Default.Female, onClick = {Toast.makeText(context, "FEMALE", Toast.LENGTH_SHORT).show() })
+        GenderIconButton(icon = Icons.Default.Male, onClick = { Toast.makeText(context, "MAN", Toast.LENGTH_SHORT).show() })
         GenderIconButton(
             icon = Icons.Default.Transgender,
-            onClick = { /* tu función de filtro aquí */ })
+            onClick = { Toast.makeText(context, "UNKNOWN", Toast.LENGTH_SHORT).show()})
+    }
+}
+
+@SuppressLint("ResourceAsColor")
+@Composable
+fun GenderIconButton(
+    icon: ImageVector,
+    onClick: () -> Unit,
+    tint: Color = Color.Unspecified
+) {
+    val iconSize = 50.dp
+    IconButton(onClick = onClick) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = if (tint == Color.Unspecified) LocalContentColor.current else tint,
+            modifier = Modifier
+                .size(iconSize)
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color(R.color.image_background))
+                .clickable(
+                    onClick = onClick,
+                    indication = rememberRipple(bounded = true),
+                    interactionSource = remember { MutableInteractionSource() }
+                )
+                .padding(10.dp)
+        )
     }
 }
 
 @Composable
 fun StatusIconRow(
 ) {
+    val context = LocalContext.current
+
     Row(
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically,
@@ -244,13 +281,13 @@ fun StatusIconRow(
     ) {
         StatusIconButton(
             icon = painterResource(id = R.drawable.skull),
-            onClick = { /* tu función de filtro aquí */ })
+            onClick = { Toast.makeText(context, "DEAD", Toast.LENGTH_SHORT).show() })
         StatusIconButton(
             icon = painterResource(id = R.drawable.heartbeat),
-            onClick = { /* tu función de filtro aquí */ })
+            onClick = { Toast.makeText(context, "ALIVE", Toast.LENGTH_SHORT).show() })
         StatusIconButton(
             icon = painterResource(id = R.drawable.target),
-            onClick = { /* tu función de filtro aquí */ })
+            onClick = { Toast.makeText(context, "UNKNOWN", Toast.LENGTH_SHORT).show() })
 
     }
 }
@@ -269,7 +306,7 @@ fun StatusIconButton(
             contentDescription = null,
             tint = if (tint == Color.Unspecified) LocalContentColor.current else tint,
             modifier = Modifier
-                .size(iconSize) // Aplica el tamaño aquí
+                .size(iconSize)
                 .clip(RoundedCornerShape(16.dp))
                 .background(Color(R.color.image_background))
                 .clickable(
@@ -282,35 +319,6 @@ fun StatusIconButton(
     }
 }
 
-
-@Composable
-fun GenderIconButton(
-    icon: ImageVector,
-    onClick: () -> Unit,
-    tint: Color = Color.Unspecified
-) {
-    val backgroundColor =
-        MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
-    val contentColor =
-        MaterialTheme.colorScheme.onPrimary
-
-    IconButton(onClick = onClick) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            tint = if (tint == Color.Unspecified) LocalContentColor.current else tint,
-            modifier = Modifier
-                .clip(RoundedCornerShape(16.dp))
-                .background(backgroundColor)
-                .clickable(
-                    onClick = onClick,
-                    indication = rememberRipple(bounded = true),
-                    interactionSource = remember { MutableInteractionSource() }
-                )
-                .padding(10.dp)
-        )
-    }
-}
 
 @Preview
 @Composable
