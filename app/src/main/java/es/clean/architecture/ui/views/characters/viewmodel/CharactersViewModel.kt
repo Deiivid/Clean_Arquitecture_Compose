@@ -21,6 +21,7 @@ open class CharactersViewModel @Inject constructor(
 ) : ViewModel() {
 
     val searchQuery = MutableStateFlow("")
+
     val allCharacters: StateFlow<PagingData<RickyMortyCharacterModel.RickyMortyCharacter>> =
         searchQuery.flatMapLatest { query ->
                 allCharactersUseCase(query, 20).cachedIn(viewModelScope)
