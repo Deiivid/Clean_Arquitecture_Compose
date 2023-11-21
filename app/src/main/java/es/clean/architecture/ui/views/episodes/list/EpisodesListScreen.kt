@@ -3,6 +3,7 @@ package es.clean.architecture.ui.views.episodes.list
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -19,7 +20,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmarks
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Language
-import androidx.compose.material.icons.filled.Web
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -54,12 +54,8 @@ import com.airbnb.lottie.compose.*
 import es.clean.architecture.R
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import es.clean.architecture.domain.episodes.models.createEpisodesResult
-import es.clean.architecture.ui.common.navigation.routes.Routes
-import es.clean.architecture.ui.common.EPISODE_OBJECT
 import es.clean.architecture.ui.views.episodes.viewmodel.EpisodesViewModel
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -81,7 +77,7 @@ fun EpisodesListScreen(
     val episodes: LazyPagingItems<RickyMortyEpisodesModel.Episode> =
         episodesViewModel.allEpisodes.collectAsLazyPagingItems()
 
-
+    val context = LocalContext.current
     when (episodes.loadState.refresh) {
         is LoadState.Loading -> {
             // Mostrar animación de carga
@@ -154,18 +150,17 @@ fun EpisodesListScreen(
                                     episodes = item,
                                 ) { currentEpisode ->
 
+                                    Toast.makeText(
+                                        context,
+                                        "Has Pulsado en un elemento",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                     /* navController.currentBackStackEntry?.savedStateHandle?.set(
-                                     EPISODE_OBJECT,
-                                     value = currentEpisode
-                                 )
-                                 navController.navigate(Routes.EpisodeDetailScreen.route)
- */
-                                    /* scope.launch {
-                                     withContext(Dispatchers.Main){
-                                         Toast.makeText(context, "Personaje: ${currentCharacter.name}", Toast.LENGTH_LONG).show()
-                                     }
-                                 }
-                             }*/
+                                         EPISODE_OBJECT,
+                                         value = currentEpisode
+                                     )
+                                     navController.navigate(Routes.EpisodeDetailScreen.route)
+                                 */
                                 }
                             }
                         }
