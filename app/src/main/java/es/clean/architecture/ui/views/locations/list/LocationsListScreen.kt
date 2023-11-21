@@ -1,9 +1,14 @@
 package es.clean.architecture.ui.views.locations.list
 
+import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,7 +21,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,6 +43,7 @@ import es.clean.architecture.R
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import es.clean.architecture.domain.episodes.models.createEpisodesResult
 import es.clean.architecture.domain.locations.models.RickyMortyLocationsModel
+import es.clean.architecture.domain.locations.models.createLocationResult
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.common.EPISODE_OBJECT
 import es.clean.architecture.ui.common.LOCATION_OBJECT
@@ -45,28 +56,22 @@ fun LocationsListScreen(
     navController: NavHostController,
     locationsViewModel: LocationsViewModel = hiltViewModel(),
 ) {
-    val characters = locationsViewModel.allLocations.collectAsLazyPagingItems()
-    /* val scope = rememberCoroutineScope()
-     val context = LocalContext.current
-    */
+
     val isSearching by remember {
         mutableStateOf(false)
     }
-    // var searchString by remember {
-    //   mutableStateOf("")
-    //}
+    val context = LocalContext.current
+
     val locations: LazyPagingItems<RickyMortyLocationsModel.Location> =
         locationsViewModel.allLocations.collectAsLazyPagingItems()
 
 
     when (locations.loadState.refresh) {
         is LoadState.Loading -> {
-            // Mostrar animación de carga
             LottieProgressBar()
         }
 
         is LoadState.NotLoading -> {
-            // Si no está cargando, muestras los personajes en el LazyColumn
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
                 topBar = {
@@ -79,64 +84,52 @@ fun LocationsListScreen(
                                     text = stringResource(id = R.string.app_name),
                                     color = MaterialTheme.colorScheme.onPrimary
                                 )
-                            } else {
-                                /* TextField(
-                                      modifier = Modifier
-                                          .padding(end = 12.dp)
-                                          .fillMaxWidth(),
-                                      value = searchString,
-                                      onValueChange = { newSearchString ->
-                                          searchString = newSearchString
-                                      },
-                                      label = { Text("Cadena de Búsqueda") },
-                                      maxLines = 1
-                                  )*/
                             }
                         },
                         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
-                        /* actions = {
-                             IconButton(onClick = { isSearching = !isSearching }) {
-                                 Icon(
-                                     imageVector = Icons.Default.Search,
-                                     contentDescription = null,
-                                     tint = MaterialTheme.colorScheme.onPrimary
-                                 )
-                             }
-                         }*/
                     )
                 }
             ) { paddingValues ->
-                LazyColumn(
+                Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(paddingValues)
+                        .background(
+                            colorResource(id = R.color.app_background)
+                        )
+                        .padding(bottom = 10.dp)
                 ) {
-                    items(
-                        count = locations.itemCount,
-                        key = locations.itemKey { location -> location.id }
-                    ) { locationsIndex ->
-                        locations[locationsIndex]?.let { item ->
-                            LocationItem(
-                                locations = item,
-                            ) { currentLocation ->
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValues)
+                    ) {
+                        items(
+                            count = locations.itemCount,
+                            key = locations.itemKey { location -> location.id }
+                        ) { locationsIndex ->
+                            locations[locationsIndex]?.let { item ->
+                                LocationItem(
+                                    location = item,
+                                ) { currentLocation ->
 
-                                navController.currentBackStackEntry?.savedStateHandle?.set(
-                                    LOCATION_OBJECT,
-                                    value = currentLocation
-                                )
-                                navController.navigate(Routes.LocationDetailScreen.route)
+                                    Toast.makeText(
+                                        context,
+                                        "Has Pulsado en un elemento ${item.name}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    /* navController.currentBackStackEntry?.savedStateHandle?.set(
+                                         LOCATION_OBJECT,
+                                         value = currentLocation
+                                     )
+                                     navController.navigate(Routes.LocationDetailScreen.route)
+                                     */
 
-                                /* scope.launch {
-                                     withContext(Dispatchers.Main){
-                                         Toast.makeText(context, "Personaje: ${currentCharacter.name}", Toast.LENGTH_LONG).show()
-                                     }
-                                 }
-                             }*/
+                                }
                             }
                         }
                     }
                 }
-
             }
         }
 
@@ -146,82 +139,65 @@ fun LocationsListScreen(
     }
 }
 
-
 @Composable
 fun LocationItem(
-    locations: RickyMortyLocationsModel.Location,
-    onItemClick: (rickyMortyLocation: RickyMortyLocationsModel.Location) -> Unit
+    location: RickyMortyLocationsModel.Location,
+    onItemClick: (RickyMortyLocationsModel.Location) -> Unit
 ) {
-    Surface(
-        shape = RoundedCornerShape(16.dp),
-        color = Color(0xFFDAE1E7),
+    val imageResId = when (location.name) {
+        "Abadango" -> R.drawable.abadango
+        "Earth" -> R.drawable.earth
+        "Bird World" -> R.drawable.bird_world
+        "Purge Planet" -> R.drawable.purge_planet
+        "Citadel of Ricks" -> R.drawable.purge_planet
+        "Alpha Centaurus" -> R.drawable.alpha
+
+        "Worldender's lair" -> R.drawable.worldenders
+        "Anatomy Park" -> R.drawable.anatomy
+        "Interdimensional Cable" -> R.drawable.interdimensional
+        "Immortality Field Resort" -> R.drawable.inmortality
+        "Post Apocalyptic Earth" -> R.drawable.post_apocalyptic
+        "Pizza Universe" -> R.drawable.pizza_universe
+        "Prime Universe" -> R.drawable.prime_universe
+        "Pluto" -> R.drawable.pluto
+        "Scortia" -> R.drawable.scortia
+        "Saturn" -> R.drawable.saturn
+        "Shady Garage" -> R.drawable.shady
+        "Smith Residence" -> R.drawable.smith
+        "Solar System" -> R.drawable.solar
+        "Gear World" -> R.drawable.gear
+
+        else -> R.drawable.unknown
+    }
+
+
+    Box(
         modifier = Modifier
-            .clickable {
-                onItemClick(locations)
-            }
-            .height(165.dp)
-            .padding(10.dp),
-        shadowElevation = 10.dp
+            .height(150.dp)
+            .width(150.dp)
+            .padding(10.dp)
+            .clip(CircleShape)
+            .background(Color.Transparent)
+            .clickable { onItemClick(location) },
+        contentAlignment = Alignment.Center
     ) {
-        Row(
-            modifier = Modifier.padding(bottom = 14.dp, top = 8.dp, start = 8.dp, end = 8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .weight(2f),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Box(
-                    modifier = Modifier
-                        .wrapContentSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = locations.name,
-                        fontSize = 12.sp,
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier
-                            .padding(vertical = 2.dp, horizontal = 2.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(Color(0xFFD1D5E1))
-                            .padding(2.dp) // Este padding es para el espacio dentro del fondo, alrededor del texto.
-                    )
-                }
-                Spacer(modifier = Modifier.height(4.dp))
+        Image(
+            painter = painterResource(id = imageResId),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxSize()
+                .shadow(4.dp, CircleShape),
+            contentScale = ContentScale.Crop
+        )
 
-                Text(
-                    text = locations.name,
-                    fontSize = 20.sp,
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.SemiBold
-                )
-
-                Spacer(modifier = Modifier.height(2.dp))
-
-                Text(text = locations.name)
-
-                Spacer(modifier = Modifier.height(2.dp))
-
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = locations.url,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                }
-
-                Spacer(modifier = Modifier.height(4.dp))
-            }
-            Spacer(modifier = Modifier.width(12.dp))
-
-        }
+        Text(
+            text = location.name,
+            color = Color.White,
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.align(Alignment.Center)
+        )
     }
 }
-
 
 @Composable
 fun LottieProgressBar() {
@@ -250,8 +226,8 @@ fun LottieErrorState() {
 @Preview
 @Composable
 fun CharacterListScreenPreview() {
-    val character = createEpisodesResult()
-    val onItemClick: (RickyMortyEpisodesModel.Episode) -> Unit = { }
-    //LocationItem(episodes = character, onItemClick = onItemClick)
+    val location = createLocationResult()
+    val onItemClick: (RickyMortyLocationsModel.Location) -> Unit = { }
+    LocationItem(location = location, onItemClick = onItemClick)
 
 }
