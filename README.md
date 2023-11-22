@@ -6,11 +6,13 @@
 
 - 📚 Kotlin Coroutines - For asynchronous programming
 - 📚 Retrofit - For networking and API communication
--📚 Dagger Hilt - For dependency injection
--📚 Jetpack Compose - For building UI components
--📚 JUnit and MockK - For testing
--📚 Lottie: For Animations.
--📚 Material 3: For the visual part.
+- 📚 Paging 3 - For pagination
+- 📚 Dagger Hilt - For dependency injection
+- 📚 Jetpack Compose - For building UI components
+- 📚 JUnit and MockK - For testing
+- 📚 Lottie: For Animations.
+- 📚 Material 3: For the visual part.
+
 
 ##  🧮 Architecture 🧮
 
@@ -18,7 +20,7 @@ The project follows the Clean MVVM architecture, which consists of the following
 
 - 🧮 **Presentation Layer**: Contains the UI components, ViewModels, and Compose screens.
 - 🧮 **Domain Layer**: Contains the business logic and use cases.
-- 🧮 **Data Layer**: Contains the repositories, data sources, and API communication.
+- 🧮 **Data Layer**: Contains the repositories, data sources, pagination and API communication.
 - 🧮  **Dependency Injection**: Uses Dagger Hilt for dependency injection.
 
 ## 📁 Folder Structure 📁
