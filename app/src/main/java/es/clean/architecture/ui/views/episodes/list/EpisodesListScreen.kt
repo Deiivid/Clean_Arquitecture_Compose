@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
@@ -271,15 +272,10 @@ fun formatEmisionDate(dateString: String): String {
         val formatter = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
         val parsedDate = parser.parse(dateString)
         formatter.format(parsedDate)
-    } catch (e: Exception) {
-        // Manejar excepción si el formato de fecha es incorrecto
+    } catch (ex: Exception) {
+        Log.e("MiApp", "Error en EpisodesListScreen", ex)
         dateString
     }
-}
-
-fun openUrl(url: String, context: Context) {
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-    context.startActivity(intent)
 }
 
 @Composable
