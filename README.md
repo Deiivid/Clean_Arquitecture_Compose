@@ -12,6 +12,8 @@
 - 📚 JUnit and MockK - For testing
 - 📚 Lottie: For Animations.
 - 📚 Material 3: For the visual part.
+- 📚 Deteckt: For Code Optimization.
+
 
 
 ##  🧮 Architecture 🧮
