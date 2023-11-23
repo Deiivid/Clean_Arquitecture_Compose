@@ -15,7 +15,7 @@ import es.clean.architecture.ui.common.EPISODE_OBJECT
 import es.clean.architecture.ui.common.LOCATION_OBJECT
 import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomNavigationBar
 import es.clean.architecture.ui.common.navigation.routes.Routes
-import es.clean.architecture.ui.views.characters.screens.detail.CharacterDetailScreen
+import es.clean.architecture.ui.views.characters.screens.detail.CharacterDetail
 import es.clean.architecture.ui.views.characters.screens.list.CharactersListScreen
 import es.clean.architecture.ui.views.episodes.detail.EpisodeDetail
 import es.clean.architecture.ui.views.episodes.list.EpisodesListScreen
@@ -26,8 +26,7 @@ import es.clean.architecture.ui.views.locations.list.LocationsListScreen
 @Composable
 fun MainNavGraph(navController: NavHostController, searchQuery: String?) {
     NavHost(
-        navController = navController,
-        startDestination = Routes.CharacterList.route
+        navController = navController, startDestination = Routes.CharacterList.route
     ) {
         //region [CHARACTERS]
         composable(route = BottomNavigationBar.Characters.route) {
@@ -41,11 +40,12 @@ fun MainNavGraph(navController: NavHostController, searchQuery: String?) {
          **/
         composable(route = Routes.CharacterDetailScreen.route) {
             val result =
-                navController.previousBackStackEntry?.savedStateHandle?.get<RickyMortyCharacterModel.RickyMortyCharacter>(
+                navController.previousBackStackEntry?.savedStateHandle?.get<
+                        RickyMortyCharacterModel.RickyMortyCharacter>(
                     CHARACTER_OBJECT
                 )
             result?.let {
-                CharacterDetailScreen(rickyMortyCharacter = it)
+                CharacterDetail(rickyMortyCharacter = it)
             }
         }
         //endregion [CHARACTERS]
@@ -58,7 +58,8 @@ fun MainNavGraph(navController: NavHostController, searchQuery: String?) {
 
         composable(route = Routes.EpisodeDetailScreen.route) {
             val result =
-                navController.previousBackStackEntry?.savedStateHandle?.get<RickyMortyEpisodesModel.Episode>(
+                navController.previousBackStackEntry?.savedStateHandle?.get<
+                        RickyMortyEpisodesModel.Episode>(
                     EPISODE_OBJECT
                 )
             result?.let {

@@ -42,7 +42,7 @@ import es.clean.architecture.domain.characters.models.character.createCharacterR
 import es.clean.architecture.ui.common.CHARACTER_OBJECT
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.views.characters.common.getStatusIconWithTint
-import es.clean.architecture.ui.views.characters.screens.detail.cutCornersCustom
+import es.clean.architecture.ui.views.characters.screens.detail.CutCornersCustom
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -148,7 +148,7 @@ fun CharacterItem(
     onItemClick: (RickyMortyCharacterModel.RickyMortyCharacter) -> Unit
 ) {
     Surface(
-        shape = cutCornersCustom(16.dp),
+        shape = CutCornersCustom(16.dp),
         color = colorResource(id = R.color.card_background),
         modifier = Modifier
             .clickable { onItemClick(character) }
@@ -163,7 +163,7 @@ fun CharacterItem(
                 .border(
                     width = 2.dp,
                     color = colorResource(id = R.color.app_background),
-                    shape = cutCornersCustom(16.dp)
+                    shape = CutCornersCustom(16.dp)
                 )
         ) {
             Row(
@@ -235,7 +235,7 @@ fun CharacterItem(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(width = 135.dp, height = 110.dp)
-                        .clip(cutCornersCustom(16.dp))
+                        .clip(CutCornersCustom(16.dp))
                         .background(colorResource(id = R.color.card_border))
                 )
             }

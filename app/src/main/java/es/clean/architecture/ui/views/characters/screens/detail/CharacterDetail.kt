@@ -46,30 +46,8 @@ import es.clean.architecture.domain.characters.models.character.RickyMortyCharac
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
 import es.clean.architecture.ui.views.characters.common.getStatusIconWithTint
 
-class cutCornersCustom(private val bigCut: Dp) : Shape {
-    override fun createOutline(
-        size: androidx.compose.ui.geometry.Size,
-        layoutDirection: LayoutDirection,
-        density: Density
-    ): Outline {
-        val bigCutSize = bigCut.toPx(density)
-        val path = Path().apply {
-            lineTo(size.width - bigCutSize, 0f)
-            lineTo(size.width, bigCutSize)
-            lineTo(size.width, size.height)
-            lineTo(bigCutSize, size.height)
-            lineTo(0f, size.height - bigCutSize)
-            close()
-        }
-        return Outline.Generic(path)
-    }
-
-}
-
-private fun Dp.toPx(density: Density): Float = this.value * density.density
-
 @Composable
-fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyCharacter) {
+fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyCharacter) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -81,7 +59,7 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
                 .padding(top = 55.dp, bottom = 55.dp, start = 24.dp, end = 24.dp)
                 .background(
                     color = colorResource(id = R.color.card_border),
-                    shape = cutCornersCustom(38.dp)
+                    shape = CutCornersCustom(38.dp)
                 )
 
                 .clip(
@@ -95,12 +73,12 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
                     color = colorResource(
                         R.color.card_background
                     ),
-                    shape = cutCornersCustom(40.dp)
+                    shape = CutCornersCustom(40.dp)
                 )
                 .border(
                     width = 2.dp,
                     color = colorResource(id = R.color.border),
-                    shape = cutCornersCustom(42.dp)
+                    shape = CutCornersCustom(42.dp)
                 )
                 .padding(14.dp)
         ) {
@@ -180,7 +158,7 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
 
 @Composable
 fun Chip(text: String) {
-    val chipShape = cutCornersCustom(16.dp)
+    val chipShape = CutCornersCustom(16.dp)
     Box(
         modifier = Modifier
             .padding(end = 8.dp)
@@ -213,10 +191,32 @@ fun EpisodesGrid(episodes: List<String>) {
     }
 }
 
+class CutCornersCustom(private val bigCut: Dp) : Shape {
+    override fun createOutline(
+        size: androidx.compose.ui.geometry.Size,
+        layoutDirection: LayoutDirection,
+        density: Density
+    ): Outline {
+        val bigCutSize = bigCut.toPx(density)
+        val path = Path().apply {
+            lineTo(size.width - bigCutSize, 0f)
+            lineTo(size.width, bigCutSize)
+            lineTo(size.width, size.height)
+            lineTo(bigCutSize, size.height)
+            lineTo(0f, size.height - bigCutSize)
+            close()
+        }
+        return Outline.Generic(path)
+    }
+
+}
+
+private fun Dp.toPx(density: Density): Float = this.value * density.density
+
 @ExperimentalCoilApi
 @Preview
 @Composable
 fun CharacterDetailScreenPreview() {
     val character = createCharacterResult()
-    CharacterDetailScreen(rickyMortyCharacter = character)
+    CharacterDetail(rickyMortyCharacter = character)
 }
