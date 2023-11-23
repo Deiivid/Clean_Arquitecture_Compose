@@ -19,12 +19,15 @@ import javax.inject.Inject
 open class CharactersViewModel @Inject constructor(
     allCharactersUseCase: AllCharactersUseCase
 ) : ViewModel() {
+    companion object{
+        const val LIMIT = 20
 
+    }
     val searchQuery = MutableStateFlow("")
 
     val allCharacters: StateFlow<PagingData<RickyMortyCharacterModel.RickyMortyCharacter>> =
         searchQuery.flatMapLatest { query ->
-                allCharactersUseCase(query, 20).cachedIn(viewModelScope)
+                allCharactersUseCase(query, LIMIT).cachedIn(viewModelScope)
         }.stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
 
 

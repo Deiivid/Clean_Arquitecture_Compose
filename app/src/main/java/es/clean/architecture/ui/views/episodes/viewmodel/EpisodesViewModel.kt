@@ -12,6 +12,10 @@ import javax.inject.Inject
 open class EpisodesViewModel @Inject constructor(
     allEpisodesUseCase: AllEpisodesUseCase
 ) : ViewModel() {
-    val allEpisodes: Flow<PagingData<RickyMortyEpisodesModel.Episode>> = allEpisodesUseCase(20)
+    companion object{
+        const val LIMIT = 20
+
+    }
+    val allEpisodes: Flow<PagingData<RickyMortyEpisodesModel.Episode>> = allEpisodesUseCase(LIMIT)
 
 }
