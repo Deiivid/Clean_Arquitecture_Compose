@@ -1,5 +1,6 @@
 package es.clean.architecture.ui.views.episodes.list
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -7,21 +8,17 @@ import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Bookmarks
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -35,11 +32,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
@@ -50,7 +44,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -59,6 +52,7 @@ import com.airbnb.lottie.compose.*
 import es.clean.architecture.R
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import es.clean.architecture.domain.episodes.models.createEpisodesResult
+import es.clean.architecture.ui.common.Dimensions
 import es.clean.architecture.ui.views.episodes.viewmodel.EpisodesViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -66,31 +60,18 @@ import java.util.Locale
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EpisodesListScreen(
-    navController: NavHostController,
     episodesViewModel: EpisodesViewModel = hiltViewModel(),
 ) {
-    val characters = episodesViewModel.allEpisodes.collectAsLazyPagingItems()
-    /* val scope = rememberCoroutineScope()
-     val context = LocalContext.current
-    */
-    val isSearching by remember {
-        mutableStateOf(false)
-    }
-    // var searchString by remember {
-    //   mutableStateOf("")
-    //}
     val episodes: LazyPagingItems<RickyMortyEpisodesModel.Episode> =
         episodesViewModel.allEpisodes.collectAsLazyPagingItems()
 
     val context = LocalContext.current
     when (episodes.loadState.refresh) {
         is LoadState.Loading -> {
-            // Mostrar animación de carga
             LottieProgressBar()
         }
 
         is LoadState.NotLoading -> {
-            // Si no está cargando, muestras los personajes en el LazyColumn
             Scaffold(
                 modifier = Modifier
                     .fillMaxSize()
@@ -101,35 +82,12 @@ fun EpisodesListScreen(
                         modifier = Modifier
                             .fillMaxWidth(),
                         title = {
-                            if (!isSearching) {
                                 Text(
                                     text = stringResource(id = R.string.app_name),
                                     color = MaterialTheme.colorScheme.onPrimary
                                 )
-                            } else {
-                                /* TextField(
-                                      modifier = Modifier
-                                          .padding(end = 12.dp)
-                                          .fillMaxWidth(),
-                                      value = searchString,
-                                      onValueChange = { newSearchString ->
-                                          searchString = newSearchString
-                                      },
-                                      label = { Text("Cadena de Búsqueda") },
-                                      maxLines = 1
-                                  )*/
-                            }
                         },
                         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
-                        /* actions = {
-                             IconButton(onClick = { isSearching = !isSearching }) {
-                                 Icon(
-                                     imageVector = Icons.Default.Search,
-                                     contentDescription = null,
-                                     tint = MaterialTheme.colorScheme.onPrimary
-                                 )
-                             }
-                         }*/
                     )
                 }
             ) { paddingValues ->
@@ -182,6 +140,7 @@ fun EpisodesListScreen(
 }
 
 
+@SuppressLint("ResourceAsColor")
 @Composable
 fun EpisodesItem(
     episodes: RickyMortyEpisodesModel.Episode,
@@ -190,7 +149,6 @@ fun EpisodesItem(
     val borderWidth = 2.dp
     val borderColor = Color.White
 
-    val context = LocalContext.current // Obtener el Context
     val scale = remember { Animatable(1f) }
     LaunchedEffect(key1 = true) {
         scale.animateTo(
@@ -201,13 +159,6 @@ fun EpisodesItem(
             )
         )
     }
-
-    var pressed by remember { mutableStateOf(false) }
-
-    val scaleRow by animateFloatAsState(
-        targetValue = if (pressed) 1.1f else 1f,
-        animationSpec = tween(durationMillis = 100), label = "Row"
-    )
     val itemHeight = 160.dp
     Box(
         modifier = Modifier
@@ -215,15 +166,15 @@ fun EpisodesItem(
             .wrapContentSize(Alignment.TopCenter)
     ) {
         Surface(
-            shape = RoundedCornerShape(12.dp),
-            color = Color(0xFFDAE1E7),
+            shape = RoundedCornerShape(Dimensions.medium),
+            color = Color(R.color.white),
             modifier = Modifier
                 .clickable { onItemClick(episodes) }
                 .height(itemHeight)
                 .padding(8.dp)
-                .border(borderWidth, borderColor, shape = RoundedCornerShape(12.dp))
+                .border(borderWidth, borderColor, shape = RoundedCornerShape(Dimensions.medium))
             ,
-            shadowElevation = 6.dp
+            shadowElevation = Dimensions.thin
         ) {
             Column(
                 modifier = Modifier
@@ -260,7 +211,7 @@ fun EpisodesItem(
                         tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.size(16.dp)
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(Dimensions.small))
                     Text(
                         text = formatEmisionDate(episodes.airDate),
                         fontSize = 14.sp,
