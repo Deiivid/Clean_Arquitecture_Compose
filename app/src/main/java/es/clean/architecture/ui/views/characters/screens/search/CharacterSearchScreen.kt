@@ -54,7 +54,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import es.clean.architecture.R
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
-import es.clean.architecture.ui.views.characters.screens.detail.cutCornersCustom
+import es.clean.architecture.ui.views.characters.screens.detail.CutCornersCustom
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition", "ResourceAsColor")
@@ -155,14 +155,14 @@ fun SearchNameField(
         ),
         decorationBox = { innerTextField ->
             Surface(
-                shape = cutCornersCustom(16.dp),
+                shape = CutCornersCustom(16.dp),
                 color = backgroundColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
                         width = 2.dp,
                         color = LocalContentColor.current,
-                        shape = cutCornersCustom(16.dp)
+                        shape = CutCornersCustom(16.dp)
                     )
                     .padding(10.dp),
                 shadowElevation = 10.dp
@@ -196,14 +196,14 @@ fun SearchSpeciesField(
         singleLine = true,
         decorationBox = { innerTextField ->
             Surface(
-                shape = cutCornersCustom(16.dp),
+                shape = CutCornersCustom(16.dp),
                 color = backgroundColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
                         width = 2.dp,
                         color = LocalContentColor.current,
-                        shape = cutCornersCustom(16.dp)
+                        shape = CutCornersCustom(16.dp)
                     )
                     .padding(10.dp),
                 shadowElevation = 10.dp
