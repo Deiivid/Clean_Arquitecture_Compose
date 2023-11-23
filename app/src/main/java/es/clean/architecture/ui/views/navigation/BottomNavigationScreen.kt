@@ -77,14 +77,16 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
             if (searchQuery.isNullOrEmpty()) {
                 CustomFloatingActionButton(
                     onShowDialogChange = { showDialog = it },
-                    isVisible = shouldShowFloatingActionButton(navController.currentBackStackEntryAsState().value?.destination),
+                    isVisible = shouldShowFloatingActionButton(
+                        navController.currentBackStackEntryAsState().value?.destination),
                     navController = navController
 
                 )
             } else {
                 CustomFloatingActionButtonClose(
                     onShowDialogChange = { showDialog = it },
-                    isVisible = shouldShowFloatingActionButton(navController.currentBackStackEntryAsState().value?.destination),
+                    isVisible = shouldShowFloatingActionButton(
+                        navController.currentBackStackEntryAsState().value?.destination),
                     navController = navController,
                     onSearchQueryReset = { searchQuery = "" }
 
