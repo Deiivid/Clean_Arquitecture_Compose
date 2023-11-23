@@ -42,7 +42,7 @@ import es.clean.architecture.domain.characters.models.character.createCharacterR
 import es.clean.architecture.ui.common.CHARACTER_OBJECT
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.views.characters.common.getStatusIconWithTint
-import es.clean.architecture.ui.views.characters.screens.detail.CutCornersShapeCustom
+import es.clean.architecture.ui.views.characters.screens.detail.cutCornersCustom
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,22 +54,12 @@ fun CharactersListScreen(
 ) {
     val characters: LazyPagingItems<RickyMortyCharacterModel.RickyMortyCharacter> =
         charactersViewModel.allCharacters.collectAsLazyPagingItems()
-    /* val scope = rememberCoroutineScope()
-     val context = LocalContext.current
-    */
     LaunchedEffect(searchQuery != "") {
         if (searchQuery != null) {
             charactersViewModel.searchCharacters(searchQuery)
 
         }
     }
-
-
-    val isSearching by remember {
-        mutableStateOf(false)
-    }
-
-
 
     when (characters.loadState.refresh) {
         is LoadState.Loading -> {
@@ -87,35 +77,13 @@ fun CharactersListScreen(
                         modifier = Modifier
                             .fillMaxWidth(),
                         title = {
-                            if (!isSearching) {
-                                Text(
-                                    text = stringResource(id = R.string.app_name),
-                                    color = MaterialTheme.colorScheme.onPrimary
-                                )
-                            } else {
-                                /* TextField(
-                                      modifier = Modifier
-                                          .padding(end = 12.dp)
-                                          .fillMaxWidth(),
-                                      value = searchString,
-                                      onValueChange = { newSearchString ->
-                                          searchString = newSearchString
-                                      },
-                                      label = { Text("Cadena de Búsqueda") },
-                                      maxLines = 1
-                                  )*/
-                            }
+                            Text(
+                                text = stringResource(id = R.string.app_name),
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
                         },
-                        colors = TopAppBarDefaults.topAppBarColors(containerColor = colorResource(id = R.color.app_background)),
-                        /* actions = {
-                             IconButton(onClick = { isSearching = !isSearching }) {
-                                 Icon(
-                                     imageVector = Icons.Default.Search,
-                                     contentDescription = null,
-                                     tint = MaterialTheme.colorScheme.onPrimary
-                                 )
-                             }
-                         }*/
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = colorResource(id = R.color.app_background)),
                     )
                 }
             ) { paddingValues ->
@@ -127,7 +95,7 @@ fun CharactersListScreen(
                                 colorResource(id = R.color.app_background)
                             ), contentAlignment = Alignment.Center
                     ) {
-                        LottieEmptyState()
+                        lottieEmptyState()
                     }
                 } else {
                     Box(
@@ -180,7 +148,7 @@ fun CharacterItem(
     onItemClick: (RickyMortyCharacterModel.RickyMortyCharacter) -> Unit
 ) {
     Surface(
-        shape = CutCornersShapeCustom(16.dp),
+        shape = cutCornersCustom(16.dp),
         color = colorResource(id = R.color.card_background),
         modifier = Modifier
             .clickable { onItemClick(character) }
@@ -195,7 +163,7 @@ fun CharacterItem(
                 .border(
                     width = 2.dp,
                     color = colorResource(id = R.color.app_background),
-                    shape = CutCornersShapeCustom(16.dp)
+                    shape = cutCornersCustom(16.dp)
                 )
         ) {
             Row(
@@ -267,7 +235,7 @@ fun CharacterItem(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(width = 135.dp, height = 110.dp)
-                        .clip(CutCornersShapeCustom(16.dp))
+                        .clip(cutCornersCustom(16.dp))
                         .background(colorResource(id = R.color.card_border))
                 )
             }
@@ -313,7 +281,7 @@ fun LottieErrorState() {
 }
 
 @Composable
-fun LottieEmptyState() {
+fun lottieEmptyState() {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.emptylottie))
     val progress by animateLottieCompositionAsState(composition)
     LottieAnimation(
@@ -326,7 +294,7 @@ fun LottieEmptyState() {
 
 @Preview
 @Composable
-fun CharacterListScreenPreview() {
+fun characterListScreenPreview() {
     val character = createCharacterResult()
     val onItemClick: (RickyMortyCharacterModel.RickyMortyCharacter) -> Unit = { }
     CharacterItem(character = character, onItemClick = onItemClick)
