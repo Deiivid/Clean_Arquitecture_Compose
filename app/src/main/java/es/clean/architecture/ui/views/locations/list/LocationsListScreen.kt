@@ -5,16 +5,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
@@ -28,43 +25,27 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.airbnb.lottie.compose.*
 import es.clean.architecture.R
-import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
-import es.clean.architecture.domain.episodes.models.createEpisodesResult
 import es.clean.architecture.domain.locations.models.RickyMortyLocationsModel
 import es.clean.architecture.domain.locations.models.createLocationResult
-import es.clean.architecture.ui.common.navigation.routes.Routes
-import es.clean.architecture.ui.common.EPISODE_OBJECT
-import es.clean.architecture.ui.common.LOCATION_OBJECT
-import es.clean.architecture.ui.views.episodes.viewmodel.EpisodesViewModel
 import es.clean.architecture.ui.views.locations.viewmodel.LocationsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LocationsListScreen(
-    navController: NavHostController,
     locationsViewModel: LocationsViewModel = hiltViewModel(),
 ) {
-
-    val isSearching by remember {
-        mutableStateOf(false)
-    }
     val context = LocalContext.current
-
     val locations: LazyPagingItems<RickyMortyLocationsModel.Location> =
         locationsViewModel.allLocations.collectAsLazyPagingItems()
-
 
     when (locations.loadState.refresh) {
         is LoadState.Loading -> {
@@ -79,12 +60,11 @@ fun LocationsListScreen(
                         modifier = Modifier
                             .fillMaxWidth(),
                         title = {
-                            if (!isSearching) {
                                 Text(
                                     text = stringResource(id = R.string.app_name),
                                     color = MaterialTheme.colorScheme.onPrimary
                                 )
-                            }
+
                         },
                         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
                     )
@@ -124,7 +104,6 @@ fun LocationsListScreen(
                                      )
                                      navController.navigate(Routes.LocationDetailScreen.route)
                                      */
-
                                 }
                             }
                         }
@@ -151,7 +130,6 @@ fun LocationItem(
         "Purge Planet" -> R.drawable.purge_planet
         "Citadel of Ricks" -> R.drawable.purge_planet
         "Alpha Centaurus" -> R.drawable.alpha
-
         "Worldender's lair" -> R.drawable.worldenders
         "Anatomy Park" -> R.drawable.anatomy
         "Interdimensional Cable" -> R.drawable.interdimensional

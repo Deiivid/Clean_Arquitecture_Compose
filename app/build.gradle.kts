@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.ksp)
-
+    alias(libs.plugins.deteckt)
 }
 
 android {
@@ -14,7 +14,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         compileSdk = libs.versions.compileSdk.get().toInt()
-        versionCode =libs.versions.versionCode.get().toInt()
+        versionCode = libs.versions.versionCode.get().toInt()
         versionName = libs.versions.versionName.get()
         namespace = libs.versions.namespace.get()
         testInstrumentationRunner = libs.versions.testRunner.get()
@@ -27,7 +27,7 @@ android {
         getByName(libs.versions.buildTypeNameRelease.get()) {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile( libs.versions.proguardOptimize.get()),
+                getDefaultProguardFile(libs.versions.proguardOptimize.get()),
                 libs.versions.proguardRule.get()
             )
         }
@@ -45,7 +45,20 @@ android {
     buildFeatures {
         compose = true
     }
-
+    detekt {
+        input = files("src/main/java", "src/main/kotlin")
+        config = files("$rootDir/detekt.yml")
+        reports {
+            xml {
+                enabled = true
+                destination = file("build/reports/detekt.xml")
+            }
+            html {
+                enabled = true
+                destination = file("build/reports/detekt.html")
+            }
+        }
+    }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }

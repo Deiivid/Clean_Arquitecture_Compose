@@ -31,6 +31,7 @@ data class RickyMortyLocationsModel(
     ) : Parcelable
 }
 
+
 /**
  * We use this section to initialize the detail screen to get the preview
  */
