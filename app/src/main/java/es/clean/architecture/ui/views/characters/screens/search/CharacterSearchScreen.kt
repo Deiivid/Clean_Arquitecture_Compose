@@ -50,18 +50,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import es.clean.architecture.R
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
-import es.clean.architecture.ui.views.characters.screens.detail.CutCornersShapeCustom
+import es.clean.architecture.ui.views.characters.screens.detail.cutCornersCustom
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition", "ResourceAsColor")
 @Composable
 fun CharacterSearchScreen(
-    navController: NavHostController,
     charactersViewModel: CharactersViewModel = hiltViewModel(),
     onSearchComplete: (String) -> Unit
 ) {
@@ -157,14 +155,14 @@ fun SearchNameField(
         ),
         decorationBox = { innerTextField ->
             Surface(
-                shape = CutCornersShapeCustom(16.dp),
+                shape = cutCornersCustom(16.dp),
                 color = backgroundColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
                         width = 2.dp,
                         color = LocalContentColor.current,
-                        shape = CutCornersShapeCustom(16.dp)
+                        shape = cutCornersCustom(16.dp)
                     )
                     .padding(10.dp),
                 shadowElevation = 10.dp
@@ -198,14 +196,14 @@ fun SearchSpeciesField(
         singleLine = true,
         decorationBox = { innerTextField ->
             Surface(
-                shape = CutCornersShapeCustom(16.dp),
+                shape = cutCornersCustom(16.dp),
                 color = backgroundColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
                         width = 2.dp,
                         color = LocalContentColor.current,
-                        shape = CutCornersShapeCustom(16.dp)
+                        shape = cutCornersCustom(16.dp)
                     )
                     .padding(10.dp),
                 shadowElevation = 10.dp
@@ -234,8 +232,10 @@ fun GenderIconRow() {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ) {
-        GenderIconButton(icon = Icons.Default.Female, onClick = {Toast.makeText(context, "FEMALE", Toast.LENGTH_SHORT).show() })
-        GenderIconButton(icon = Icons.Default.Male, onClick = { Toast.makeText(context, "MAN", Toast.LENGTH_SHORT).show() })
+        GenderIconButton(icon = Icons.Default.Female,
+            onClick = {Toast.makeText(context, "FEMALE", Toast.LENGTH_SHORT).show() })
+        GenderIconButton(icon = Icons.Default.Male,
+            onClick = { Toast.makeText(context, "MAN", Toast.LENGTH_SHORT).show() })
         GenderIconButton(
             icon = Icons.Default.Transgender,
             onClick = { Toast.makeText(context, "UNKNOWN", Toast.LENGTH_SHORT).show()})

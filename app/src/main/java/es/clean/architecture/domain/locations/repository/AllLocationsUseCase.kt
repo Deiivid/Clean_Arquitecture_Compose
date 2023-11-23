@@ -21,3 +21,5 @@ open class AllLocationsUseCase @Inject constructor(
         }
     ).flow // Si nos fijamos creamos un flow directamente desde el caso de uso.
 }
+
+
