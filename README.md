@@ -38,6 +38,10 @@ The project is structured as follows:
 ## Usage
 
 1. Clone the repository: https://github.com/Deiivid/Clean_Arquitecture_Compose.git
+
+## 🧮 DETECKT 🧮
+![Captura de pantalla 2023-11-23 a las 17 52 21](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/a428dd13-bce3-4e36-942c-8edf924882d9)
+
 ## 🗺️ Navigation 🗺️
 
 ![Navigation](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/b1bb18c3-b3e6-4b0b-8695-1642e1c1b760)
