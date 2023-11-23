@@ -22,6 +22,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+    private const val TIMER = 120L
 
     @Singleton
     @Provides
@@ -37,8 +38,8 @@ object NetworkModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .readTimeout(120, TimeUnit.SECONDS)
+            .connectTimeout(TIMER, TimeUnit.SECONDS)
+            .readTimeout(TIMER, TimeUnit.SECONDS)
             .build()
     }
 

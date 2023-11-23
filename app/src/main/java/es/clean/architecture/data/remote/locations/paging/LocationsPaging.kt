@@ -9,8 +9,6 @@ import javax.inject.Inject
 open class LocationsPaging @Inject constructor(
     private val repository: LocationsRepository
 ) : PagingSource<Int, RickyMortyLocationsModel.Location>() {
-    // Este método es as is, no se toca salvo lo estrictamente necesario
-    // (obtención de la clave de páginación) :D
     override fun getRefreshKey(state: PagingState<Int, RickyMortyLocationsModel.Location>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
@@ -22,10 +20,6 @@ open class LocationsPaging @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RickyMortyLocationsModel.Location> =
         try {
             val page = params.key ?: 1
-            val limit = params.loadSize
-            //Timber.tag("Paging").i("Page: $page")
-            // Puede ser un flow, o una suspend que se traiga cosas de cualquier sitio,
-            // es un repositorio, por tanto...
             val response = repository.getAllLocations(
                 page = page,
             )

@@ -22,5 +22,4 @@ internal class RemoteLocationsDataStoreImpl(
 
         return emptyList()
     }
-
 }
