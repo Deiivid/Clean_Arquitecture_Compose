@@ -1,6 +1,5 @@
 package es.clean.architecture.ui.views.characters.screens.detail
 
-import androidx.annotation.ColorRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +16,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CutCornerShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -48,7 +46,7 @@ import es.clean.architecture.domain.characters.models.character.RickyMortyCharac
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
 import es.clean.architecture.ui.views.characters.common.getStatusIconWithTint
 
-class CutCornersShapeCustom(private val bigCut: Dp) : Shape {
+class cutCornersCustom(private val bigCut: Dp) : Shape {
     override fun createOutline(
         size: androidx.compose.ui.geometry.Size,
         layoutDirection: LayoutDirection,
@@ -83,7 +81,7 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
                 .padding(top = 55.dp, bottom = 55.dp, start = 24.dp, end = 24.dp)
                 .background(
                     color = colorResource(id = R.color.card_border),
-                    shape = CutCornersShapeCustom(38.dp)
+                    shape = cutCornersCustom(38.dp)
                 )
 
                 .clip(
@@ -97,12 +95,12 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
                     color = colorResource(
                         R.color.card_background
                     ),
-                    shape = CutCornersShapeCustom(40.dp)
+                    shape = cutCornersCustom(40.dp)
                 )
                 .border(
                     width = 2.dp,
                     color = colorResource(id = R.color.border),
-                    shape = CutCornersShapeCustom(42.dp)
+                    shape = cutCornersCustom(42.dp)
                 )
                 .padding(14.dp)
         ) {
@@ -182,7 +180,7 @@ fun CharacterDetailScreen(rickyMortyCharacter: RickyMortyCharacterModel.RickyMor
 
 @Composable
 fun Chip(text: String) {
-    val chipShape = CutCornersShapeCustom(16.dp)
+    val chipShape = cutCornersCustom(16.dp)
     Box(
         modifier = Modifier
             .padding(end = 8.dp)

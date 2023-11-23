@@ -98,7 +98,6 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
     if (showDialog) {
         Dialog(onDismissRequest = { showDialog = false }) {
             CharacterSearchScreen(
-                navController = navController,
                 onSearchComplete = { query ->
                     searchQuery = query
                     showDialog = false

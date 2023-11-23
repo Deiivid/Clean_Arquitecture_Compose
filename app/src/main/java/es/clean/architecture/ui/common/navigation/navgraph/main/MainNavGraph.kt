@@ -17,7 +17,7 @@ import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomNav
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.views.characters.screens.detail.CharacterDetailScreen
 import es.clean.architecture.ui.views.characters.screens.list.CharactersListScreen
-import es.clean.architecture.ui.views.episodes.detail.EpisodeDetailScreen
+import es.clean.architecture.ui.views.episodes.detail.EpisodeDetail
 import es.clean.architecture.ui.views.episodes.list.EpisodesListScreen
 import es.clean.architecture.ui.views.locations.list.LocationsListScreen
 
@@ -53,7 +53,7 @@ fun MainNavGraph(navController: NavHostController, searchQuery: String?) {
         //region [EPISODES]
 
         composable(route = BottomNavigationBar.Episodes.route) {
-            EpisodesListScreen(navController = navController)
+            EpisodesListScreen()
         }
 
         composable(route = Routes.EpisodeDetailScreen.route) {
@@ -62,13 +62,13 @@ fun MainNavGraph(navController: NavHostController, searchQuery: String?) {
                     EPISODE_OBJECT
                 )
             result?.let {
-                EpisodeDetailScreen(rickyMortyEpisode = it)
+                EpisodeDetail(rickyMortyEpisode = it)
             }
         }
         //endregion [EPISODES]
         //region [LOCATIONS]
         composable(route = BottomNavigationBar.Locations.route) {
-            LocationsListScreen(navController = navController)
+            LocationsListScreen()
         }
         composable(route = Routes.LocationDetailScreen.route) {
             val result =

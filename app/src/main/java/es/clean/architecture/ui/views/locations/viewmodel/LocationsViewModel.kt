@@ -14,6 +14,10 @@ import javax.inject.Inject
 open class LocationsViewModel @Inject constructor(
     allLocationsUseCase: AllLocationsUseCase
 ) : ViewModel() {
-    val allLocations: Flow<PagingData<RickyMortyLocationsModel.Location>> = allLocationsUseCase(20)
+    companion object{
+        const val LIMIT = 20
+
+    }
+    val allLocations: Flow<PagingData<RickyMortyLocationsModel.Location>> = allLocationsUseCase(LIMIT)
 
 }
