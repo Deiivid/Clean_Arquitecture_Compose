@@ -12,7 +12,7 @@
 - 📚 JUnit and MockK - For testing
 - 📚 Lottie: For Animations.
 - 📚 Material 3: For the visual part.
-- 📚 Deteckt: For Code Optimization.
+- 📚 Detect: For Code Optimization.
 
 
 
@@ -41,7 +41,7 @@ The project is structured as follows:
 
 1. Clone the repository: https://github.com/Deiivid/Clean_Arquitecture_Compose.git
 
-## 🧮 DETECKT 🧮
+## 🧮 DETECT 🧮
 ![Captura de pantalla 2023-11-23 a las 17 52 21](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/a428dd13-bce3-4e36-942c-8edf924882d9)
 
 ## 🗺️ Navigation 🗺️
