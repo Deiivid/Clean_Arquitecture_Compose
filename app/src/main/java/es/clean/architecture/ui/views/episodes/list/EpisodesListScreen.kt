@@ -1,9 +1,6 @@
 package es.clean.architecture.ui.views.episodes.list
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.core.Animatable
@@ -168,13 +165,12 @@ fun EpisodesItem(
     ) {
         Surface(
             shape = RoundedCornerShape(Dimensions.medium),
-            color = Color(R.color.white),
+            color = Color(0xFFDAE1E7),
             modifier = Modifier
                 .clickable { onItemClick(episodes) }
                 .height(itemHeight)
                 .padding(8.dp)
-                .border(borderWidth, borderColor, shape = RoundedCornerShape(Dimensions.medium))
-            ,
+                .border(borderWidth, borderColor, shape = RoundedCornerShape(Dimensions.medium)),
             shadowElevation = Dimensions.thin
         ) {
             Column(
