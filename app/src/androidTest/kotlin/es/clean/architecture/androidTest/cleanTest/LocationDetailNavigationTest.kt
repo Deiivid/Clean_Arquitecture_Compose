@@ -5,15 +5,15 @@ import androidx.compose.ui.test.onAllNodesWithTag
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import org.junit.Test
 
-class EpisodeNavigationTest : BaseNavigationTest() {
+class LocationNavigationTest : BaseNavigationTest() {
     @Test
-    fun navigateFromSplashToEpisodeScreen() {
+    fun navigateFromSplashToLocationScreen() {
         // Set up and navigate to the main screen with bottom navigation
         setUpNavigation()
         checkBottomNavigationExists()
 
         // Click the second item of the bottom navigation
-        clickBottomNavigationItem(Routes.EpisodeListScreen.route)
+        clickBottomNavigationItem(Routes.LocationListScreen.route)
 
 
         // Now continue with the specific steps for the "Character" test
@@ -21,10 +21,9 @@ class EpisodeNavigationTest : BaseNavigationTest() {
             timeoutMillis = 5000,
             condition = {
                 // Check list has at least 1 item
-                composeTestRule.onAllNodesWithTag("EpisodeItem").fetchSemanticsNodes()
+                composeTestRule.onAllNodesWithTag("LocationItem").fetchSemanticsNodes()
                     .isNotEmpty()
             }
         )
-
     }
 }
