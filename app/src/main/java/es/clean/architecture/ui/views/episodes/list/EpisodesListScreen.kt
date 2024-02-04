@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -110,20 +111,16 @@ fun EpisodesListScreen(
                             episodes[episodesIndex]?.let { item ->
                                 EpisodesItem(
                                     episodes = item,
-                                ) { currentEpisode ->
+                                    {
+                                        Toast.makeText(
+                                            context,
+                                            "Has Pulsado en un elemento ${item.name}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
 
-                                    Toast.makeText(
-                                        context,
-                                        "Has Pulsado en un elemento ${item.name}",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    /* navController.currentBackStackEntry?.savedStateHandle?.set(
-                                         EPISODE_OBJECT,
-                                         value = currentEpisode
-                                     )
-                                     navController.navigate(Routes.EpisodeDetailScreen.route)
-                                 */
-                                }
+                                    },
+                                    modifier = Modifier.testTag("EpisodeItem ${item.id}")
+                                )
                             }
                         }
                     }
@@ -143,6 +140,8 @@ fun EpisodesListScreen(
 fun EpisodesItem(
     episodes: RickyMortyEpisodesModel.Episode,
     onItemClick: (rickyMortyEpisode: RickyMortyEpisodesModel.Episode) -> Unit,
+    modifier: Modifier = Modifier
+
 ) {
     val borderWidth = 2.dp
     val borderColor = Color.White

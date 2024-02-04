@@ -1,5 +1,6 @@
 [versions]
 #region [Android]
+androidx-runner = "1.5.2"
 compose-compiler = "1.5.3"
 kotlin = "1.9.10"
 iconsExtendedVersion = "1.6.0-alpha08"
@@ -9,12 +10,15 @@ detecktVersion = "1.23.0"
 #region [Build Gradle]
 applicationID = "es.clean.architecture"
 compileSdk = "34"
+mockitoAndroid = "4.5.1"
+mockitoCore = "4.5.1"
+rules = "1.5.0"
 targetSdk = "34"
 minSdk = "27"
 versionCode = "1"
 versionName = "1.0"
 namespace = "es.clean.architecture"
-testRunner = "androidx.test.runner.AndroidJUnitRunnel"
+testRunner = "es.clean.architecture.androidTest.TestRunner"
 jvmTarget = "17"
 buildTypeNameRelease = "release"
 proguardRule = "proguard-rules.pro"
@@ -84,8 +88,12 @@ core-ktx = "1.9.0"
 
 [libraries]
 #region [KOTLIN]
+androidx-rules = { module = "androidx.test:rules", version.ref = "rules" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCoreVersion" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+mockito-mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockitoAndroid" }
+runner = { module = "androidx.test:runner", version.ref = "androidx-runner" }
 runtimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycleVersion" }
 iconsExtended = { module = "androidx.compose.material:material-icons-extended", version.ref = "iconsExtendedVersion" }
 compsoeAnimiation = { module = "androidx.compose.animation:animation", version.ref = "composeVersion" }

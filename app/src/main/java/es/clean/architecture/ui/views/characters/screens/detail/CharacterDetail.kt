@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
@@ -50,11 +51,13 @@ import es.clean.architecture.ui.views.characters.common.getStatusIconWithTint
 fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyCharacter) {
     Box(
         modifier = Modifier
+            .testTag("CharacterDetailScreen") // Test
             .fillMaxSize()
             .background(colorResource(id = R.color.app_background))
     ) {
         Box(
             modifier = Modifier
+
                 .fillMaxSize()
                 .padding(top = 55.dp, bottom = 55.dp, start = 24.dp, end = 24.dp)
                 .background(
@@ -163,7 +166,7 @@ fun Chip(text: String) {
         modifier = Modifier
             .padding(end = 8.dp)
             .clip(chipShape)
-            .background( colorResource(id = R.color.card_border))
+            .background(colorResource(id = R.color.card_border))
             .border(2.dp, colorResource(id = R.color.border), chipShape)
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
