@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -60,10 +61,10 @@ fun LocationsListScreen(
                         modifier = Modifier
                             .fillMaxWidth(),
                         title = {
-                                Text(
-                                    text = stringResource(id = R.string.app_name),
-                                    color = MaterialTheme.colorScheme.onPrimary
-                                )
+                            Text(
+                                text = stringResource(id = R.string.app_name),
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
 
                         },
                         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
@@ -91,20 +92,22 @@ fun LocationsListScreen(
                             locations[locationsIndex]?.let { item ->
                                 LocationItem(
                                     location = item,
-                                ) { currentLocation ->
+                                    { currentLocation ->
 
-                                    Toast.makeText(
-                                        context,
-                                        "Has Pulsado en un elemento ${item.name}",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    /* navController.currentBackStackEntry?.savedStateHandle?.set(
-                                         LOCATION_OBJECT,
-                                         value = currentLocation
-                                     )
-                                     navController.navigate(Routes.LocationDetailScreen.route)
-                                     */
-                                }
+                                        Toast.makeText(
+                                            context,
+                                            "Has Pulsado en un elemento ${item.name}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        /* navController.currentBackStackEntry?.savedStateHandle?.set(
+                                             LOCATION_OBJECT,
+                                             value = currentLocation
+                                         )
+                                         navController.navigate(Routes.LocationDetailScreen.route)
+                                         */
+                                    },
+                                    modifier = Modifier.testTag("LocationItem ${item.id}")
+                                )
                             }
                         }
                     }
@@ -121,7 +124,9 @@ fun LocationsListScreen(
 @Composable
 fun LocationItem(
     location: RickyMortyLocationsModel.Location,
-    onItemClick: (RickyMortyLocationsModel.Location) -> Unit
+    onItemClick: (RickyMortyLocationsModel.Location) -> Unit,
+    modifier: Modifier = Modifier
+
 ) {
     val imageResId = when (location.name) {
         "Abadango" -> R.drawable.abadango
@@ -153,6 +158,7 @@ fun LocationItem(
         modifier = Modifier
             .height(150.dp)
             .width(150.dp)
+            .testTag("LocationItem") // Test
             .padding(10.dp)
             .clip(CircleShape)
             .background(Color.Transparent)

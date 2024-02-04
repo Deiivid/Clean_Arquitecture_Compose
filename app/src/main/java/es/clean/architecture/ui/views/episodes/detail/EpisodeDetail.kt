@@ -28,13 +28,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
-import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
-import es.clean.architecture.domain.characters.models.character.createCharacterResult
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import es.clean.architecture.domain.episodes.models.createEpisodesResult
 
@@ -44,7 +43,9 @@ fun EpisodeDetail(
     rickyMortyEpisode: RickyMortyEpisodesModel.Episode //We receive the data
 ) {
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .testTag("EpisodeDetailScreen"),
         color = MaterialTheme.colorScheme.background,
     ) {
         Column(

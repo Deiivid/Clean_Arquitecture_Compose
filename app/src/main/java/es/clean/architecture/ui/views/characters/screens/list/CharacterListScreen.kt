@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -118,14 +119,16 @@ fun CharactersListScreen(
                                 characters[characterIndex]?.let { item ->
                                     CharacterItem(
                                         character = item,
-                                    ) { currentCharacter ->
+                                        { currentCharacter ->
 
-                                        navController.currentBackStackEntry?.savedStateHandle?.set(
-                                            CHARACTER_OBJECT,
-                                            value = currentCharacter
-                                        )
-                                        navController.navigate(Routes.CharacterDetailScreen.route)
-                                    }
+                                            navController.currentBackStackEntry?.savedStateHandle?.set(
+                                                CHARACTER_OBJECT,
+                                                value = currentCharacter
+                                            )
+                                            navController.navigate(Routes.CharacterDetailScreen.route)
+                                        },
+                                        modifier = Modifier.testTag("CharacterItem ${item.id}")
+                                    )
                                 }
                             }
                         }
@@ -145,12 +148,14 @@ fun CharactersListScreen(
 @Composable
 fun CharacterItem(
     character: RickyMortyCharacterModel.RickyMortyCharacter,
-    onItemClick: (RickyMortyCharacterModel.RickyMortyCharacter) -> Unit
+    onItemClick: (RickyMortyCharacterModel.RickyMortyCharacter) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Surface(
         shape = CutCornersCustom(16.dp),
         color = colorResource(id = R.color.card_background),
         modifier = Modifier
+            .testTag("CharacterItem") // Test
             .clickable { onItemClick(character) }
             .height(175.dp)
             .padding(10.dp),
