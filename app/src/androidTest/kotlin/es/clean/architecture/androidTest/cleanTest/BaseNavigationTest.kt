@@ -32,7 +32,7 @@ open class BaseNavigationTest {
             condition = { navController?.currentDestination?.route == MAIN }
         )
     }
-
+//test
     fun checkBottomNavigationExists() {
         // Check bottom navigation is present
         composeTestRule.onNodeWithTag("BottomNavigation").assertExists()
