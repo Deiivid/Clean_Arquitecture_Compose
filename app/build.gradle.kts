@@ -81,6 +81,17 @@ android {
 }
 
 dependencies {
+    androidTestImplementation(libs.espressoCore)
+    androidTestImplementation(libs.runner)
+    androidTestImplementation(libs.androidx.rules)
+    // Dependencias para testing
+    androidTestImplementation(libs.mockito.core) // Reemplaza con la última versión de Mockito
+    androidTestImplementation(libs.mockito.mockito.android) // Para usar Mockito en tests instrumentados
+
+    // Dependencias de Espresso (ya las tienes, solo las pongo aquí como referencia)
+    androidTestImplementation(libs.espressoCore)
+    androidTestImplementation(libs.androidx.rules)
+
     implementation(libs.bundles.appDependencies)
     ksp(libs.hilt.compiler)
 }
