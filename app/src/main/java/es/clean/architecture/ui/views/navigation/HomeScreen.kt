@@ -44,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -250,6 +251,7 @@ fun CustomBottomBar(
 
     Card(
         modifier = Modifier
+            .testTag("BottomNavigation")
             .fillMaxWidth()
             .height(56.dp)
             .background(colorResource(id = R.color.app_background)),
@@ -314,6 +316,7 @@ fun RowScope.AddItem(
             }
         },
         modifier = Modifier
+            .testTag(screen.route)
             .graphicsLayer {
                 scaleX = scale
                 scaleY = scale
