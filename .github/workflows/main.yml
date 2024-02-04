@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -38,6 +38,11 @@ jobs:
     - name: Run unit tests
       run: ./gradlew testDebugUnitTest
 
-    # Descomenta y ajusta la siguiente sección si tienes pruebas instrumentadas
-    # - name: Run instrumented tests
-    #   run: ./gradlew connectedDebugAndroidTest
+    - name: Run instrumented tests
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 29
+        script: ./gradlew connectedCheck
+        target: default
+        arch: x86
+        profile: Nexus 6
