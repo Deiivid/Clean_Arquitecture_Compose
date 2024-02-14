@@ -4,7 +4,7 @@ androidx-runner = "1.5.2"
 compose-compiler = "1.5.3"
 kotlin = "1.9.10"
 iconsExtendedVersion = "1.6.0-alpha08"
-detecktVersion = "1.23.0"
+detektVersion = "1.23.0"
 #endregion
 
 #region [Build Gradle]
@@ -187,7 +187,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 #endregion
 com-android-application = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-deteckt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detecktVersion" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektVersion" }
 
 
 [bundles]
