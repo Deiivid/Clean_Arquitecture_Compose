@@ -4,7 +4,12 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
@@ -14,7 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,10 +38,11 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import com.airbnb.lottie.compose.*
 import es.clean.architecture.R
 import es.clean.architecture.domain.locations.models.RickyMortyLocationsModel
 import es.clean.architecture.domain.locations.models.createLocationResult
+import es.clean.architecture.ui.views.common.LottieErrorState
+import es.clean.architecture.ui.views.common.LottieProgressBar
 import es.clean.architecture.ui.views.locations.viewmodel.LocationsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -181,30 +187,6 @@ fun LocationItem(
             modifier = Modifier.align(Alignment.Center)
         )
     }
-}
-
-@Composable
-fun LottieProgressBar() {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loadinglottie))
-    val progress by animateLottieCompositionAsState(composition)
-    LottieAnimation(
-        composition = composition,
-        progress = { progress },
-        modifier = Modifier.fillMaxSize()
-    )
-
-}
-
-@Composable
-fun LottieErrorState() {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.cryricky))
-    val progress by animateLottieCompositionAsState(composition)
-    LottieAnimation(
-        composition = composition,
-        progress = { progress },
-        modifier = Modifier.fillMaxSize()
-    )
-
 }
 
 @Preview

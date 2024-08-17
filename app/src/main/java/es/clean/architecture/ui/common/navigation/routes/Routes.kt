@@ -1,8 +1,8 @@
 package es.clean.architecture.ui.common.navigation.routes
 
-import es.clean.architecture.ui.common.CHARACTER_OBJECT
-import es.clean.architecture.ui.common.EPISODE_OBJECT
-import es.clean.architecture.ui.common.LOCATION_OBJECT
+import es.clean.architecture.ui.common.constants.CHARACTER_OBJECT
+import es.clean.architecture.ui.common.constants.EPISODE_OBJECT
+import es.clean.architecture.ui.common.constants.LOCATION_OBJECT
 
 sealed class Routes(val route: String) {
 

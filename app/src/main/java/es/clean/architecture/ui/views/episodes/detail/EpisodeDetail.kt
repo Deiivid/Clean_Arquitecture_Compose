@@ -40,7 +40,7 @@ import es.clean.architecture.domain.episodes.models.createEpisodesResult
 @ExperimentalCoilApi
 @Composable
 fun EpisodeDetail(
-    rickyMortyEpisode: RickyMortyEpisodesModel.Episode //We receive the data
+    rickyMortyEpisode: RickyMortyEpisodesModel.Episode
 ) {
     Surface(
         modifier = Modifier

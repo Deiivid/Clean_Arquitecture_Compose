@@ -16,7 +16,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import es.clean.architecture.R
-import es.clean.architecture.ui.common.MAIN
+import es.clean.architecture.ui.common.constants.MAIN
 import kotlinx.coroutines.delay
 
 @Composable
@@ -46,7 +46,8 @@ fun LottieSplashScreen() {
     LottieAnimation(
         composition = compositeResult.value,
         progress = progressAnimation,
-        modifier = Modifier.fillMaxHeight())
+        modifier = Modifier.fillMaxHeight()
+    )
 }
 
 

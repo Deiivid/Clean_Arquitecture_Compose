@@ -24,9 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Outline
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
@@ -34,9 +31,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Density
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
@@ -45,6 +39,7 @@ import coil.request.ImageRequest
 import es.clean.architecture.R
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
+import es.clean.architecture.ui.views.characters.common.CutCornersCustom
 import es.clean.architecture.ui.views.characters.common.getStatusIconWithTint
 
 @Composable
@@ -193,28 +188,6 @@ fun EpisodesGrid(episodes: List<String>) {
         }
     }
 }
-
-class CutCornersCustom(private val bigCut: Dp) : Shape {
-    override fun createOutline(
-        size: androidx.compose.ui.geometry.Size,
-        layoutDirection: LayoutDirection,
-        density: Density
-    ): Outline {
-        val bigCutSize = bigCut.toPx(density)
-        val path = Path().apply {
-            lineTo(size.width - bigCutSize, 0f)
-            lineTo(size.width, bigCutSize)
-            lineTo(size.width, size.height)
-            lineTo(bigCutSize, size.height)
-            lineTo(0f, size.height - bigCutSize)
-            close()
-        }
-        return Outline.Generic(path)
-    }
-
-}
-
-private fun Dp.toPx(density: Density): Float = this.value * density.density
 
 @ExperimentalCoilApi
 @Preview
