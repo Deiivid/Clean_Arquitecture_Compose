@@ -10,9 +10,9 @@ import coil.annotation.ExperimentalCoilApi
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import es.clean.architecture.domain.locations.models.RickyMortyLocationsModel
-import es.clean.architecture.ui.common.CHARACTER_OBJECT
-import es.clean.architecture.ui.common.EPISODE_OBJECT
-import es.clean.architecture.ui.common.LOCATION_OBJECT
+import es.clean.architecture.ui.common.constants.CHARACTER_OBJECT
+import es.clean.architecture.ui.common.constants.EPISODE_OBJECT
+import es.clean.architecture.ui.common.constants.LOCATION_OBJECT
 import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomNavigationBar
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.views.characters.screens.detail.CharacterDetail

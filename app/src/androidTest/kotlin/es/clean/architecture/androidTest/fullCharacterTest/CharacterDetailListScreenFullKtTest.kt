@@ -11,9 +11,8 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel.*
-import es.clean.architecture.ui.aplication.MainActivity
-import es.clean.architecture.ui.common.MAIN
+import es.clean.architecture.ui.application.MainActivity
+import es.clean.architecture.ui.common.constants.MAIN
 import es.clean.architecture.ui.common.navigation.navgraph.root.RootNavigationGraph
 import es.clean.architecture.ui.theme.CleanArchitectureComposeDNTheme
 import org.junit.Rule
