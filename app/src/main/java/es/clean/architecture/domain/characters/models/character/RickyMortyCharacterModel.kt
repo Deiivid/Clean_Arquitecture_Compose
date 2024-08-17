@@ -55,10 +55,11 @@ data class RickyMortyCharacterModel(
  * We use this section to initialize the detail screen to get the preview
  */
 fun createCharacterResult(): RickyMortyCharacterModel.RickyMortyCharacter {
-    val rickyMortyCharacterLocation = RickyMortyCharacterModel.RickyMortyCharacter.CharacterLocation(
-        name = "Earth",
-        url = "https://example.com/earth"
-    )
+    val rickyMortyCharacterLocation =
+        RickyMortyCharacterModel.RickyMortyCharacter.CharacterLocation(
+            name = "Earth",
+            url = "https://example.com/earth"
+        )
     val rickyMortyCharacterOrigin = RickyMortyCharacterModel.RickyMortyCharacter.CharacterOrigin(
         name = "Unknown",
         url = "https://example.com/unknown"

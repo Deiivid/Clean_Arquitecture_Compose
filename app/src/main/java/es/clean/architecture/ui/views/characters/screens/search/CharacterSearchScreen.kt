@@ -54,7 +54,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import es.clean.architecture.R
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
-import es.clean.architecture.ui.views.characters.screens.detail.CutCornersCustom
+import es.clean.architecture.ui.views.characters.common.CutCornersCustom
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition", "ResourceAsColor")
@@ -153,47 +153,6 @@ fun SearchNameField(
                 }
             }
         ),
-        decorationBox = { innerTextField ->
-            Surface(
-                shape = CutCornersCustom(16.dp),
-                color = backgroundColor,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .border(
-                        width = 2.dp,
-                        color = LocalContentColor.current,
-                        shape = CutCornersCustom(16.dp)
-                    )
-                    .padding(10.dp),
-                shadowElevation = 10.dp
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                ) {
-                    if (value.isEmpty()) {
-                        placeholder()
-                    }
-                    innerTextField()
-                }
-            }
-        }
-    )
-}
-
-@Composable
-fun SearchSpeciesField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    placeholder: @Composable () -> Unit
-) {
-    val backgroundColor =
-        MaterialTheme.colorScheme.primary.copy(alpha = 0.9f)
-    BasicTextField(
-        value = value,
-        onValueChange = onValueChange,
-        singleLine = true,
         decorationBox = { innerTextField ->
             Surface(
                 shape = CutCornersCustom(16.dp),
@@ -323,6 +282,5 @@ fun StatusIconButton(
 @Preview
 @Composable
 fun ShowCharacterSearchScreen() {
-
-    // CharacterSearchScreen(rememberNavController(), onDialogClose = () -> Unit)
+// CharacterSearchScreen(rememberNavController(), onDialogClose = () -> Unit)
 }

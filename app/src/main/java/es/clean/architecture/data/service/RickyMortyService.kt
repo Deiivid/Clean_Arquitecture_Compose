@@ -14,8 +14,7 @@ import retrofit2.http.Query
 interface RickyMortyService {
     @GET(CHARACTER)
     suspend fun getAllCharacters(
-        @Query("page") currentPage: Int,
-        @Query("name") name: String? = null
+        @Query("page") currentPage: Int, @Query("name") name: String? = null
     ): Response<RemoteRickyMortyCharacterModel>
 
     @GET(EPISODE)

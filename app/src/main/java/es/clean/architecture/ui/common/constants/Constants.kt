@@ -1,4 +1,4 @@
-package es.clean.architecture.ui.common
+package es.clean.architecture.ui.common.constants
 
 const val EPISODE_OBJECT= "episode"
 const val CHARACTER_OBJECT="character"
