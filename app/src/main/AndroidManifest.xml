@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="es.clean.architecture.ui.aplication.CleanArchitectureComposeDN"
+        android:name="es.clean.architecture.ui.application.CleanArchitectureComposeDN"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,10 +16,11 @@
         android:theme="@style/Theme.RickyMortyDN"
         tools:targetApi="31">
         <activity
-            android:name="es.clean.architecture.ui.aplication.MainActivity"
+            android:name="es.clean.architecture.ui.application.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.RickyMortyDN">
+            android:theme="@style/Theme.RickyMortyDN"
+            tools:ignore="RedundantLabel">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

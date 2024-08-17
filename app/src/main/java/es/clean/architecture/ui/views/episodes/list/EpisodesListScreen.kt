@@ -1,7 +1,6 @@
 package es.clean.architecture.ui.views.episodes.list
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
@@ -11,7 +10,19 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
@@ -27,7 +38,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -47,11 +60,12 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import com.airbnb.lottie.compose.*
 import es.clean.architecture.R
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import es.clean.architecture.domain.episodes.models.createEpisodesResult
 import es.clean.architecture.ui.common.Dimensions
+import es.clean.architecture.ui.views.common.LottieErrorState
+import es.clean.architecture.ui.views.common.LottieProgressBar
 import es.clean.architecture.ui.views.episodes.viewmodel.EpisodesViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -81,10 +95,10 @@ fun EpisodesListScreen(
                         modifier = Modifier
                             .fillMaxWidth(),
                         title = {
-                                Text(
-                                    text = stringResource(id = R.string.app_name),
-                                    color = MaterialTheme.colorScheme.onPrimary
-                                )
+                            Text(
+                                text = stringResource(id = R.string.app_name),
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
                         },
                         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
                     )
@@ -141,7 +155,6 @@ fun EpisodesItem(
     episodes: RickyMortyEpisodesModel.Episode,
     onItemClick: (rickyMortyEpisode: RickyMortyEpisodesModel.Episode) -> Unit,
     modifier: Modifier = Modifier
-
 ) {
     val borderWidth = 2.dp
     val borderColor = Color.White
@@ -149,7 +162,7 @@ fun EpisodesItem(
     val scale = remember { Animatable(1f) }
     LaunchedEffect(key1 = true) {
         scale.animateTo(
-            targetValue = 1.1f, // Escala hasta un 10% más grande
+            targetValue = 1.1f,
             animationSpec = infiniteRepeatable(
                 animation = tween(durationMillis = 500, easing = LinearEasing),
                 repeatMode = RepeatMode.Reverse
@@ -209,7 +222,7 @@ fun EpisodesItem(
                     )
                     Spacer(modifier = Modifier.width(Dimensions.small))
                     Text(
-                        text = formatEmisionDate(episodes.airDate),
+                        text = formatEmissionDate(episodes.airDate),
                         fontSize = 14.sp,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
@@ -253,7 +266,7 @@ fun EpisodesItem(
                     color = Color.White,
                     style = MaterialTheme.typography.labelSmall,
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold // Texto en negrita
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
@@ -261,41 +274,17 @@ fun EpisodesItem(
 }
 
 
-fun formatEmisionDate(dateString: String): String {
+fun formatEmissionDate(dateString: String): String {
     return try {
         val parser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val formatter = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
         val parsedDate = parser.parse(dateString)
         formatter.format(parsedDate)
     } catch (ex: Exception) {
-        Log.e("MiApp", "Error en EpisodesListScreen", ex)
         dateString
     }
 }
 
-@Composable
-fun LottieProgressBar() {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loadinglottie))
-    val progress by animateLottieCompositionAsState(composition)
-    LottieAnimation(
-        composition = composition,
-        progress = { progress },
-        modifier = Modifier.fillMaxSize()
-    )
-
-}
-
-@Composable
-fun LottieErrorState() {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.cryricky))
-    val progress by animateLottieCompositionAsState(composition)
-    LottieAnimation(
-        composition = composition,
-        progress = { progress },
-        modifier = Modifier.fillMaxSize()
-    )
-
-}
 
 @Preview
 @Composable
