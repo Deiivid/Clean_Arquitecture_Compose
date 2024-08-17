@@ -79,14 +79,16 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
                 CustomFloatingActionButton(
                     onShowDialogChange = { showDialog = it },
                     isVisible = shouldShowFloatingActionButton(
-                        navController.currentBackStackEntryAsState().value?.destination),
+                        navController.currentBackStackEntryAsState().value?.destination
+                    ),
                     navController = navController
                 )
             } else {
                 CustomFloatingActionButtonClose(
                     onShowDialogChange = { showDialog = it },
                     isVisible = shouldShowFloatingActionButton(
-                        navController.currentBackStackEntryAsState().value?.destination),
+                        navController.currentBackStackEntryAsState().value?.destination
+                    ),
                     navController = navController,
                     onSearchQueryReset = { searchQuery = "" }
 
