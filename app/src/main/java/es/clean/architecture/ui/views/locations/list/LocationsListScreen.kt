@@ -28,7 +28,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,6 +40,7 @@ import androidx.paging.compose.itemKey
 import es.clean.architecture.R
 import es.clean.architecture.domain.locations.models.RickyMortyLocationsModel
 import es.clean.architecture.domain.locations.models.createLocationResult
+import es.clean.architecture.ui.theme.AppBackground
 import es.clean.architecture.ui.views.common.LottieErrorState
 import es.clean.architecture.ui.views.common.LottieProgressBar
 import es.clean.architecture.ui.views.locations.viewmodel.LocationsViewModel
@@ -64,8 +64,7 @@ fun LocationsListScreen(
                 modifier = Modifier.fillMaxSize(),
                 topBar = {
                     CenterAlignedTopAppBar(
-                        modifier = Modifier
-                            .fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth(),
                         title = {
                             Text(
                                 text = stringResource(id = R.string.app_name),
@@ -80,9 +79,7 @@ fun LocationsListScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(
-                            colorResource(id = R.color.app_background)
-                        )
+                        .background(AppBackground)
                         .padding(bottom = 10.dp)
                 ) {
                     LazyVerticalGrid(
@@ -99,7 +96,6 @@ fun LocationsListScreen(
                                 LocationItem(
                                     location = item,
                                     { currentLocation ->
-
                                         Toast.makeText(
                                             context,
                                             "Has Pulsado en un elemento ${item.name}",

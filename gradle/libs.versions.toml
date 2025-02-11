@@ -4,7 +4,7 @@ androidx-runner = "1.5.2"
 compose-compiler = "1.5.3"
 kotlin = "1.9.10"
 iconsExtendedVersion = "1.6.0-alpha08"
-detecktVersion = "1.23.0"
+detektVersion = "1.23.0"
 #endregion
 
 #region [Build Gradle]
@@ -85,6 +85,7 @@ lottieVersion = "6.1.0"
 #endregion
 agp = "8.1.2"
 core-ktx = "1.9.0"
+tvMaterial = "1.0.0"
 
 [libraries]
 #region [KOTLIN]
@@ -168,6 +169,7 @@ androidx-paging-compose-ktx = { group = "androidx.paging", name = "paging-compos
 
 #region [LOTTIE]
 lottieCompose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieVersion" }
+androidx-tv-material = { group = "androidx.tv", name = "tv-material", version.ref = "tvMaterial" }
 
 #endregion [LOTTIE]
 
@@ -187,7 +189,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 #endregion
 com-android-application = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-deteckt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detecktVersion" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektVersion" }
 
 
 [bundles]

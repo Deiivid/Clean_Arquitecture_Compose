@@ -6,12 +6,14 @@
 
 - 📚 Kotlin Coroutines - For asynchronous programming
 - 📚 Retrofit - For networking and API communication
-
+- 📚 Paging 3 - For pagination
 - 📚 Dagger Hilt - For dependency injection
 - 📚 Jetpack Compose - For building UI components
 - 📚 JUnit and MockK - For testing
 - 📚 Lottie: For Animations.
 - 📚 Material 3: For the visual part.
+- 📚 Detekt: For Code Optimization.
+
 
 
 ##  🧮 Architecture 🧮
@@ -20,7 +22,7 @@ The project follows the Clean MVVM architecture, which consists of the following
 
 - 🧮 **Presentation Layer**: Contains the UI components, ViewModels, and Compose screens.
 - 🧮 **Domain Layer**: Contains the business logic and use cases.
-- 🧮 **Data Layer**: Contains the repositories, data sources, and API communication.
+- 🧮 **Data Layer**: Contains the repositories, data sources, pagination and API communication.
 - 🧮  **Dependency Injection**: Uses Dagger Hilt for dependency injection.
 
 ## 📁 Folder Structure 📁
@@ -38,15 +40,16 @@ The project is structured as follows:
 ## Usage
 
 1. Clone the repository: https://github.com/Deiivid/Clean_Arquitecture_Compose.git
+
+## 🧮 DETEKT 🧮
+![Captura de pantalla 2023-11-23 a las 17 52 21](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/a428dd13-bce3-4e36-942c-8edf924882d9)
+
 ## 🗺️ Navigation 🗺️
 
-![Clean_Architecture_Compose](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/d31fcecf-881a-40e9-8c41-0abe2cf1726c)
+![Navigation](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/b1bb18c3-b3e6-4b0b-8695-1642e1c1b760)
+
 
 ##  🙂 Images 🙂
-![SplashScreen](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/5cdf39f6-c004-408d-b2d3-9377892347c7)
 
-![CharacterList](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/aa46f524-dbd1-40b1-88f0-152d97b4a6df)
-![CharacterDetail](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/00a4281a-9172-48f6-8284-9dc7d8cceb46)
+![Ricky morty images](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/7a7bc88b-ce68-4c47-b6b7-ce98c08b3530)
 
-![EpisodesList](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/521ca7d1-dfd6-40ca-a6e7-489ee3d3391d)
-![LocationsList](https://github.com/Deiivid/Clean_Arquitecture_Compose/assets/60486280/64bc612f-9345-4434-b143-12f12f7ff6bd)
