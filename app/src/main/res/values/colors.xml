@@ -1,26 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#037271</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="black_transparency">#00555151</color>
-    <color name="black_transparency_custom20">#E1000000</color>
-    <color name="blue">#E14885FF</color>
-    <color name="coral">#FFFFAB91</color>
-    <color name="light_green">#FFAED581</color>
-    <color name="light_blue">#FF64B5F6</color>
-    <color name="rosa">#FFF06292</color>
-    <color name="yellow">#FFFFD54F</color>
-    <color name="special_blue">#FF4DB6AC</color>
-
-    <color name="app_background">#1E2A45</color> <!-- Azul oscuro -->
-    <color name="card_background">#92C099</color> <!-- Verde agua suave -->
-    <color name="card_border">#438D41</color> <!-- Verde oscuro para el borde -->
-    <color name="image_background">#5F758E</color> <!-- Gris azulado -->
-    <color name="border">#CE4BFF00</color> <!-- Gris azulado -->
-
+    <!-- ALL COLORS ARE IN THEME -->
 </resources>
