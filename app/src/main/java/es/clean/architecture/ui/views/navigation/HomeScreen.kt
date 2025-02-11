@@ -45,7 +45,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavDestination
@@ -54,10 +53,11 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import es.clean.architecture.R
 import es.clean.architecture.ui.common.navigation.navgraph.main.MainNavGraph
 import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomNavigationBar
 import es.clean.architecture.ui.common.navigation.routes.Routes
+import es.clean.architecture.ui.theme.AppBackground
+import es.clean.architecture.ui.theme.White
 import es.clean.architecture.ui.views.characters.screens.search.CharacterSearchScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -144,13 +144,13 @@ fun CustomFloatingActionButton(
                 .clip(CutCornerShape(44.dp))
                 .border(
                     width = 4.dp,
-                    color = colorResource(id = R.color.white),
+                    color = White,
                 )
                 .graphicsLayer {
                     scaleX = pulseScale.value
                     scaleY = pulseScale.value
                 },
-            containerColor = colorResource(id = R.color.app_background),
+            containerColor = AppBackground,
             elevation = FloatingActionButtonDefaults.elevation(8.dp),
             shape = CutCornerShape(10.dp)
         ) {
@@ -197,13 +197,13 @@ fun CustomFloatingActionButtonClose(
                 .clip(CutCornerShape(44.dp))
                 .border(
                     width = 4.dp,
-                    color = colorResource(id = R.color.white),
+                    color = White,
                 )
                 .graphicsLayer {
                     scaleX = pulseScale.value
                     scaleY = pulseScale.value
                 },
-            containerColor = colorResource(id = R.color.app_background),
+            containerColor = AppBackground,
             elevation = FloatingActionButtonDefaults.elevation(8.dp),
             shape = CutCornerShape(10.dp)
         ) {
@@ -255,7 +255,7 @@ fun CustomBottomBar(
             .testTag("BottomNavigation")
             .fillMaxWidth()
             .height(56.dp)
-            .background(colorResource(id = R.color.app_background)),
+            .background(AppBackground),
         shape = RoundedCornerShape(
             topStart = 16.dp,
             topEnd = 16.dp

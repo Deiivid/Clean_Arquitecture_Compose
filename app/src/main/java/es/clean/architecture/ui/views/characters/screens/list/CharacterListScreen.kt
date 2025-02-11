@@ -33,7 +33,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -53,6 +52,8 @@ import es.clean.architecture.domain.characters.models.character.RickyMortyCharac
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
 import es.clean.architecture.ui.common.constants.CHARACTER_OBJECT
 import es.clean.architecture.ui.common.navigation.routes.Routes
+import es.clean.architecture.ui.theme.AppBackground
+import es.clean.architecture.ui.theme.CardBackground
 import es.clean.architecture.ui.views.characters.common.CutCornersCustom
 import es.clean.architecture.ui.views.characters.common.getStatusIconWithTint
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
@@ -86,7 +87,7 @@ fun CharactersListScreen(
             Scaffold(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(colorResource(id = R.color.app_background)),
+                    .background(AppBackground),
                 topBar = {
                     CenterAlignedTopAppBar(
                         modifier = Modifier
@@ -98,7 +99,8 @@ fun CharactersListScreen(
                             )
                         },
                         colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = colorResource(id = R.color.app_background)),
+                            containerColor = AppBackground
+                        ),
                     )
                 }
             ) { paddingValues ->
@@ -106,9 +108,7 @@ fun CharactersListScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(
-                                colorResource(id = R.color.app_background)
-                            ), contentAlignment = Alignment.Center
+                            .background(AppBackground), contentAlignment = Alignment.Center
                     ) {
                         lottieEmptyState()
                     }
@@ -116,9 +116,7 @@ fun CharactersListScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(
-                                colorResource(id = R.color.app_background)
-                            )
+                            .background(AppBackground)
                             .padding(bottom = 10.dp)
                     ) {
                         LazyColumn(
@@ -167,7 +165,7 @@ fun CharacterItem(
 ) {
     Surface(
         shape = CutCornersCustom(16.dp),
-        color = colorResource(id = R.color.card_background),
+        color = CardBackground,
         modifier = Modifier
             .testTag("CharacterItem") // Test
             .clickable { onItemClick(character) }
@@ -181,7 +179,7 @@ fun CharacterItem(
                 .padding(3.dp)
                 .border(
                     width = 2.dp,
-                    color = colorResource(id = R.color.app_background),
+                    color = AppBackground,
                     shape = CutCornersCustom(16.dp)
                 )
         ) {
@@ -255,7 +253,7 @@ fun CharacterItem(
                     modifier = Modifier
                         .size(width = 135.dp, height = 110.dp)
                         .clip(CutCornersCustom(16.dp))
-                        .background(colorResource(id = R.color.card_border))
+                        .background(CardBackground)
                 )
             }
         }

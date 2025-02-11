@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,9 +35,12 @@ import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import es.clean.architecture.R
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
+import es.clean.architecture.ui.theme.AppBackground
+import es.clean.architecture.ui.theme.Border
+import es.clean.architecture.ui.theme.CardBackground
+import es.clean.architecture.ui.theme.CardBorder
 import es.clean.architecture.ui.views.characters.common.CutCornersCustom
 import es.clean.architecture.ui.views.characters.common.getStatusIconWithTint
 
@@ -46,9 +48,9 @@ import es.clean.architecture.ui.views.characters.common.getStatusIconWithTint
 fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyCharacter) {
     Box(
         modifier = Modifier
-            .testTag("CharacterDetailScreen") // Test
+            .testTag("CharacterDetailScreen")
             .fillMaxSize()
-            .background(colorResource(id = R.color.app_background))
+            .background(AppBackground)
     ) {
         Box(
             modifier = Modifier
@@ -56,7 +58,7 @@ fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyChar
                 .fillMaxSize()
                 .padding(top = 55.dp, bottom = 55.dp, start = 24.dp, end = 24.dp)
                 .background(
-                    color = colorResource(id = R.color.card_border),
+                    color = CardBorder,
                     shape = CutCornersCustom(38.dp)
                 )
 
@@ -68,14 +70,12 @@ fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyChar
                 )
                 .padding(2.dp)
                 .background(
-                    color = colorResource(
-                        R.color.card_background
-                    ),
+                    color = CardBackground,
                     shape = CutCornersCustom(40.dp)
                 )
                 .border(
                     width = 2.dp,
-                    color = colorResource(id = R.color.border),
+                    color = Border,
                     shape = CutCornersCustom(42.dp)
                 )
                 .padding(14.dp)
@@ -161,8 +161,8 @@ fun Chip(text: String) {
         modifier = Modifier
             .padding(end = 8.dp)
             .clip(chipShape)
-            .background(colorResource(id = R.color.card_border))
-            .border(2.dp, colorResource(id = R.color.border), chipShape)
+            .background(CardBorder)
+            .border(2.dp, Border, chipShape)
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Text(
