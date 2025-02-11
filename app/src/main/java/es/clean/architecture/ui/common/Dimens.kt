@@ -22,6 +22,8 @@ object Dimens {
     val Custom160 = 160.dp
     val Custom175 = 175.dp
     val Custom350 = 350.dp
+    val Custom600 = 600.dp
+
 }
 
 object TextSizes {
