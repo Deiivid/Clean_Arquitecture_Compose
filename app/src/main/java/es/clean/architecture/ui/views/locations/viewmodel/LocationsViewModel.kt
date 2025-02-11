@@ -5,7 +5,7 @@ import androidx.paging.PagingData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import es.clean.architecture.domain.locations.models.RickyMortyLocationsModel
 import es.clean.architecture.domain.locations.repository.AllLocationsUseCase
-import es.clean.architecture.ui.views.common.DataUtils.LIMIT
+import es.clean.architecture.ui.common.DataUtils.LIMIT
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

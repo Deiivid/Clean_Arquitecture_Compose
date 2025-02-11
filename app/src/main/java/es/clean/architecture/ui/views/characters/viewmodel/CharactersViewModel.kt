@@ -7,7 +7,7 @@ import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.characters.repository.characters.AllCharactersUseCase
-import es.clean.architecture.ui.views.common.DataUtils.LIMIT
+import es.clean.architecture.ui.common.DataUtils.LIMIT
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
