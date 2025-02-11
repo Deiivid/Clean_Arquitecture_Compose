@@ -38,7 +38,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
@@ -50,16 +49,30 @@ import coil.request.ImageRequest
 import es.clean.architecture.R
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
+import es.clean.architecture.ui.common.Dimens.Custom110
+import es.clean.architecture.ui.common.Dimens.Custom135
+import es.clean.architecture.ui.common.Dimens.Custom175
+import es.clean.architecture.ui.common.Dimens.ExtraLarge
+import es.clean.architecture.ui.common.Dimens.ExtraSmall
+import es.clean.architecture.ui.common.Dimens.Huge
+import es.clean.architecture.ui.common.Dimens.Large
+import es.clean.architecture.ui.common.Dimens.Medium
+import es.clean.architecture.ui.common.Dimens.Small
+import es.clean.architecture.ui.common.Dimens.Tiny
+import es.clean.architecture.ui.common.LottieErrorState
+import es.clean.architecture.ui.common.LottieProgressBar
+import es.clean.architecture.ui.common.Numbers.TWO
+import es.clean.architecture.ui.common.TextSizes.Sp12
+import es.clean.architecture.ui.common.TextSizes.Sp14
+import es.clean.architecture.ui.common.TextSizes.Sp20
 import es.clean.architecture.ui.common.constants.CHARACTER_OBJECT
+import es.clean.architecture.ui.common.lottieEmptyState
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.theme.AppBackground
 import es.clean.architecture.ui.theme.CardBackground
 import es.clean.architecture.ui.views.characters.common.CutCornersCustom
 import es.clean.architecture.ui.views.characters.common.getStatusIconWithTint
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
-import es.clean.architecture.ui.views.common.LottieErrorState
-import es.clean.architecture.ui.views.common.LottieProgressBar
-import es.clean.architecture.ui.views.common.lottieEmptyState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -117,7 +130,7 @@ fun CharactersListScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(AppBackground)
-                            .padding(bottom = 10.dp)
+                            .padding(bottom = Large)
                     ) {
                         LazyColumn(
                             modifier = Modifier
@@ -164,29 +177,29 @@ fun CharacterItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shape = CutCornersCustom(16.dp),
+        shape = CutCornersCustom(ExtraLarge),
         color = CardBackground,
         modifier = Modifier
             .testTag("CharacterItem") // Test
             .clickable { onItemClick(character) }
-            .height(175.dp)
-            .padding(10.dp),
-        shadowElevation = 10.dp
+            .height(Custom175)
+            .padding(Large),
+        shadowElevation = Large
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(3.dp)
+                .padding(Tiny)
                 .border(
-                    width = 2.dp,
+                    width = Tiny,
                     color = AppBackground,
-                    shape = CutCornersCustom(16.dp)
+                    shape = CutCornersCustom(ExtraLarge)
                 )
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 14.dp, top = 8.dp, start = 8.dp, end = 8.dp),
+                    .padding(bottom = ExtraLarge, top = Medium, start = Medium, end = Medium),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(
@@ -204,45 +217,45 @@ fun CharacterItem(
                             contentDescription = "Status Icon",
                             tint = statusTint,
                             modifier = Modifier
-                                .size(24.dp)
+                                .size(Huge)
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
                             text = character.status,
                             color = Color.White,
-                            fontSize = 14.sp
+                            fontSize = Sp14
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(ExtraSmall))
 
                     Text(
                         text = character.name,
                         color = Color.White,
-                        fontSize = 20.sp,
+                        fontSize = Sp20,
                         fontWeight = FontWeight.Bold
                     )
 
-                    Spacer(modifier = Modifier.height(2.dp))
+                    Spacer(modifier = Modifier.height(Tiny))
 
                     Text(
                         text = "Gender: ${character.gender}",
                         color = Color.White,
-                        fontSize = 14.sp
+                        fontSize = Sp14
                     )
 
-                    Spacer(modifier = Modifier.height(2.dp))
+                    Spacer(modifier = Modifier.height(Tiny))
 
                     Text(
                         text = "Location: ${character.characterLocation.name}",
                         color = Color.White,
-                        fontSize = 12.sp,
-                        maxLines = 2
+                        fontSize = Sp12,
+                        maxLines = TWO
                     )
 
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(ExtraSmall))
                 }
-                Spacer(modifier = Modifier.width(6.dp))
+                Spacer(modifier = Modifier.width(Small))
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(character.image)
@@ -251,15 +264,14 @@ fun CharacterItem(
                     contentDescription = "Character Image",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .size(width = 135.dp, height = 110.dp)
-                        .clip(CutCornersCustom(16.dp))
+                        .size(width = Custom135, height = Custom110)
+                        .clip(CutCornersCustom(ExtraLarge))
                         .background(CardBackground)
                 )
             }
         }
     }
 }
-
 
 
 @Preview
