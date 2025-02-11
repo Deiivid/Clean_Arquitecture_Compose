@@ -40,9 +40,12 @@ import androidx.paging.compose.itemKey
 import es.clean.architecture.R
 import es.clean.architecture.domain.locations.models.RickyMortyLocationsModel
 import es.clean.architecture.domain.locations.models.createLocationResult
+import es.clean.architecture.ui.common.Dimens.Custom150
+import es.clean.architecture.ui.common.Dimens.Large
+import es.clean.architecture.ui.common.LottieErrorState
+import es.clean.architecture.ui.common.LottieProgressBar
+import es.clean.architecture.ui.common.Numbers.TWO
 import es.clean.architecture.ui.theme.AppBackground
-import es.clean.architecture.ui.views.common.LottieErrorState
-import es.clean.architecture.ui.views.common.LottieProgressBar
 import es.clean.architecture.ui.views.locations.viewmodel.LocationsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -80,10 +83,10 @@ fun LocationsListScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(AppBackground)
-                        .padding(bottom = 10.dp)
+                        .padding(bottom = Large)
                 ) {
                     LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
+                        columns = GridCells.Fixed(TWO),
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(paddingValues)
@@ -158,10 +161,10 @@ fun LocationItem(
 
     Box(
         modifier = Modifier
-            .height(150.dp)
-            .width(150.dp)
+            .height(Custom150)
+            .width(Custom150)
             .testTag("LocationItem") // Test
-            .padding(10.dp)
+            .padding(Large)
             .clip(CircleShape)
             .background(Color.Transparent)
             .clickable { onItemClick(location) },

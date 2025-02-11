@@ -30,13 +30,28 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.domain.characters.models.character.createCharacterResult
+import es.clean.architecture.ui.common.Dimens.Custom1
+import es.clean.architecture.ui.common.Dimens.Custom350
+import es.clean.architecture.ui.common.Dimens.Custom55
+import es.clean.architecture.ui.common.Dimens.ExtraLarge
+import es.clean.architecture.ui.common.Dimens.ExtraSmall
+import es.clean.architecture.ui.common.Dimens.Giant
+import es.clean.architecture.ui.common.Dimens.Huge
+import es.clean.architecture.ui.common.Dimens.Large
+import es.clean.architecture.ui.common.Dimens.Massive
+import es.clean.architecture.ui.common.Dimens.Medium
+import es.clean.architecture.ui.common.Dimens.Small
+import es.clean.architecture.ui.common.Dimens.Tiny
+import es.clean.architecture.ui.common.Numbers.ONE
+import es.clean.architecture.ui.common.TextSizes.Sp12
+import es.clean.architecture.ui.common.TextSizes.Sp14
+import es.clean.architecture.ui.common.TextSizes.Sp22
+import es.clean.architecture.ui.common.TextSizes.Sp26
 import es.clean.architecture.ui.theme.AppBackground
 import es.clean.architecture.ui.theme.Border
 import es.clean.architecture.ui.theme.CardBackground
@@ -56,34 +71,34 @@ fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyChar
             modifier = Modifier
 
                 .fillMaxSize()
-                .padding(top = 55.dp, bottom = 55.dp, start = 24.dp, end = 24.dp)
+                .padding(top = Custom55, bottom = Custom55, start = Huge, end = Huge)
                 .background(
                     color = CardBorder,
-                    shape = CutCornersCustom(38.dp)
+                    shape = CutCornersCustom(Giant)
                 )
 
                 .clip(
                     CutCornerShape(
-                        topStart = 40.dp,
-                        bottomEnd = 40.dp
+                        topStart = Giant,
+                        bottomEnd = Giant
                     )
                 )
-                .padding(2.dp)
+                .padding(Tiny)
                 .background(
                     color = CardBackground,
-                    shape = CutCornersCustom(40.dp)
+                    shape = CutCornersCustom(Giant)
                 )
                 .border(
-                    width = 2.dp,
+                    width = Tiny,
                     color = Border,
-                    shape = CutCornersCustom(42.dp)
+                    shape = CutCornersCustom(Giant)
                 )
-                .padding(14.dp)
+                .padding(ExtraLarge)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 5.dp)
+                    .padding(start = ExtraSmall)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -91,22 +106,22 @@ fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyChar
                     val (statusIcon, statusTint) = getStatusIconWithTint(rickyMortyCharacter.status)
                     Icon(
                         modifier = Modifier
-                            .height(35.dp)
-                            .width(40.dp)
-                            .padding(start = 4.dp, end = 6.dp),
+                            .height(Massive)
+                            .width(Giant)
+                            .padding(start = ExtraSmall, end = Small),
                         painter = painterResource(id = statusIcon),
                         contentDescription = "Status Icon",
                         tint = statusTint
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(ExtraSmall))
                     Text(
                         text = rickyMortyCharacter.status,
                         fontWeight = Bold,
                         color = Color.White,
-                        fontSize = 22.sp
+                        fontSize = Sp22
                     )
                 }
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(Medium))
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(rickyMortyCharacter.image)
@@ -116,23 +131,23 @@ fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyChar
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(350.dp)
-                        .clip(CutCornerShape(16.dp))
+                        .height(Custom350)
+                        .clip(CutCornerShape(ExtraLarge))
                         .align(Alignment.CenterHorizontally)
                 )
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(Large))
 
                 Text(
                     text = rickyMortyCharacter.name,
                     color = Color.White,
                     fontWeight = Bold,
-                    fontSize = 28.sp
+                    fontSize = Sp26
                 )
-                Spacer(modifier = Modifier.height(6.dp))
+                Spacer(modifier = Modifier.height(Small))
                 EpisodesGrid(rickyMortyCharacter.episode)
 
-                Spacer(modifier = Modifier.height(12.dp))
-                HorizontalDivider(thickness = 1.dp, color = Color.White)
+                Spacer(modifier = Modifier.height(Large))
+                HorizontalDivider(thickness = Custom1, color = Color.White)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -141,12 +156,12 @@ fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyChar
                     Text(
                         text = "Origin: ${rickyMortyCharacter.characterOrigin.name}",
                         color = Color.White,
-                        fontSize = 12.sp
+                        fontSize = Sp12
                     )
                     Text(
                         text = "Location: ${rickyMortyCharacter.characterLocation.name}",
                         color = Color.White,
-                        fontSize = 12.sp
+                        fontSize = Sp12
                     )
                 }
             }
@@ -156,21 +171,21 @@ fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyChar
 
 @Composable
 fun Chip(text: String) {
-    val chipShape = CutCornersCustom(16.dp)
+    val chipShape = CutCornersCustom(ExtraLarge)
     Box(
         modifier = Modifier
-            .padding(end = 8.dp)
+            .padding(end = Medium)
             .clip(chipShape)
             .background(CardBorder)
-            .border(2.dp, Border, chipShape)
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .border(Tiny, Border, chipShape)
+            .padding(horizontal = ExtraLarge, vertical = Medium)
     ) {
         Text(
             text = text,
             color = Color.White,
             fontWeight = Bold,
-            fontSize = 14.sp,
-            maxLines = 1
+            fontSize = Sp14,
+            maxLines = ONE
         )
     }
 }
@@ -179,8 +194,8 @@ fun Chip(text: String) {
 @Composable
 fun EpisodesGrid(episodes: List<String>) {
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 16.dp)
+        horizontalArrangement = Arrangement.spacedBy(Medium),
+        contentPadding = PaddingValues(horizontal = Medium, vertical = ExtraLarge)
     ) {
         items(episodes) { episode ->
             val episodeNumber = episode.substringAfterLast("/")
