@@ -54,6 +54,10 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import es.clean.architecture.R
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
+import es.clean.architecture.ui.common.Dimens.Custom55
+import es.clean.architecture.ui.common.Dimens.ExtraLarge
+import es.clean.architecture.ui.common.Dimens.Large
+import es.clean.architecture.ui.common.Dimens.Tiny
 import es.clean.architecture.ui.theme.ImageBackground
 import es.clean.architecture.ui.views.characters.common.CutCornersCustom
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
@@ -156,22 +160,22 @@ fun SearchNameField(
         ),
         decorationBox = { innerTextField ->
             Surface(
-                shape = CutCornersCustom(16.dp),
+                shape = CutCornersCustom(ExtraLarge),
                 color = backgroundColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
-                        width = 2.dp,
+                        width = Tiny,
                         color = LocalContentColor.current,
-                        shape = CutCornersCustom(16.dp)
+                        shape = CutCornersCustom(ExtraLarge)
                     )
-                    .padding(10.dp),
-                shadowElevation = 10.dp
+                    .padding(Large),
+                shadowElevation = Large
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
+                        .padding(ExtraLarge)
                 ) {
                     if (value.isEmpty()) {
                         placeholder()
@@ -209,7 +213,7 @@ fun GenderIconButton(
     onClick: () -> Unit,
     tint: Color = Color.Unspecified
 ) {
-    val iconSize = 50.dp
+    val iconSize = Custom55
     IconButton(onClick = onClick) {
         Icon(
             imageVector = icon,
@@ -217,7 +221,7 @@ fun GenderIconButton(
             tint = if (tint == Color.Unspecified) LocalContentColor.current else tint,
             modifier = Modifier
                 .size(iconSize)
-                .clip(RoundedCornerShape(16.dp))
+                .clip(RoundedCornerShape(ExtraLarge))
                 .background(ImageBackground)
                 .clickable(
                     onClick = onClick,
@@ -259,7 +263,7 @@ fun StatusIconButton(
     onClick: () -> Unit,
     tint: Color = Color.Unspecified
 ) {
-    val iconSize = 50.dp
+    val iconSize = Custom55
     IconButton(onClick = onClick) {
         Icon(
             painter = icon,
@@ -267,14 +271,14 @@ fun StatusIconButton(
             tint = if (tint == Color.Unspecified) LocalContentColor.current else tint,
             modifier = Modifier
                 .size(iconSize)
-                .clip(RoundedCornerShape(16.dp))
+                .clip(RoundedCornerShape(ExtraLarge))
                 .background(ImageBackground)
                 .clickable(
                     onClick = onClick,
                     indication = rememberRipple(bounded = true),
                     interactionSource = remember { MutableInteractionSource() }
                 )
-                .padding(10.dp)
+                .padding(Large)
         )
     }
 }

@@ -45,7 +45,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -53,6 +52,12 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import es.clean.architecture.ui.common.Dimens.Custom55
+import es.clean.architecture.ui.common.Dimens.ExtraLarge
+import es.clean.architecture.ui.common.Dimens.ExtraSmall
+import es.clean.architecture.ui.common.Dimens.Giant
+import es.clean.architecture.ui.common.Dimens.Large
+import es.clean.architecture.ui.common.Dimens.Medium
 import es.clean.architecture.ui.common.navigation.navgraph.main.MainNavGraph
 import es.clean.architecture.ui.common.navigation.navgraph.main.screen.BottomNavigationBar
 import es.clean.architecture.ui.common.navigation.routes.Routes
@@ -141,9 +146,9 @@ fun CustomFloatingActionButton(
             },
             contentColor = Color.White,
             modifier = Modifier
-                .clip(CutCornerShape(44.dp))
+                .clip(CutCornerShape(Giant))
                 .border(
-                    width = 4.dp,
+                    width = ExtraSmall,
                     color = White,
                 )
                 .graphicsLayer {
@@ -151,8 +156,8 @@ fun CustomFloatingActionButton(
                     scaleY = pulseScale.value
                 },
             containerColor = AppBackground,
-            elevation = FloatingActionButtonDefaults.elevation(8.dp),
-            shape = CutCornerShape(10.dp)
+            elevation = FloatingActionButtonDefaults.elevation(Medium),
+            shape = CutCornerShape(Large)
         ) {
             Icon(
                 imageVector = Icons.Default.QuestionMark,
@@ -194,9 +199,9 @@ fun CustomFloatingActionButtonClose(
             },
             contentColor = Color.White,
             modifier = Modifier
-                .clip(CutCornerShape(44.dp))
+                .clip(CutCornerShape(Giant))
                 .border(
-                    width = 4.dp,
+                    width = ExtraSmall,
                     color = White,
                 )
                 .graphicsLayer {
@@ -204,8 +209,8 @@ fun CustomFloatingActionButtonClose(
                     scaleY = pulseScale.value
                 },
             containerColor = AppBackground,
-            elevation = FloatingActionButtonDefaults.elevation(8.dp),
-            shape = CutCornerShape(10.dp)
+            elevation = FloatingActionButtonDefaults.elevation(Medium),
+            shape = CutCornerShape(Large)
         ) {
             Icon(
                 imageVector = Icons.Default.Cancel,
@@ -254,11 +259,10 @@ fun CustomBottomBar(
         modifier = Modifier
             .testTag("BottomNavigation")
             .fillMaxWidth()
-            .height(56.dp)
+            .height(Custom55)
             .background(AppBackground),
         shape = RoundedCornerShape(
-            topStart = 16.dp,
-            topEnd = 16.dp
+            topStart = ExtraLarge, topEnd = ExtraLarge
         ),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
@@ -267,7 +271,7 @@ fun CustomBottomBar(
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = ExtraLarge)
                 .background(Color.White),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically

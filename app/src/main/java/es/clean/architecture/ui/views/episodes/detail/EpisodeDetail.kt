@@ -31,11 +31,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import es.clean.architecture.domain.episodes.models.createEpisodesResult
+import es.clean.architecture.ui.common.Dimens.Custom60
+import es.clean.architecture.ui.common.Dimens.ExtraLarge
+import es.clean.architecture.ui.common.Dimens.ExtraSmall
+import es.clean.architecture.ui.common.Dimens.Large
+import es.clean.architecture.ui.common.Dimens.Medium
+import es.clean.architecture.ui.common.Dimens.Small
+import es.clean.architecture.ui.common.Dimens.Tiny
+import es.clean.architecture.ui.common.TextSizes.Sp20
 
 @ExperimentalCoilApi
 @Composable
@@ -55,26 +61,26 @@ fun EpisodeDetail(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(Large))
                     .background(Color.Transparent)
-                    .shadow(elevation = 4.dp),
+                    .shadow(elevation = ExtraSmall),
                 contentAlignment = Alignment.Center
             ) {
                 Column(
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(ExtraLarge)
                 ) {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(RoundedCornerShape(6.dp))
-                            .shadow(elevation = 2.dp),
+                            .clip(RoundedCornerShape(Small))
+                            .shadow(elevation = Tiny),
                         contentAlignment = Alignment.Center
                     ) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(60.dp)
-                                .padding(6.dp),
+                                .height(Custom60)
+                                .padding(Small),
                             verticalAlignment = CenterVertically,
                             horizontalArrangement = Arrangement.Center
 
@@ -87,29 +93,29 @@ fun EpisodeDetail(
                                 contentDescription = null,
                                 tint = Color.Black,
                             )
-                            Spacer(modifier = Modifier.width(8.dp))
+                            Spacer(modifier = Modifier.width(Medium))
                             Text(
                                 rickyMortyEpisode.name,
                                 style = MaterialTheme.typography.titleLarge,
-                                fontSize = 20.sp,
+                                fontSize = Sp20,
                                 textAlign = TextAlign.Center
 
                             )
                         }
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(Medium))
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(RoundedCornerShape(6.dp))
-                            .shadow(elevation = 2.dp),
+                            .clip(RoundedCornerShape(Small))
+                            .shadow(elevation = Tiny),
                         contentAlignment = Alignment.Center
                     ) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(60.dp)
-                                .padding(6.dp),
+                                .height(Custom60)
+                                .padding(Small),
                             verticalAlignment = CenterVertically,
                             horizontalArrangement = Arrangement.Center
 
@@ -119,29 +125,29 @@ fun EpisodeDetail(
                                 contentDescription = null,
                                 tint = Color.Black
                             )
-                            Spacer(modifier = Modifier.width(8.dp))
+                            Spacer(modifier = Modifier.width(Medium))
                             Text(
                                 rickyMortyEpisode.airDate,
                                 style = MaterialTheme.typography.titleLarge,
-                                fontSize = 20.sp,
+                                fontSize = Sp20,
                                 textAlign = TextAlign.Center
 
                             )
                         }
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(Medium))
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(RoundedCornerShape(6.dp))
-                            .shadow(elevation = 2.dp),
+                            .clip(RoundedCornerShape(Small))
+                            .shadow(elevation = Tiny),
                         contentAlignment = Alignment.Center
                     ) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(60.dp)
-                                .padding(6.dp),
+                                .height(Custom60)
+                                .padding(Small),
                             verticalAlignment = CenterVertically,
                             horizontalArrangement = Arrangement.Center
                         ) {
@@ -150,17 +156,17 @@ fun EpisodeDetail(
                                 contentDescription = null,
                                 tint = Color.Black
                             )
-                            Spacer(modifier = Modifier.width(8.dp))
+                            Spacer(modifier = Modifier.width(Medium))
                             Text(
                                 rickyMortyEpisode.created,
                                 style = MaterialTheme.typography.titleLarge,
-                                fontSize = 20.sp,
+                                fontSize = Sp20,
                                 textAlign = TextAlign.Center
 
                             )
                         }
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(Medium))
 
 
                 }
