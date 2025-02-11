@@ -1,4 +1,4 @@
-package es.clean.architecture.ui.views.common
+package es.clean.architecture.ui.common
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable

@@ -53,7 +53,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
@@ -62,10 +61,23 @@ import androidx.paging.compose.itemKey
 import es.clean.architecture.R
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import es.clean.architecture.domain.episodes.models.createEpisodesResult
-import es.clean.architecture.ui.common.Dimensions
+import es.clean.architecture.ui.common.Dimens.Custom160
+import es.clean.architecture.ui.common.Dimens.ExtraLarge
+import es.clean.architecture.ui.common.Dimens.Large
+import es.clean.architecture.ui.common.Dimens.Massive
+import es.clean.architecture.ui.common.Dimens.Medium
+import es.clean.architecture.ui.common.Dimens.Small
+import es.clean.architecture.ui.common.Dimens.Tiny
+import es.clean.architecture.ui.common.LottieErrorState
+import es.clean.architecture.ui.common.LottieProgressBar
+import es.clean.architecture.ui.common.Numbers.FIVE_HUNDRED
+import es.clean.architecture.ui.common.Numbers.ONE
+import es.clean.architecture.ui.common.Numbers.SIXTEEN
+import es.clean.architecture.ui.common.Numbers.TWO
+import es.clean.architecture.ui.common.TextSizes.Sp12
+import es.clean.architecture.ui.common.TextSizes.Sp14
+import es.clean.architecture.ui.common.TextSizes.Sp16
 import es.clean.architecture.ui.theme.AppBackground
-import es.clean.architecture.ui.views.common.LottieErrorState
-import es.clean.architecture.ui.views.common.LottieProgressBar
 import es.clean.architecture.ui.views.episodes.viewmodel.EpisodesViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -110,10 +122,10 @@ fun EpisodesListScreen(
                         .background(
                             AppBackground
                         )
-                        .padding(bottom = 10.dp)
+                        .padding(bottom = Large)
                 ) {
                     LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
+                        columns = GridCells.Fixed(TWO),
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(paddingValues)
@@ -156,7 +168,7 @@ fun EpisodesItem(
     onItemClick: (rickyMortyEpisode: RickyMortyEpisodesModel.Episode) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val borderWidth = 2.dp
+    val borderWidth = TWO.dp
     val borderColor = Color.White
 
     val scale = remember { Animatable(1f) }
@@ -164,31 +176,31 @@ fun EpisodesItem(
         scale.animateTo(
             targetValue = 1.1f,
             animationSpec = infiniteRepeatable(
-                animation = tween(durationMillis = 500, easing = LinearEasing),
+                animation = tween(durationMillis = FIVE_HUNDRED, easing = LinearEasing),
                 repeatMode = RepeatMode.Reverse
             )
         )
     }
-    val itemHeight = 160.dp
+    val itemHeight = Custom160
     Box(
         modifier = Modifier
-            .padding(top = 16.dp)
+            .padding(top = ExtraLarge)
             .wrapContentSize(Alignment.TopCenter)
     ) {
         Surface(
-            shape = RoundedCornerShape(Dimensions.medium),
+            shape = RoundedCornerShape(Medium),
             color = Color(0xFFDAE1E7),
             modifier = Modifier
                 .clickable { onItemClick(episodes) }
                 .height(itemHeight)
-                .padding(8.dp)
-                .border(borderWidth, borderColor, shape = RoundedCornerShape(Dimensions.medium)),
-            shadowElevation = Dimensions.thin
+                .padding(Medium)
+                .border(borderWidth, borderColor, shape = RoundedCornerShape(Medium)),
+            shadowElevation = Tiny
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
+                    .padding(Medium),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -200,10 +212,10 @@ fun EpisodesItem(
                 ) {
                     Text(
                         text = episodes.name,
-                        fontSize = 16.sp,
+                        fontSize = Sp16,
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
-                        maxLines = 2,
+                        maxLines = TWO,
                         textAlign = TextAlign.Center,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -218,13 +230,13 @@ fun EpisodesItem(
                         imageVector = Icons.Default.CalendarMonth,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.size(16.dp)
+                        modifier = Modifier.size(ExtraLarge)
                     )
-                    Spacer(modifier = Modifier.width(Dimensions.small))
+                    Spacer(modifier = Modifier.width(Small))
                     Text(
                         text = formatEmissionDate(episodes.airDate),
-                        fontSize = 14.sp,
-                        maxLines = 1,
+                        fontSize = Sp14,
+                        maxLines = ONE,
                         overflow = TextOverflow.Ellipsis
                     )
                 }
@@ -238,13 +250,13 @@ fun EpisodesItem(
                         imageVector = Icons.Default.Language,
                         contentDescription = null,
                         tint = Color.DarkGray,
-                        modifier = Modifier.size(16.dp)
+                        modifier = Modifier.size(ExtraLarge)
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = episodes.url,
-                        fontSize = 12.sp,
-                        maxLines = 1,
+                        fontSize = Sp12,
+                        maxLines = ONE,
                         overflow = TextOverflow.Ellipsis
                     )
                 }
@@ -254,10 +266,10 @@ fun EpisodesItem(
             shape = CircleShape,
             color = AppBackground,
             modifier = Modifier
-                .size(32.dp)
-                .offset(y = (-16).dp)
+                .size(Massive)
+                .offset(y = (-SIXTEEN).dp)
                 .align(Alignment.TopCenter)
-                .border(borderWidth, borderColor, shape = RoundedCornerShape(12.dp))
+                .border(borderWidth, borderColor, shape = RoundedCornerShape(Large))
 
         ) {
             Box(contentAlignment = Alignment.Center) {
@@ -265,7 +277,7 @@ fun EpisodesItem(
                     text = episodes.id.toString(),
                     color = Color.White,
                     style = MaterialTheme.typography.labelSmall,
-                    fontSize = 16.sp,
+                    fontSize = Sp16,
                     fontWeight = FontWeight.Bold
                 )
             }
