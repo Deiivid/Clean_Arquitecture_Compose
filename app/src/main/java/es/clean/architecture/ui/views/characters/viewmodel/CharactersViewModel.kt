@@ -26,7 +26,6 @@ open class CharactersViewModel @Inject constructor(
             allCharactersUseCase(query, LIMIT).cachedIn(viewModelScope)
         }.stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
 
-
     fun searchCharacters(query: String) {
         if (searchQuery.value != query) {
             searchQuery.value = query
