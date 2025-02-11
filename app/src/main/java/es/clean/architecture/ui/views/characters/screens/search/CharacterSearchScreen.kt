@@ -54,6 +54,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import es.clean.architecture.R
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
+import es.clean.architecture.ui.theme.ImageBackground
 import es.clean.architecture.ui.views.characters.common.CutCornersCustom
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
@@ -192,12 +193,12 @@ fun GenderIconRow() {
         modifier = Modifier.fillMaxWidth()
     ) {
         GenderIconButton(icon = Icons.Default.Female,
-            onClick = {Toast.makeText(context, "FEMALE", Toast.LENGTH_SHORT).show() })
+            onClick = { Toast.makeText(context, "FEMALE", Toast.LENGTH_SHORT).show() })
         GenderIconButton(icon = Icons.Default.Male,
             onClick = { Toast.makeText(context, "MAN", Toast.LENGTH_SHORT).show() })
         GenderIconButton(
             icon = Icons.Default.Transgender,
-            onClick = { Toast.makeText(context, "UNKNOWN", Toast.LENGTH_SHORT).show()})
+            onClick = { Toast.makeText(context, "UNKNOWN", Toast.LENGTH_SHORT).show() })
     }
 }
 
@@ -217,7 +218,7 @@ fun GenderIconButton(
             modifier = Modifier
                 .size(iconSize)
                 .clip(RoundedCornerShape(16.dp))
-                .background(Color(R.color.image_background))
+                .background(ImageBackground)
                 .clickable(
                     onClick = onClick,
                     indication = rememberRipple(bounded = true),
@@ -267,7 +268,7 @@ fun StatusIconButton(
             modifier = Modifier
                 .size(iconSize)
                 .clip(RoundedCornerShape(16.dp))
-                .background(Color(R.color.image_background))
+                .background(ImageBackground)
                 .clickable(
                     onClick = onClick,
                     indication = rememberRipple(bounded = true),

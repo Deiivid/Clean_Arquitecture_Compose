@@ -47,7 +47,6 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -64,6 +63,7 @@ import es.clean.architecture.R
 import es.clean.architecture.domain.episodes.models.RickyMortyEpisodesModel
 import es.clean.architecture.domain.episodes.models.createEpisodesResult
 import es.clean.architecture.ui.common.Dimensions
+import es.clean.architecture.ui.theme.AppBackground
 import es.clean.architecture.ui.views.common.LottieErrorState
 import es.clean.architecture.ui.views.common.LottieProgressBar
 import es.clean.architecture.ui.views.episodes.viewmodel.EpisodesViewModel
@@ -88,7 +88,7 @@ fun EpisodesListScreen(
             Scaffold(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(colorResource(id = R.color.app_background)),
+                    .background(AppBackground),
 
                 topBar = {
                     CenterAlignedTopAppBar(
@@ -108,7 +108,7 @@ fun EpisodesListScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(
-                            colorResource(id = R.color.app_background)
+                            AppBackground
                         )
                         .padding(bottom = 10.dp)
                 ) {
@@ -252,7 +252,7 @@ fun EpisodesItem(
         }
         Surface(
             shape = CircleShape,
-            color = colorResource(id = R.color.app_background),
+            color = AppBackground,
             modifier = Modifier
                 .size(32.dp)
                 .offset(y = (-16).dp)
