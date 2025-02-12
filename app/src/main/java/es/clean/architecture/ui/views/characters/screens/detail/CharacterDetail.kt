@@ -169,7 +169,6 @@ fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyChar
 }
 
 
-
 @Composable
 fun EpisodesGrid(episodes: List<String>) {
     LazyRow(
