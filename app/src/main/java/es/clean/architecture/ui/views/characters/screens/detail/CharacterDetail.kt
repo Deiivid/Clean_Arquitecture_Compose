@@ -68,14 +68,12 @@ fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyChar
     ) {
         Box(
             modifier = Modifier
-
                 .fillMaxSize()
                 .padding(top = Custom55, bottom = Custom55, start = Huge, end = Huge)
                 .background(
                     color = CardBorder,
                     shape = CutCornersCustom(Giant)
                 )
-
                 .clip(
                     CutCornerShape(
                         topStart = Giant,
@@ -168,6 +166,26 @@ fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyChar
     }
 }
 
+@Composable
+fun Chip(text: String) {
+    val chipShape = CutCornersCustom(ExtraLarge)
+    Box(
+        modifier = Modifier
+            .padding(end = Medium)
+            .clip(chipShape)
+            .background(CardBorder)
+            .border(Tiny, Border, chipShape)
+            .padding(horizontal = ExtraLarge, vertical = Medium)
+    ) {
+        Text(
+            text = text,
+            color = Color.White,
+            fontWeight = Bold,
+            fontSize = Sp14,
+            maxLines = ONE
+        )
+    }
+}
 
 @Composable
 fun EpisodesGrid(episodes: List<String>) {

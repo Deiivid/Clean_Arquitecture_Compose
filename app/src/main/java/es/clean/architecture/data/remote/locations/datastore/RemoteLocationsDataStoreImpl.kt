@@ -11,10 +11,13 @@ internal class RemoteLocationsDataStoreImpl(
     override suspend fun getAllLocations(page: Int): List<RickyMortyLocationsModel.Location> {
         val result = this@RemoteLocationsDataStoreImpl.rickyMortyService.getAllLocations(page)
 
-        if (result.isSuccessful)
-            return (result.body()?.results?.map { location ->
-                location.toDomain()
-            } ?: emptyList())
+        if (result.isSuccessful) {
+            return (
+                    result.body()?.results?.map { location ->
+                        location.toDomain()
+                    } ?: emptyList()
+                    )
+        }
 
         return emptyList()
     }

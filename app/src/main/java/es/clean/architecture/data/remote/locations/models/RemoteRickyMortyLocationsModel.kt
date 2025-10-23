@@ -9,7 +9,7 @@ data class RemoteRickyMortyLocationsModel(
     val info: Info,
     @SerializedName("results")
     val results: List<RemoteLocation>
-): Parcelable {
+) : Parcelable {
     @Parcelize
     data class Info(
         @SerializedName("count")
@@ -20,7 +20,8 @@ data class RemoteRickyMortyLocationsModel(
         val pages: Int,
         @SerializedName("prev")
         val prev: String
-    ): Parcelable
+    ) : Parcelable
+
     @Parcelize
     data class RemoteLocation(
         @SerializedName("created")
@@ -37,5 +38,5 @@ data class RemoteRickyMortyLocationsModel(
         val type: String,
         @SerializedName("url")
         val url: String
-    ): Parcelable
+    ) : Parcelable
 }

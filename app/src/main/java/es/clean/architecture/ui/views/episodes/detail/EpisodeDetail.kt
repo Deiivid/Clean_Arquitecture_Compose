@@ -167,8 +167,6 @@ fun EpisodeDetail(
                         }
                     }
                     Spacer(modifier = Modifier.height(Medium))
-
-
                 }
             }
         }
