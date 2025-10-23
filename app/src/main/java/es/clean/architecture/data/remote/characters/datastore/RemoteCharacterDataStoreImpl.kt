@@ -15,12 +15,14 @@ internal class RemoteCharacterDataStoreImpl(
         val result =
             this@RemoteCharacterDataStoreImpl.rickyMortyService.getAllCharacters(page, name)
 
-        if (result.isSuccessful)
-            return (result.body()?.results?.map { character ->
-                character.toDomain()
-            } ?: emptyList())
+        if (result.isSuccessful) {
+            return (
+                    result.body()?.results?.map { character ->
+                        character.toDomain()
+                    } ?: emptyList()
+                    )
+        }
 
         return emptyList()
     }
-
 }

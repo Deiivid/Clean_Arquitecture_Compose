@@ -47,7 +47,9 @@ import es.clean.architecture.ui.common.Dimens.Massive
 import es.clean.architecture.ui.common.Dimens.Medium
 import es.clean.architecture.ui.common.Dimens.Small
 import es.clean.architecture.ui.common.Dimens.Tiny
+import es.clean.architecture.ui.common.Numbers.ONE
 import es.clean.architecture.ui.common.TextSizes.Sp12
+import es.clean.architecture.ui.common.TextSizes.Sp14
 import es.clean.architecture.ui.common.TextSizes.Sp22
 import es.clean.architecture.ui.common.TextSizes.Sp26
 import es.clean.architecture.ui.theme.AppBackground
@@ -56,7 +58,6 @@ import es.clean.architecture.ui.theme.CardBackground
 import es.clean.architecture.ui.theme.CardBorder
 import es.clean.architecture.ui.views.characters.common.CutCornersCustom
 import es.clean.architecture.ui.views.characters.common.getStatusIconWithTint
-import es.clean.architecture.ui.views.characters.screens.detail.chip.Chip
 
 @Composable
 fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyCharacter) {
@@ -68,14 +69,12 @@ fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyChar
     ) {
         Box(
             modifier = Modifier
-
                 .fillMaxSize()
                 .padding(top = Custom55, bottom = Custom55, start = Huge, end = Huge)
                 .background(
                     color = CardBorder,
                     shape = CutCornersCustom(Giant)
                 )
-
                 .clip(
                     CutCornerShape(
                         topStart = Giant,
@@ -168,6 +167,26 @@ fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyChar
     }
 }
 
+@Composable
+fun Chip(text: String) {
+    val chipShape = CutCornersCustom(ExtraLarge)
+    Box(
+        modifier = Modifier
+            .padding(end = Medium)
+            .clip(chipShape)
+            .background(CardBorder)
+            .border(Tiny, Border, chipShape)
+            .padding(horizontal = ExtraLarge, vertical = Medium)
+    ) {
+        Text(
+            text = text,
+            color = Color.White,
+            fontWeight = Bold,
+            fontSize = Sp14,
+            maxLines = ONE
+        )
+    }
+}
 
 @Composable
 fun EpisodesGrid(episodes: List<String>) {

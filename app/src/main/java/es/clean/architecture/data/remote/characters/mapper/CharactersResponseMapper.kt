@@ -5,7 +5,6 @@ import es.clean.architecture.data.remote.characters.models.RemoteCharacterLocati
 import es.clean.architecture.data.remote.characters.models.RemoteOrigin
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 
-
 fun RemoteCharacter.toDomain(): RickyMortyCharacterModel.RickyMortyCharacter =
     RickyMortyCharacterModel.RickyMortyCharacter(
         created = this.created,
