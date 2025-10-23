@@ -2,7 +2,6 @@ package es.clean.architecture.domain.locations.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import es.clean.architecture.data.remote.episodes.paging.EpisodePaging
 import es.clean.architecture.data.remote.locations.paging.LocationsPaging
 import javax.inject.Inject
 
@@ -21,5 +20,3 @@ open class AllLocationsUseCase @Inject constructor(
         }
     ).flow // Si nos fijamos creamos un flow directamente desde el caso de uso.
 }
-
-

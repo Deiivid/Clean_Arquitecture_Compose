@@ -7,7 +7,6 @@ import androidx.compose.material.icons.rounded.Stars
 import androidx.compose.ui.graphics.vector.ImageVector
 import es.clean.architecture.ui.common.navigation.routes.Routes
 
-
 sealed class BottomNavigationBar(
     val route: String,
     val title: String,

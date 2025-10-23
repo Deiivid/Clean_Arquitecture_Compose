@@ -93,7 +93,7 @@ fun CharacterSearchScreen(
                     placeholder = { Text(R.string.filter.toString()) }
                 )
 
-                Spacer(modifier = Modifier.height(Massive))
+                Spacer(modifier = Modifier.height(32.dp))
 
                 Row(modifier = Modifier.fillMaxWidth()) {
                     GenderIconRow()
@@ -102,13 +102,163 @@ fun CharacterSearchScreen(
                 Spacer(modifier = Modifier.height(Massive))
                 Row(modifier = Modifier.fillMaxWidth()) {
                     StatusIconRow()
-
                 }
             }
         }
     }
 }
 
+@Composable
+fun SearchNameField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    onSearch: () -> Unit,
+    placeholder: @Composable () -> Unit
+) {
+    val backgroundColor =
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.9f)
+    BasicTextField(
+        value = value,
+        onValueChange = onValueChange,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = androidx.compose.ui.text.input.ImeAction.Search),
+        keyboardActions = KeyboardActions(
+            onSearch = {
+                if (value.isNotEmpty()) {
+                    onValueChange(value)
+                    onSearch()
+                }
+            }
+        ),
+        decorationBox = { innerTextField ->
+            Surface(
+                shape = CutCornersCustom(ExtraLarge),
+                color = backgroundColor,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .border(
+                        width = Tiny,
+                        color = LocalContentColor.current,
+                        shape = CutCornersCustom(ExtraLarge)
+                    )
+                    .padding(Large),
+                shadowElevation = Large
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(ExtraLarge)
+                ) {
+                    if (value.isEmpty()) {
+                        placeholder()
+                    }
+                    innerTextField()
+                }
+            }
+        }
+    )
+}
+
+@Composable
+fun GenderIconRow() {
+    val context = LocalContext.current
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        GenderIconButton(
+            icon = Icons.Default.Female,
+            onClick = { Toast.makeText(context, "FEMALE", Toast.LENGTH_SHORT).show() }
+        )
+        GenderIconButton(
+            icon = Icons.Default.Male,
+            onClick = { Toast.makeText(context, "MAN", Toast.LENGTH_SHORT).show() }
+        )
+        GenderIconButton(
+            icon = Icons.Default.Transgender,
+            onClick = { Toast.makeText(context, "UNKNOWN", Toast.LENGTH_SHORT).show() }
+        )
+    }
+}
+
+@SuppressLint("ResourceAsColor")
+@Composable
+fun GenderIconButton(
+    icon: ImageVector,
+    onClick: () -> Unit,
+    tint: Color = Color.Unspecified
+) {
+    val iconSize = Custom55
+    IconButton(onClick = onClick) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = if (tint == Color.Unspecified) LocalContentColor.current else tint,
+            modifier = Modifier
+                .size(iconSize)
+                .clip(RoundedCornerShape(ExtraLarge))
+                .background(ImageBackground)
+                .clickable(
+                    onClick = onClick,
+                    indication = rememberRipple(bounded = true),
+                    interactionSource = remember { MutableInteractionSource() }
+                )
+                .padding(10.dp)
+        )
+    }
+}
+
+@Composable
+fun StatusIconRow() {
+    val context = LocalContext.current
+
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        StatusIconButton(
+            icon = painterResource(id = R.drawable.skull),
+            onClick = { Toast.makeText(context, "DEAD", Toast.LENGTH_SHORT).show() }
+        )
+        StatusIconButton(
+            icon = painterResource(id = R.drawable.heartbeat),
+            onClick = { Toast.makeText(context, "ALIVE", Toast.LENGTH_SHORT).show() }
+        )
+        StatusIconButton(
+            icon = painterResource(id = R.drawable.target),
+            onClick = { Toast.makeText(context, "UNKNOWN", Toast.LENGTH_SHORT).show() }
+        )
+    }
+}
+
+@SuppressLint("ResourceAsColor")
+@Composable
+fun StatusIconButton(
+    icon: Painter,
+    onClick: () -> Unit,
+    tint: Color = Color.Unspecified
+) {
+    val iconSize = Custom55
+    IconButton(onClick = onClick) {
+        Icon(
+            painter = icon,
+            contentDescription = null,
+            tint = if (tint == Color.Unspecified) LocalContentColor.current else tint,
+            modifier = Modifier
+                .size(iconSize)
+                .clip(RoundedCornerShape(ExtraLarge))
+                .background(ImageBackground)
+                .clickable(
+                    onClick = onClick,
+                    indication = rememberRipple(bounded = true),
+                    interactionSource = remember { MutableInteractionSource() }
+                )
+                .padding(Large)
+        )
+    }
+}
 
 @Preview
 @Composable
