@@ -37,7 +37,6 @@ class CutCornersCustom(private val bigCut: Dp) : Shape {
         }
         return Outline.Generic(path)
     }
-
 }
 
 private fun Dp.toPx(density: Density): Float = this.value * density.density
