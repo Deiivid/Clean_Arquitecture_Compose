@@ -2,7 +2,8 @@
 #region [Android]
 androidx-runner = "1.5.2"
 compose-compiler = "1.5.3"
-kotlin = "1.9.10"
+detektFormatting = "1.23.6"
+kotlin = "1.9.23"
 iconsExtendedVersion = "1.6.0-alpha08"
 detektVersion = "1.23.0"
 #endregion
@@ -77,7 +78,7 @@ coilComposeVersion = "2.4.0"
 #endregion
 
 #region [KSP]
-kspVersion = "1.9.0-1.0.13"
+kspVersion = "1.9.23-1.0.20"
 #endregion
 
 #region [LOTTIE]
@@ -86,10 +87,12 @@ lottieVersion = "6.1.0"
 agp = "8.1.2"
 core-ktx = "1.9.0"
 tvMaterial = "1.0.0"
+jetbrainsKotlinJvm = "1.9.10"
 
 [libraries]
 #region [KOTLIN]
 androidx-rules = { module = "androidx.test:rules", version.ref = "rules" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detektFormatting" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCoreVersion" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
@@ -190,6 +193,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 com-android-application = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektVersion" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 
 
 [bundles]

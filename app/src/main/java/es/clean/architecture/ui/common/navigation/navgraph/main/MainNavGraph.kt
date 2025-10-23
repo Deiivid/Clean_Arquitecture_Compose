@@ -1,6 +1,6 @@
 package es.clean.architecture.ui.common.navigation.navgraph.main
 
-//import es.clean.architecture.ui.views.characters.CharactersListScreen
+// import es.clean.architecture.ui.views.characters.CharactersListScreen
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -21,17 +21,16 @@ import es.clean.architecture.ui.views.episodes.detail.EpisodeDetail
 import es.clean.architecture.ui.views.episodes.list.EpisodesListScreen
 import es.clean.architecture.ui.views.locations.list.LocationsListScreen
 
-
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun MainNavGraph(navController: NavHostController, searchQuery: String?) {
     NavHost(
-        navController = navController, startDestination = Routes.CharacterList.route
+        navController = navController,
+        startDestination = Routes.CharacterList.route
     ) {
         //region [CHARACTERS]
         composable(route = BottomNavigationBar.Characters.route) {
             CharactersListScreen(navController = navController, searchQuery = searchQuery ?: "")
-
         }
 
         /**
@@ -41,7 +40,8 @@ fun MainNavGraph(navController: NavHostController, searchQuery: String?) {
         composable(route = Routes.CharacterDetailScreen.route) {
             val result =
                 navController.previousBackStackEntry?.savedStateHandle?.get<
-                        RickyMortyCharacterModel.RickyMortyCharacter>(
+                        RickyMortyCharacterModel.RickyMortyCharacter
+                        >(
                     CHARACTER_OBJECT
                 )
             result?.let {
@@ -59,7 +59,8 @@ fun MainNavGraph(navController: NavHostController, searchQuery: String?) {
         composable(route = Routes.EpisodeDetailScreen.route) {
             val result =
                 navController.previousBackStackEntry?.savedStateHandle?.get<
-                        RickyMortyEpisodesModel.Episode>(
+                        RickyMortyEpisodesModel.Episode
+                        >(
                     EPISODE_OBJECT
                 )
             result?.let {
@@ -81,10 +82,8 @@ fun MainNavGraph(navController: NavHostController, searchQuery: String?) {
             }
         }
         //endregion [LOCATIONS]
-
     }
 }
-
 
 //region [Character]
 /*fun NavGraphBuilder.charactersNavGraph(navController: NavHostController) {
@@ -93,9 +92,9 @@ fun MainNavGraph(navController: NavHostController, searchQuery: String?) {
         startDestination = DetailsScreen.Information.route
     ) {
         /**
-         * To pass data we need first start with parcelable, set this in the gradle.app plugin section
-         * and then be careful in the screen use currentBackStackEntry and here previousBackStackEntry
-         **/
+ * To pass data we need first start with parcelable, set this in the gradle.app plugin section
+ * and then be careful in the screen use currentBackStackEntry and here previousBackStackEntry
+ **/
         composable(route = Routes.CharacterDetailScreen.route) {
             val result =
                 navController.previousBackStackEntry?.savedStateHandle?.get<CharacterModel.CharacterResult>(
@@ -114,4 +113,3 @@ sealed class DetailsScreen(val route: String) {
     object Overview : DetailsScreen(route = "OVERVIEW")
 }
 */
-

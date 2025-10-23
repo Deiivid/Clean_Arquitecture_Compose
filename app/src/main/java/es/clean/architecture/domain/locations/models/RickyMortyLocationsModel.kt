@@ -1,9 +1,6 @@
 package es.clean.architecture.domain.locations.models
 
-
 import android.os.Parcelable
-import androidx.annotation.Keep
-import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -31,12 +28,10 @@ data class RickyMortyLocationsModel(
     ) : Parcelable
 }
 
-
 /**
  * We use this section to initialize the detail screen to get the preview
  */
 fun createLocationResult(): RickyMortyLocationsModel.Location {
-
     return RickyMortyLocationsModel.Location(
         created = "2023-10-25",
         dimension = "pruebas",
@@ -46,5 +41,4 @@ fun createLocationResult(): RickyMortyLocationsModel.Location {
         type = "Human",
         url = "Alive"
     )
-
 }

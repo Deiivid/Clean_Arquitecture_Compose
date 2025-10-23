@@ -1,8 +1,6 @@
 package es.clean.architecture.domain.episodes.models
 
-
 import android.os.Parcelable
-import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -29,7 +27,6 @@ data class RickyMortyEpisodesModel(
         val url: String
     ) : Parcelable
 }
-
 
 /**
  * We use this section to initialize the detail screen to get the preview

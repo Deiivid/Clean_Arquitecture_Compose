@@ -73,7 +73,6 @@ fun LocationsListScreen(
                                 text = stringResource(id = R.string.app_name),
                                 color = MaterialTheme.colorScheme.onPrimary
                             )
-
                         },
                         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
                     )
@@ -111,7 +110,6 @@ fun LocationsListScreen(
                                          navController.navigate(Routes.LocationDetailScreen.route)
                                          */
                                     },
-                                    modifier = Modifier.testTag("LocationItem ${item.id}")
                                 )
                             }
                         }
@@ -130,8 +128,6 @@ fun LocationsListScreen(
 fun LocationItem(
     location: RickyMortyLocationsModel.Location,
     onItemClick: (RickyMortyLocationsModel.Location) -> Unit,
-    modifier: Modifier = Modifier
-
 ) {
     val imageResId = when (location.name) {
         "Abadango" -> R.drawable.abadango
@@ -157,7 +153,6 @@ fun LocationItem(
 
         else -> R.drawable.unknown
     }
-
 
     Box(
         modifier = Modifier
@@ -194,5 +189,4 @@ fun CharacterListScreenPreview() {
     val location = createLocationResult()
     val onItemClick: (RickyMortyLocationsModel.Location) -> Unit = { }
     LocationItem(location = location, onItemClick = onItemClick)
-
 }

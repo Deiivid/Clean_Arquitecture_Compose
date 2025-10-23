@@ -1,6 +1,5 @@
 package es.clean.architecture.data.di
 
-
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

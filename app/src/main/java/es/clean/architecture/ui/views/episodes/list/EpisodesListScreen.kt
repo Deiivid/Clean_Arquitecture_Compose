@@ -1,6 +1,7 @@
 package es.clean.architecture.ui.views.episodes.list
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
@@ -46,7 +47,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -143,9 +143,7 @@ fun EpisodesListScreen(
                                             "Has Pulsado en un elemento ${item.name}",
                                             Toast.LENGTH_SHORT
                                         ).show()
-
                                     },
-                                    modifier = Modifier.testTag("EpisodeItem ${item.id}")
                                 )
                             }
                         }
@@ -160,13 +158,11 @@ fun EpisodesListScreen(
     }
 }
 
-
 @SuppressLint("ResourceAsColor")
 @Composable
 fun EpisodesItem(
     episodes: RickyMortyEpisodesModel.Episode,
     onItemClick: (rickyMortyEpisode: RickyMortyEpisodesModel.Episode) -> Unit,
-    modifier: Modifier = Modifier
 ) {
     val borderWidth = TWO.dp
     val borderColor = Color.White
@@ -285,7 +281,6 @@ fun EpisodesItem(
     }
 }
 
-
 fun formatEmissionDate(dateString: String): String {
     return try {
         val parser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -293,10 +288,10 @@ fun formatEmissionDate(dateString: String): String {
         val parsedDate = parser.parse(dateString)
         formatter.format(parsedDate)
     } catch (ex: Exception) {
+        Log.e("Episodes", "Error loading episodes", ex)
         dateString
     }
 }
-
 
 @Preview
 @Composable
@@ -304,5 +299,4 @@ fun CharacterListScreenPreview() {
     val character = createEpisodesResult()
     val onItemClick: (RickyMortyEpisodesModel.Episode) -> Unit = { }
     EpisodesItem(episodes = character, onItemClick = onItemClick)
-
 }

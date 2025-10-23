@@ -11,12 +11,14 @@ internal class RemoteEpisodesDataStoreImpl(
     override suspend fun getAllEpisodes(page: Int): List<RickyMortyEpisodesModel.Episode> {
         val result = this@RemoteEpisodesDataStoreImpl.rickyMortyService.getAllEpisodes(page)
 
-        if (result.isSuccessful)
-            return (result.body()?.results?.map { character ->
-                character.toDomain()
-            } ?: emptyList())
+        if (result.isSuccessful) {
+            return (
+                    result.body()?.results?.map { character ->
+                        character.toDomain()
+                    } ?: emptyList()
+                    )
+        }
 
         return emptyList()
     }
-
 }
