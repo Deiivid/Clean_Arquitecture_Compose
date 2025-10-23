@@ -47,9 +47,7 @@ import es.clean.architecture.ui.common.Dimens.Massive
 import es.clean.architecture.ui.common.Dimens.Medium
 import es.clean.architecture.ui.common.Dimens.Small
 import es.clean.architecture.ui.common.Dimens.Tiny
-import es.clean.architecture.ui.common.Numbers.ONE
 import es.clean.architecture.ui.common.TextSizes.Sp12
-import es.clean.architecture.ui.common.TextSizes.Sp14
 import es.clean.architecture.ui.common.TextSizes.Sp22
 import es.clean.architecture.ui.common.TextSizes.Sp26
 import es.clean.architecture.ui.theme.AppBackground
@@ -58,6 +56,7 @@ import es.clean.architecture.ui.theme.CardBackground
 import es.clean.architecture.ui.theme.CardBorder
 import es.clean.architecture.ui.views.characters.common.CutCornersCustom
 import es.clean.architecture.ui.views.characters.common.getStatusIconWithTint
+import es.clean.architecture.ui.views.characters.screens.detail.chip.Chip
 
 @Composable
 fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyCharacter) {
