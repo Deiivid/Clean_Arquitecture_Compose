@@ -69,14 +69,12 @@ fun CharacterDetail(rickyMortyCharacter: RickyMortyCharacterModel.RickyMortyChar
     ) {
         Box(
             modifier = Modifier
-
                 .fillMaxSize()
                 .padding(top = Custom55, bottom = Custom55, start = Huge, end = Huge)
                 .background(
                     color = CardBorder,
                     shape = CutCornersCustom(Giant)
                 )
-
                 .clip(
                     CutCornerShape(
                         topStart = Giant,
@@ -189,7 +187,6 @@ fun Chip(text: String) {
         )
     }
 }
-
 
 @Composable
 fun EpisodesGrid(episodes: List<String>) {

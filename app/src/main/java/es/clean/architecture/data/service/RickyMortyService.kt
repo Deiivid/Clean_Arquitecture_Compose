@@ -1,6 +1,5 @@
 package es.clean.architecture.data.service
 
-
 import es.clean.architecture.data.common.CHARACTER
 import es.clean.architecture.data.common.EPISODE
 import es.clean.architecture.data.common.LOCATION
@@ -14,7 +13,8 @@ import retrofit2.http.Query
 interface RickyMortyService {
     @GET(CHARACTER)
     suspend fun getAllCharacters(
-        @Query("page") currentPage: Int, @Query("name") name: String? = null
+        @Query("page") currentPage: Int,
+        @Query("name") name: String? = null
     ): Response<RemoteRickyMortyCharacterModel>
 
     @GET(EPISODE)
@@ -22,5 +22,4 @@ interface RickyMortyService {
 
     @GET(LOCATION)
     suspend fun getAllLocations(@Query("page") currentPage: Int): Response<RemoteRickyMortyLocationsModel>
-
 }

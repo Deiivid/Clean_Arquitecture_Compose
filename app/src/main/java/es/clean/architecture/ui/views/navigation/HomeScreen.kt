@@ -116,8 +116,6 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
             )
         }
     }
-
-
 }
 
 @Composable
@@ -133,7 +131,8 @@ fun CustomFloatingActionButton(
         animationSpec = infiniteRepeatable(
             animation = tween(500, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
-        ), label = ""
+        ),
+        label = ""
     )
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
     if (isVisible) {
@@ -182,7 +181,8 @@ fun CustomFloatingActionButtonClose(
         animationSpec = infiniteRepeatable(
             animation = tween(500, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
-        ), label = ""
+        ),
+        label = ""
     )
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
     if (isVisible) {
@@ -245,7 +245,6 @@ fun BottomBar(navController: NavHostController) {
     if (bottomBarDestination) {
         CustomBottomBar(navController, screens, currentDestination)
     }
-
 }
 
 @Composable
@@ -254,7 +253,6 @@ fun CustomBottomBar(
     screens: List<BottomNavigationBar>,
     currentDestination: NavDestination?
 ) {
-
     Card(
         modifier = Modifier
             .testTag("BottomNavigation")
@@ -262,7 +260,8 @@ fun CustomBottomBar(
             .height(Custom55)
             .background(AppBackground),
         shape = RoundedCornerShape(
-            topStart = ExtraLarge, topEnd = ExtraLarge
+            topStart = ExtraLarge,
+            topEnd = ExtraLarge
         ),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
@@ -314,7 +313,6 @@ fun RowScope.AddItem(
         },
         selected = selected,
         onClick = {
-
             navController.navigate(screen.route) {
                 popUpTo(navController.graph.findStartDestination().id)
                 launchSingleTop = true

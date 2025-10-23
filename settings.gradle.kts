@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "CleanArchitectureComposeDN"
 include(":app")
+include(":detekt-architecture-rules")

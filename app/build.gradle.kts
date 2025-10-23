@@ -44,20 +44,6 @@ android {
     buildFeatures {
         compose = true
     }
-    detekt {
-        input = files("src/main/java", "src/main/kotlin")
-        config = files("$rootDir/detekt.yml")
-        reports {
-            xml {
-                enabled = true
-                destination = file("build/reports/detekt.xml")
-            }
-            html {
-                enabled = true
-                destination = file("build/reports/detekt.html")
-            }
-        }
-    }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
@@ -79,12 +65,26 @@ android {
         }
     }
 }
+detekt {
+    buildUponDefaultConfig = false
+    autoCorrect = true
+    config.setFrom(files("$rootDir/detekt.yml"))
+}
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        xml.outputLocation.set(file("$buildDir/reports/detekt.xml"))
+        html.outputLocation.set(file("$buildDir/reports/detekt.html"))
+    }
+}
 
 dependencies {
     implementation(libs.androidx.tv.material)
     implementation(libs.bundles.appDependencies)
-
     ksp(libs.hilt.compiler)
+
     //Testing
     androidTestImplementation(libs.espressoCore)
     androidTestImplementation(libs.runner)
@@ -93,4 +93,8 @@ dependencies {
     androidTestImplementation(libs.mockito.mockito.android)
     androidTestImplementation(libs.espressoCore)
     androidTestImplementation(libs.androidx.rules)
+
+    //Detekt
+    detektPlugins(project(":detekt-architecture-rules"))
+    detektPlugins(libs.detekt.formatting)
 }

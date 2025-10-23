@@ -59,6 +59,7 @@ import es.clean.architecture.ui.common.Dimens.Large
 import es.clean.architecture.ui.common.Dimens.Medium
 import es.clean.architecture.ui.common.Dimens.Small
 import es.clean.architecture.ui.common.Dimens.Tiny
+import es.clean.architecture.ui.common.LottieEmptyState
 import es.clean.architecture.ui.common.LottieErrorState
 import es.clean.architecture.ui.common.LottieProgressBar
 import es.clean.architecture.ui.common.Numbers.TWO
@@ -66,7 +67,6 @@ import es.clean.architecture.ui.common.TextSizes.Sp12
 import es.clean.architecture.ui.common.TextSizes.Sp14
 import es.clean.architecture.ui.common.TextSizes.Sp20
 import es.clean.architecture.ui.common.constants.CHARACTER_OBJECT
-import es.clean.architecture.ui.common.lottieEmptyState
 import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.theme.AppBackground
 import es.clean.architecture.ui.theme.CardBackground
@@ -86,7 +86,6 @@ fun CharactersListScreen(
     LaunchedEffect(searchQuery != "") {
         if (searchQuery != null) {
             charactersViewModel.searchCharacters(searchQuery)
-
         }
     }
 
@@ -96,7 +95,6 @@ fun CharactersListScreen(
         }
 
         is LoadState.NotLoading -> {
-
             Scaffold(
                 modifier = Modifier
                     .fillMaxSize()
@@ -121,9 +119,10 @@ fun CharactersListScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(AppBackground), contentAlignment = Alignment.Center
+                            .background(AppBackground),
+                        contentAlignment = Alignment.Center
                     ) {
-                        lottieEmptyState()
+                        LottieEmptyState()
                     }
                 } else {
                     Box(
@@ -152,17 +151,14 @@ fun CharactersListScreen(
                                             )
                                             navController.navigate(Routes.CharacterDetailScreen.route)
                                         },
-                                        modifier = Modifier.testTag("CharacterItem ${item.id}")
                                     )
                                 }
                             }
                         }
-
                     }
                 }
             }
         }
-
 
         is LoadState.Error -> {
             LottieErrorState()
@@ -174,7 +170,6 @@ fun CharactersListScreen(
 fun CharacterItem(
     character: RickyMortyCharacterModel.RickyMortyCharacter,
     onItemClick: (RickyMortyCharacterModel.RickyMortyCharacter) -> Unit,
-    modifier: Modifier = Modifier
 ) {
     Surface(
         shape = CutCornersCustom(ExtraLarge),
@@ -272,7 +267,6 @@ fun CharacterItem(
         }
     }
 }
-
 
 @Preview
 @Composable

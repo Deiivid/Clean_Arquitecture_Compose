@@ -117,24 +117,18 @@ fun CharacterSearchScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-
                 Row(modifier = Modifier.fillMaxWidth()) {
                     GenderIconRow()
-
                 }
 
                 Spacer(modifier = Modifier.height(32.dp))
                 Row(modifier = Modifier.fillMaxWidth()) {
                     StatusIconRow()
-
                 }
             }
-
-
         }
     }
 }
-
 
 @Composable
 fun SearchNameField(
@@ -187,7 +181,6 @@ fun SearchNameField(
     )
 }
 
-
 @Composable
 fun GenderIconRow() {
     val context = LocalContext.current
@@ -196,13 +189,18 @@ fun GenderIconRow() {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ) {
-        GenderIconButton(icon = Icons.Default.Female,
-            onClick = { Toast.makeText(context, "FEMALE", Toast.LENGTH_SHORT).show() })
-        GenderIconButton(icon = Icons.Default.Male,
-            onClick = { Toast.makeText(context, "MAN", Toast.LENGTH_SHORT).show() })
+        GenderIconButton(
+            icon = Icons.Default.Female,
+            onClick = { Toast.makeText(context, "FEMALE", Toast.LENGTH_SHORT).show() }
+        )
+        GenderIconButton(
+            icon = Icons.Default.Male,
+            onClick = { Toast.makeText(context, "MAN", Toast.LENGTH_SHORT).show() }
+        )
         GenderIconButton(
             icon = Icons.Default.Transgender,
-            onClick = { Toast.makeText(context, "UNKNOWN", Toast.LENGTH_SHORT).show() })
+            onClick = { Toast.makeText(context, "UNKNOWN", Toast.LENGTH_SHORT).show() }
+        )
     }
 }
 
@@ -234,8 +232,7 @@ fun GenderIconButton(
 }
 
 @Composable
-fun StatusIconRow(
-) {
+fun StatusIconRow() {
     val context = LocalContext.current
 
     Row(
@@ -245,14 +242,16 @@ fun StatusIconRow(
     ) {
         StatusIconButton(
             icon = painterResource(id = R.drawable.skull),
-            onClick = { Toast.makeText(context, "DEAD", Toast.LENGTH_SHORT).show() })
+            onClick = { Toast.makeText(context, "DEAD", Toast.LENGTH_SHORT).show() }
+        )
         StatusIconButton(
             icon = painterResource(id = R.drawable.heartbeat),
-            onClick = { Toast.makeText(context, "ALIVE", Toast.LENGTH_SHORT).show() })
+            onClick = { Toast.makeText(context, "ALIVE", Toast.LENGTH_SHORT).show() }
+        )
         StatusIconButton(
             icon = painterResource(id = R.drawable.target),
-            onClick = { Toast.makeText(context, "UNKNOWN", Toast.LENGTH_SHORT).show() })
-
+            onClick = { Toast.makeText(context, "UNKNOWN", Toast.LENGTH_SHORT).show() }
+        )
     }
 }
 
@@ -282,7 +281,6 @@ fun StatusIconButton(
         )
     }
 }
-
 
 @Preview
 @Composable
