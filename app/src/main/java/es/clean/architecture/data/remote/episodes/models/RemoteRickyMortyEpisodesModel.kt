@@ -1,6 +1,5 @@
 package es.clean.architecture.data.remote.episodes.models
 
-
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize

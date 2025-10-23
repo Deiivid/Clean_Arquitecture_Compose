@@ -11,5 +11,4 @@ class EpisodesRepositoryImpl @Inject constructor(
 ) : EpisodesRepository {
     override suspend fun getAllEpisodes(page: Int): List<RickyMortyEpisodesModel.Episode> =
         factory.remote.getAllEpisodes(page)
-
 }

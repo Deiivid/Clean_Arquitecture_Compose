@@ -49,5 +49,3 @@ fun LottieSplashScreen() {
         modifier = Modifier.fillMaxHeight()
     )
 }
-
-

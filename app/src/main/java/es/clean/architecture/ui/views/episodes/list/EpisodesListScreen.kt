@@ -1,5 +1,7 @@
 package es.clean.architecture.ui.views.episodes.list
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,7 +19,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -99,9 +100,7 @@ fun EpisodesListScreen(
                                             selectedItem,
                                             Toast.LENGTH_SHORT
                                         ).show()
-
                                     },
-                                    modifier = Modifier.testTag("EpisodeItem ${item.id}")
                                 )
                             }
                         }
@@ -113,6 +112,141 @@ fun EpisodesListScreen(
         is LoadState.Error -> {
             LottieErrorState()
         }
+    }
+}
+
+@SuppressLint("ResourceAsColor")
+@Composable
+fun EpisodesItem(
+    episodes: RickyMortyEpisodesModel.Episode,
+    onItemClick: (rickyMortyEpisode: RickyMortyEpisodesModel.Episode) -> Unit,
+) {
+    val borderWidth = TWO.dp
+    val borderColor = Color.White
+
+    val scale = remember { Animatable(1f) }
+    LaunchedEffect(key1 = true) {
+        scale.animateTo(
+            targetValue = 1.1f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(durationMillis = FIVE_HUNDRED, easing = LinearEasing),
+                repeatMode = RepeatMode.Reverse
+            )
+        )
+    }
+    val itemHeight = Custom160
+    Box(
+        modifier = Modifier
+            .padding(top = ExtraLarge)
+            .wrapContentSize(Alignment.TopCenter)
+    ) {
+        Surface(
+            shape = RoundedCornerShape(Medium),
+            color = Color(0xFFDAE1E7),
+            modifier = Modifier
+                .clickable { onItemClick(episodes) }
+                .height(itemHeight)
+                .padding(Medium)
+                .border(borderWidth, borderColor, shape = RoundedCornerShape(Medium)),
+            shadowElevation = Tiny
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(Medium),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .scale(scale.value)
+                ) {
+                    Text(
+                        text = episodes.name,
+                        fontSize = Sp16,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = TWO,
+                        textAlign = TextAlign.Center,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.CalendarMonth,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.size(ExtraLarge)
+                    )
+                    Spacer(modifier = Modifier.width(Small))
+                    Text(
+                        text = formatEmissionDate(episodes.airDate),
+                        fontSize = Sp14,
+                        maxLines = ONE,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Language,
+                        contentDescription = null,
+                        tint = Color.DarkGray,
+                        modifier = Modifier.size(ExtraLarge)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = episodes.url,
+                        fontSize = Sp12,
+                        maxLines = ONE,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+            }
+        }
+        Surface(
+            shape = CircleShape,
+            color = AppBackground,
+            modifier = Modifier
+                .size(Massive)
+                .offset(y = (-SIXTEEN).dp)
+                .align(Alignment.TopCenter)
+                .border(borderWidth, borderColor, shape = RoundedCornerShape(Large))
+
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                Text(
+                    text = episodes.id.toString(),
+                    color = Color.White,
+                    style = MaterialTheme.typography.labelSmall,
+                    fontSize = Sp16,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+    }
+}
+
+fun formatEmissionDate(dateString: String): String {
+    return try {
+        val parser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val formatter = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+        val parsedDate = parser.parse(dateString)
+        formatter.format(parsedDate)
+    } catch (ex: Exception) {
+        Log.e("Episodes", "Error loading episodes", ex)
+        dateString
     }
 }
 

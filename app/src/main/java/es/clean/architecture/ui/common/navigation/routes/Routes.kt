@@ -18,7 +18,6 @@ sealed class Routes(val route: String) {
     data object EpisodeDetailScreen : Routes("episode_detail/{$EPISODE_OBJECT}")
     //endregion [Episode]
 
-
     //region [Locations]
     data object LocationListScreen : Routes("location_list")
     data object LocationDetailScreen : Routes("location_detail/{$LOCATION_OBJECT}")
@@ -27,5 +26,4 @@ sealed class Routes(val route: String) {
     //region [Splash Screen]
     data object Splash : Routes("splash_screen")
     //endregion [Splash Screen]
-
 }

@@ -5,7 +5,6 @@ import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-
 @Keep
 data class RemoteRickyMortyCharacterModel(
     @SerializedName("info")
@@ -26,7 +25,6 @@ data class RemoteInfo(
     @SerializedName("prev")
     val prev: String
 ) : Parcelable
-
 
 @Keep
 @Parcelize
@@ -72,4 +70,3 @@ data class RemoteOrigin(
     @SerializedName("url")
     val url: String
 ) : Parcelable
-
