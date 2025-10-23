@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CleanArchitectureComposeDN</string>
+    <string name="filter">Filtrar por Nombre</string>
+    <string name="selected_item">Has Pulsado en un elemento</string>
 </resources>
