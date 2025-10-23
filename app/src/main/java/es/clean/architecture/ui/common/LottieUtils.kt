@@ -19,7 +19,6 @@ fun LottieProgressBar() {
         progress = { progress },
         modifier = Modifier.fillMaxSize()
     )
-
 }
 
 @Composable
@@ -31,11 +30,10 @@ fun LottieErrorState() {
         progress = { progress },
         modifier = Modifier.fillMaxSize(),
     )
-
 }
 
 @Composable
-fun lottieEmptyState() {
+fun LottieEmptyState() {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.emptylottie))
     val progress by animateLottieCompositionAsState(composition)
     LottieAnimation(
@@ -43,5 +41,4 @@ fun lottieEmptyState() {
         progress = { progress },
         modifier = Modifier.fillMaxSize()
     )
-
 }

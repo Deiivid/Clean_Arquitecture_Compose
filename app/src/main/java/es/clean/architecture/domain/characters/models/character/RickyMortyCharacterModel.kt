@@ -1,6 +1,5 @@
 package es.clean.architecture.domain.characters.models.character
 
-
 import android.os.Parcelable
 import androidx.annotation.Keep
 import kotlinx.parcelize.Parcelize
@@ -49,7 +48,6 @@ data class RickyMortyCharacterModel(
         ) : Parcelable
     }
 }
-
 
 /**
  * We use this section to initialize the detail screen to get the preview
