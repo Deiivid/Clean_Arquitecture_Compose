@@ -24,8 +24,9 @@ jobs:
   detekt:
     name: Run Detekt
     runs-on: ubuntu-latest
-    cancel-in-progress: true
-
+    concurrency:
+      group: detekt-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
