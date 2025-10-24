@@ -1,5 +1,6 @@
 package es.clean.architecture.ui.views.episodes.formatter
 
+import android.util.Log
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -10,6 +11,7 @@ fun formatEmissionDate(dateString: String): String {
         val parsedDate = parser.parse(dateString)
         formatter.format(parsedDate)
     } catch (ex: Exception) {
+        Log.e("Formatter", "Error formatting episode", ex)
         dateString
     }
 }
