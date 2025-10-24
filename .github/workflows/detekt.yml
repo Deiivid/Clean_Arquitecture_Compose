@@ -1,15 +1,30 @@
 name: Detekt Static Analysis
 
 on:
-  push:
-    branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
+    paths:
+      - '**/*.kt'
+      - 'detekt.yml'
+      - 'build.gradle*'
+      - 'gradle.properties'
+      - 'settings.gradle*'
+      - '.github/workflows/detekt.yml'
+  push:
+    branches: [ main, develop ]
+    paths:
+      - '**/*.kt'
+      - 'detekt.yml'
+      - 'build.gradle*'
+      - 'gradle.properties'
+      - 'settings.gradle*'
+      - '.github/workflows/detekt.yml'
 
 jobs:
   detekt:
     name: Run Detekt
     runs-on: ubuntu-latest
+    cancel-in-progress: true
 
     steps:
       - name: Checkout code
@@ -20,6 +35,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
+          cache: 'gradle'
 
       - name: Grant execute permission for Gradle
         run: chmod +x gradlew
