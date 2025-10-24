@@ -64,7 +64,6 @@ import es.clean.architecture.ui.views.episodes.formatter.formatEmissionDate
 fun EpisodesItem(
     episodes: RickyMortyEpisodesModel.Episode,
     onItemClick: (rickyMortyEpisode: RickyMortyEpisodesModel.Episode) -> Unit,
-    modifier: Modifier = Modifier
 ) {
     val borderWidth = TWO.dp
     val borderColor = Color.White
