@@ -75,6 +75,7 @@ detekt {
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     jvmTarget = "17"
     reports {
+        parallel = true
         xml.required.set(false)
         md.required.set(false)
         sarif.required.set(false)
