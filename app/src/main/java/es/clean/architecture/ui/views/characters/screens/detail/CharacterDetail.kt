@@ -47,7 +47,9 @@ import es.clean.architecture.ui.common.Dimens.Massive
 import es.clean.architecture.ui.common.Dimens.Medium
 import es.clean.architecture.ui.common.Dimens.Small
 import es.clean.architecture.ui.common.Dimens.Tiny
+import es.clean.architecture.ui.common.Numbers.ONE
 import es.clean.architecture.ui.common.TextSizes.Sp12
+import es.clean.architecture.ui.common.TextSizes.Sp14
 import es.clean.architecture.ui.common.TextSizes.Sp22
 import es.clean.architecture.ui.common.TextSizes.Sp26
 import es.clean.architecture.ui.theme.AppBackground
