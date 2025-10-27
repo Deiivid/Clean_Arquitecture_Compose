@@ -74,13 +74,11 @@ detekt {
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     jvmTarget = "17"
-    tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
-        reports {
-            xml.required.set(true)
-            html.required.set(true)
-            xml.outputLocation.set(file("$buildDir/reports/detekt.xml"))
-            html.outputLocation.set(file("$buildDir/reports/detekt.html"))
-        }
+    reports {
+        parallel = true
+        xml.required.set(false)
+        html.required.set(true)
+        html.outputLocation.set(file("$buildDir/reports/detekt/detekt.html"))
     }
 }
 
