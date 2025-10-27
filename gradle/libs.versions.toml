@@ -88,7 +88,6 @@ agp = "8.1.2"
 core-ktx = "1.9.0"
 tvMaterial = "1.0.0"
 jetbrainsKotlinJvm = "1.9.10"
-
 [libraries]
 #region [KOTLIN]
 androidx-rules = { module = "androidx.test:rules", version.ref = "rules" }

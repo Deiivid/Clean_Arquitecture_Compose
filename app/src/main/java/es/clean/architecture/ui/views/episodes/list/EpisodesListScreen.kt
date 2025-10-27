@@ -268,7 +268,7 @@ fun EpisodesItem(
                 .size(Massive)
                 .offset(y = (-SIXTEEN).dp)
                 .align(Alignment.TopCenter)
-                .border(borderWidth, borderColor, shape = RoundedCornerShape(Large))
+            //.border(borderWidth, borderColor, shape = RoundedCornerShape(Large))
 
         ) {
             Box(contentAlignment = Alignment.Center) {
