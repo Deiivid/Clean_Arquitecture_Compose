@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
+    id("jacoco")
 }
 
 android {
@@ -79,6 +80,17 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
         xml.required.set(false)
         html.required.set(true)
         html.outputLocation.set(file("$buildDir/reports/detekt/detekt.html"))
+    }
+}
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+tasks.register<JacocoReport>("jacocoDebugReport") {
+    dependsOn("testDebugUnitTest")
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
     }
 }
 
