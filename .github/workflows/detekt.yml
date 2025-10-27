@@ -34,19 +34,18 @@ jobs:
           fetch-depth: 1
 
       - name: Detect changed files
-        id: changes
-        uses: dorny/paths-filter@v3
+        id: changed
+        uses: tj-actions/changed-files@v45
         with:
-          filters: |
-            kotlin:
-              - '**/*.kt'
-              - 'detekt.yml'
-              - 'build.gradle*'
-              - 'gradle.properties'
-              - 'settings.gradle*'
+          files: |
+            **/*.kt
+            detekt.yml
+            build.gradle*
+            gradle.properties
+            settings.gradle*
 
       - name: Skip if nothing relevant changed
-        if: steps.changes.outputs.kotlin != 'true'
+        if: steps.changed.outputs.any_changed != 'true'
         run: echo "No Kotlin/Gradle changes. Skipping Detekt." && exit 0
 
       - name: Set up JDK 17
@@ -61,11 +60,25 @@ jobs:
       - name: Grant execute permission for Gradle
         run: chmod +x gradlew
 
-      - name: Run Detekt (parallel)
-        run: ./gradlew detekt --stacktrace
+      - name: Build custom detekt rules (cached by Gradle)
+        run: ./gradlew :detekt-architecture-rules:jar --no-daemon --build-cache --configuration-cache
+
+      - name: Run Detekt ONLY on changed files
+        env:
+          CHANGED_KT: ${{ steps.changed.outputs.all_changed_files }}
+        run: |
+          FILES_CSV=$(echo "$CHANGED_KT" | tr ' ' ',' | sed 's/,,*/,/g')
+          if [ -z "$FILES_CSV" ]; then
+            echo "No changed .kt files. Skipping Detekt."
+            exit 0
+          fi
+          echo "Running Detekt on: $FILES_CSV"
+          ./gradlew detekt \
+            -PdetektInput="$FILES_CSV" \
+            --no-daemon --parallel --build-cache --configuration-cache --stacktrace
 
       - name: Upload Detekt report (HTML)
-        if: always()
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: detekt-report
