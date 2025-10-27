@@ -1,4 +1,4 @@
-name: Detekt Static Analysis
+name: Detekt
 
 on:
   pull_request:
@@ -7,18 +7,16 @@ on:
       - '**/*.kt'
       - 'detekt.yml'
       - 'build.gradle*'
-      - 'gradle.properties'
       - 'settings.gradle*'
-      - '.github/workflows/detekt.yml'
+      - 'gradle.properties'
   push:
     branches: [ main, develop ]
     paths:
       - '**/*.kt'
       - 'detekt.yml'
       - 'build.gradle*'
-      - 'gradle.properties'
       - 'settings.gradle*'
-      - '.github/workflows/detekt.yml'
+      - 'gradle.properties'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -27,61 +25,31 @@ concurrency:
 jobs:
   detekt:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
+        with: { fetch-depth: 1 }
 
-      - name: Detect changed files
-        id: changed
-        uses: tj-actions/changed-files@v45
+      - name: Setup Gradle (cache)
+        uses: gradle/actions/setup-gradle@v3
         with:
-          files: |
-            **/*.kt
-            detekt.yml
-            build.gradle*
-            gradle.properties
-            settings.gradle*
-
-      - name: Skip if nothing relevant changed
-        if: steps.changed.outputs.any_changed != 'true'
-        run: echo "No Kotlin/Gradle changes. Skipping Detekt." && exit 0
+          cache-read-only: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork }}
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: 17
 
-      - name: Setup Gradle (cache)
-        uses: gradle/actions/setup-gradle@v3
+      # Solo si mantienes el submódulo; si publicas el JAR, elimina esto
+      #- run: ./gradlew :detekt-architecture-rules:jar --build-cache --configuration-cache
 
-      - name: Grant execute permission for Gradle
-        run: chmod +x gradlew
+      - name: Run Detekt (app only, fast)
+        run: ./gradlew :app:detektMain --build-cache --configuration-cache --parallel
 
-      - name: Build custom detekt rules (cached by Gradle)
-        run: ./gradlew :detekt-architecture-rules:jar --no-daemon --build-cache --configuration-cache
-
-      - name: Run Detekt ONLY on changed files
-        env:
-          CHANGED_KT: ${{ steps.changed.outputs.all_changed_files }}
-        run: |
-          FILES_CSV=$(echo "$CHANGED_KT" | tr ' ' ',' | sed 's/,,*/,/g')
-          if [ -z "$FILES_CSV" ]; then
-            echo "No changed .kt files. Skipping Detekt."
-            exit 0
-          fi
-          echo "Running Detekt on: $FILES_CSV"
-          ./gradlew detekt \
-            -PdetektInput="$FILES_CSV" \
-            --no-daemon --parallel --build-cache --configuration-cache --stacktrace
-
-      - name: Upload Detekt report (HTML)
+      - name: Upload Detekt HTML (on failure)
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: detekt-report
+          path: '**/build/reports/detekt*/**/*.html'
           if-no-files-found: warn
-          path: |
-            **/build/reports/detekt*/**/*.html
