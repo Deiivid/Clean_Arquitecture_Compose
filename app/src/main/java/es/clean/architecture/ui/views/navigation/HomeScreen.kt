@@ -1,12 +1,9 @@
 package es.clean.architecture.ui.views.navigation
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
@@ -14,7 +11,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,9 +26,7 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -47,8 +41,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavDestination
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -64,6 +56,10 @@ import es.clean.architecture.ui.common.navigation.routes.Routes
 import es.clean.architecture.ui.theme.AppBackground
 import es.clean.architecture.ui.theme.White
 import es.clean.architecture.ui.views.characters.screens.search.CharacterSearchScreen
+import es.clean.architecture.ui.views.navigation.customization.BottomBar
+import es.clean.architecture.ui.views.navigation.customization.CustomFloatingActionButton
+import es.clean.architecture.ui.views.navigation.customization.CustomFloatingActionButtonClose
+import es.clean.architecture.ui.views.navigation.customization.shouldShowFloatingActionButton
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -284,46 +280,4 @@ fun CustomBottomBar(
             }
         }
     }
-}
-
-@Composable
-fun RowScope.AddItem(
-    screen: BottomNavigationBar,
-    currentDestination: NavDestination?,
-    navController: NavHostController
-) {
-    val selected = currentDestination?.hierarchy?.any {
-        it.route == screen.route
-    } == true
-
-    val scale by animateFloatAsState(if (selected) 1.1f else 1f, label = "")
-    val tint by animateColorAsState(if (selected) Color.Black else Color.Black, label = "")
-
-    NavigationBarItem(
-
-        label = {
-            Text(text = screen.title, color = tint)
-        },
-        icon = {
-            Icon(
-                imageVector = screen.icon,
-                contentDescription = "Navigation Icon",
-                tint = tint
-            )
-        },
-        selected = selected,
-        onClick = {
-            navController.navigate(screen.route) {
-                popUpTo(navController.graph.findStartDestination().id)
-                launchSingleTop = true
-            }
-        },
-        modifier = Modifier
-            .testTag(screen.route)
-            .graphicsLayer {
-                scaleX = scale
-                scaleY = scale
-            }
-            .animateContentSize()
-    )
 }

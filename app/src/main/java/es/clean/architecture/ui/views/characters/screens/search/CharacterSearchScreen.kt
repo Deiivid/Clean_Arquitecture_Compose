@@ -55,11 +55,17 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import es.clean.architecture.R
 import es.clean.architecture.domain.characters.models.character.RickyMortyCharacterModel
 import es.clean.architecture.ui.common.Dimens.Custom55
+import es.clean.architecture.ui.common.Dimens.Custom600
 import es.clean.architecture.ui.common.Dimens.ExtraLarge
+import es.clean.architecture.ui.common.Dimens.Huge
 import es.clean.architecture.ui.common.Dimens.Large
+import es.clean.architecture.ui.common.Dimens.Massive
 import es.clean.architecture.ui.common.Dimens.Tiny
 import es.clean.architecture.ui.theme.ImageBackground
 import es.clean.architecture.ui.views.characters.common.CutCornersCustom
+import es.clean.architecture.ui.views.characters.screens.search.customization.GenderIconRow
+import es.clean.architecture.ui.views.characters.screens.search.customization.SearchNameField
+import es.clean.architecture.ui.views.characters.screens.search.customization.StatusIconRow
 import es.clean.architecture.ui.views.characters.viewmodel.CharactersViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition", "ResourceAsColor")
@@ -74,7 +80,7 @@ fun CharacterSearchScreen(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(600.dp)
+            .height(Custom600)
 
     ) {
         Image(
@@ -82,25 +88,25 @@ fun CharacterSearchScreen(
             contentDescription = "background",
             modifier = Modifier
                 .fillMaxSize()
-                .clip(CutCornerShape(20.dp))
+                .clip(CutCornerShape(Huge))
                 .alpha(0.5f),
             contentScale = ContentScale.Crop
         )
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(ExtraLarge),
             color = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f),
-            shape = RoundedCornerShape(16.dp)
+            shape = RoundedCornerShape(ExtraLarge)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(ExtraLarge),
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.Start
             ) {
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(Massive))
 
                 SearchNameField(
                     value = searchQuery,
@@ -112,7 +118,7 @@ fun CharacterSearchScreen(
                         charactersViewModel.searchCharacters(searchQuery)
                         onSearchComplete(searchQuery)
                     },
-                    placeholder = { Text("Filtrar por Nombre") }
+                    placeholder = { Text(R.string.filter.toString()) }
                 )
 
                 Spacer(modifier = Modifier.height(32.dp))
@@ -121,7 +127,7 @@ fun CharacterSearchScreen(
                     GenderIconRow()
                 }
 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(Massive))
                 Row(modifier = Modifier.fillMaxWidth()) {
                     StatusIconRow()
                 }
