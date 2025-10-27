@@ -69,15 +69,17 @@ android {
 detekt {
     buildUponDefaultConfig = false
     autoCorrect = true
+    parallel = true
     config.setFrom(files("$rootDir/detekt.yml"))
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    jvmTarget = "17"
     reports {
-        xml.required.set(true)
+        parallel = true
+        xml.required.set(false)
         html.required.set(true)
-        xml.outputLocation.set(file("$buildDir/reports/detekt.xml"))
-        html.outputLocation.set(file("$buildDir/reports/detekt.html"))
+        html.outputLocation.set(file("$buildDir/reports/detekt/detekt.html"))
     }
 }
 jacoco {
