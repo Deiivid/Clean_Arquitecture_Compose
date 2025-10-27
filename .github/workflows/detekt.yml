@@ -1,10 +1,24 @@
 name: Detekt Static Analysis
 
 on:
-  push:
-    branches: [ main, develop ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ master, develop ]
+    paths:
+      - 'app/**'
+      - 'detekt.yml'
+      - '**/build.gradle*'
+      - 'gradle.properties'
+      - 'settings.gradle*'
+      - '.github/workflows/detekt.yml'
+  push:
+    branches: [ master, develop ]
+    paths:
+      - 'app/**'
+      - 'detekt.yml'
+      - '**/build.gradle*'
+      - 'gradle.properties'
+      - 'settings.gradle*'
+      - '.github/workflows/detekt.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -12,44 +26,34 @@ concurrency:
 
 jobs:
   detekt:
-    name: Run Detekt
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
     steps:
-      - name: Checkout code
+      - name: Checkout (sparse)
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+          sparse-checkout: |
+            app
+            detekt.yml
+            gradle.properties
+            settings.gradle
+            settings.gradle.kts
+            build.gradle
+            build.gradle.kts
 
-      - name: Set up JDK 17
+      - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: 17
-          cache: 'gradle'
+          cache: gradle
 
-      - name: Setup Gradle (cache)
+      - name: Setup Gradle cache
         uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-home-cache-includes: |
-            caches
-            notifications
-          gradle-home-cache-cleanup: true
 
-      - name: Grant execute permission for Gradle
-        run: chmod +x gradlew
-
-      - name: Run Detekt analysis (fast mode)
-        run: ./gradlew :app:detekt --no-daemon --parallel --configuration-cache --build-cache --stacktrace
-
-      - name: Upload Detekt report (HTML)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: detekt-report
-          path: |
-            app/build/reports/detekt/detekt.html
-            app/build/reports/detekt.html
-            **/build/reports/detekt*/**/*.html
-          if-no-files-found: warn
+      - name: Run detekt
+        env:
+          CI: "true"
+        run: ./gradlew :app:detekt --parallel --configuration-cache --build-cache --stacktrace
