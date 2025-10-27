@@ -75,15 +75,15 @@ detekt {
 }
 
 
-val detektInput: String? = providers.gradleProperty("detektInput").orNull
 
 tasks.withType<Detekt>().configureEach {
-    autoCorrect = false
-    detektInput?.let { csv ->
-        val files = csv.split(',').map { file(it.trim()) }
-        setSource(files(files))
-        include("**/*.kt")
-        exclude("**/build/**")
+    val ci = System.getenv("CI") == "true"
+    reports {
+        html.required.set(!ci)
+        xml.required.set(!ci)
+        txt.required.set(false)
+        sarif.required.set(false)
+        md.required.set(false)
     }
 }
 
