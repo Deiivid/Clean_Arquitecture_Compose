@@ -68,19 +68,18 @@ android {
     }
 }
 detekt {
-    buildUponDefaultConfig = false
+    buildUponDefaultConfig = true
     autoCorrect = true
     parallel = true
+    ignoreFailures = false
     config.setFrom(files("$rootDir/detekt.yml"))
 }
 
-
-
 tasks.withType<Detekt>().configureEach {
-    val ci = System.getenv("CI") == "true"
+    val isCI = System.getenv("CI") == "true"
     reports {
-        html.required.set(!ci)
-        xml.required.set(!ci)
+        html.required.set(!isCI)
+        xml.required.set(false)
         txt.required.set(false)
         sarif.required.set(false)
         md.required.set(false)
