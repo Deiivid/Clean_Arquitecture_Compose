@@ -1,5 +1,3 @@
-import io.gitlab.arturbosch.detekt.Detekt
-
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
@@ -68,21 +66,21 @@ android {
     }
 }
 detekt {
-    buildUponDefaultConfig = true
+    buildUponDefaultConfig = false
     autoCorrect = true
     parallel = true
-    ignoreFailures = false
     config.setFrom(files("$rootDir/detekt.yml"))
 }
 
-tasks.withType<Detekt>().configureEach {
-    val isCI = System.getenv("CI") == "true"
-    reports {
-        html.required.set(!isCI)
-        xml.required.set(false)
-        txt.required.set(false)
-        sarif.required.set(false)
-        md.required.set(false)
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    jvmTarget = "17"
+    tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+            xml.outputLocation.set(file("$buildDir/reports/detekt.xml"))
+            html.outputLocation.set(file("$buildDir/reports/detekt.html"))
+        }
     }
 }
 
