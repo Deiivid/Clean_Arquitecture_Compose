@@ -1,7 +1,7 @@
 [versions]
 #region [Android]
 androidx-runner = "1.5.2"
-compose-compiler = "1.5.3"
+compose-compiler = "1.5.11"
 detektFormatting = "1.23.6"
 kotlin = "1.9.23"
 iconsExtendedVersion = "1.6.0-alpha08"
