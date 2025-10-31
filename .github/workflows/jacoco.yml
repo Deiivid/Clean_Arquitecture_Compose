@@ -1,0 +1,38 @@
+jacoco {
+toolVersion = "0.8.11"
+}
+
+tasks.register<JacocoReport>("jacocoDebugReport") {
+dependsOn("testDebugUnitTest")
+
+reports {
+xml.required.set(true)
+html.required.set(true)
+csv.required.set(false)
+
+xml.outputLocation.set(layout.buildDirectory.file("reports/jacoco/jacoco.xml"))
+html.outputLocation.set(layout.buildDirectory.dir("reports/jacoco/html"))
+}
+
+val fileFilter = listOf(
+"**/R.class",
+"**/R$*.class",
+"**/BuildConfig.*",
+"**/Manifest*.*",
+"**/*Test*.*"
+)
+
+val javaDebugTree = fileTree("${buildDir}/intermediates/javac/debug") {
+exclude(fileFilter)
+}
+
+val kotlinDebugTree = fileTree("${buildDir}/tmp/kotlin-classes/debug") {
+exclude(fileFilter)
+}
+
+val mainSrc = "${project.projectDir}/src/main/java"
+
+sourceDirectories.setFrom(files(mainSrc))
+classDirectories.setFrom(files(javaDebugTree, kotlinDebugTree))
+executionData.setFrom(files("${buildDir}/jacoco/testDebugUnitTest.exec"))
+}

@@ -88,9 +88,25 @@ jacoco {
 
 tasks.register<JacocoReport>("jacocoDebugReport") {
     dependsOn("testDebugUnitTest")
+
+    val fileFilter = listOf(
+        "**/R.class", "**/R$*.class", "**/BuildConfig.*",
+        "**/Manifest*.*", "**/*Test*.*", "android/**/*.*"
+    )
+
+    val debugTree = fileTree("${buildDir}/tmp/kotlin-classes/debug") {
+        exclude(fileFilter)
+    }
+
+    classDirectories.setFrom(files(debugTree))
+    sourceDirectories.setFrom(files("src/main/java", "src/main/kotlin"))
+    executionData.setFrom(file("${buildDir}/jacoco/testDebugUnitTest.exec"))
+
     reports {
         xml.required.set(true)
         html.required.set(true)
+        csv.required.set(false)
+        html.outputLocation.set(layout.buildDirectory.dir("reports/jacoco/html"))
     }
 }
 
