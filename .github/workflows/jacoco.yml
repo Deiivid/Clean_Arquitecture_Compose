@@ -1,0 +1,57 @@
+name: JaCoCo Coverage
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  jacoco:
+    name: Run unit tests & JaCoCo
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
+      - name: Setup Gradle cache
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-home-cache-cleanup: true
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x gradlew
+
+      # Ejecuta los tests y genera los ficheros .exec
+      - name: Run unit tests (debug)
+        run: ./gradlew :app:testDebugUnitTest --no-daemon --parallel --configuration-cache --build-cache
+
+      # Genera el reporte XML/HTML con tu tarea personalizada
+      - name: Generate JaCoCo report
+        run: ./gradlew :app:jacocoDebugReport --no-daemon
+
+      # Sube el HTML (y XML) como artefacto descargable desde el run
+      - name: Upload JaCoCo reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: |
+            app/build/reports/jacoco/html/**        # reporte navegable
+            app/build/reports/jacoco/jacoco.xml     # cobertura en XML
+          if-no-files-found: warn
